@@ -4,7 +4,7 @@ Tasks:
 - admit what I have to refactor next
 - add date at 1 tab
 - change sizes, spacing and so on
-- add local directory to git
+- add local directory to git (done)
 """
 
 
