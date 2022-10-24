@@ -2,7 +2,7 @@
 Tasks:
 - refactor names of variables
 - admit what I have to refactor next
-- add date at 1 tab
+- add date at 1 tab (done)
 - change sizes, spacing and so on
 - add local directory to git (done)
 """
@@ -36,12 +36,14 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
 
     def setupUi(self):
-        """ Creates all objects in app"""
+        """ Initializes all objects in app"""
+        self.x = 200
+        self.y = 150
         self.WIDTH = 1536
         self.HEIGHT = 864
 
         self.setObjectName("self")
-        self.setGeometry(100, 100, self.WIDTH, self.HEIGHT)
+        self.setGeometry(self.x, self.y, self.WIDTH, self.HEIGHT)
 
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
@@ -50,7 +52,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setupLayouts()
         self.setupLabels()
         self.setupTextEditors()
-        self.setupDates()
+        self.setupCalenders()
+        self.setupButtons()
 
         self.setCentralWidget(self.centralwidget)
 
@@ -84,13 +87,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.gridLayout.addWidget(self.label_1, 0, 0, 1, 1)
 
-        self.gridLayout.addWidget(self.label_2, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 5, 0, 1, 3)
 
-        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
+        self.HBox_2.addWidget(self.label_3)
 
         self.gridLayout.addWidget(self.label_4, 3, 0, 2, 1)
 
-        self.gridLayout.addWidget(self.label_5, 0, 1, 1, 1)
+        self.HBox.addWidget(self.label_5)
 
         self.gridLayout_2.addWidget(self.label_6, 0, 0, 1, 1)
 
@@ -110,6 +113,19 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tabWidget.addTab(self.tab_1, "")
         self.tabWidget.addTab(self.tab_2, "")
 
+    def setupButtons(self):
+        self.button = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.button.resize(50, 50)
+        self.button.setObjectName("button")
+
+        self.gridLayout.addWidget(self.button, 3, 0, 1, 1)
+
+        self.button_2 = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.button_2.resize(50, 50)
+        self.button_2.setObjectName("button_2")
+
+        self.gridLayout.addWidget(self.button_2, 3, 1, 1, 1)
+
     def setupLayouts(self):
         """ Initializes layouts and place it in grid"""
         self.gridLayoutWidget = QtWidgets.QWidget(self.tab_1)
@@ -122,13 +138,24 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.gridLayout.setVerticalSpacing(50)
         self.gridLayout.setObjectName("gridLayout")
 
+        self.HBox = QtWidgets.QHBoxLayout()
+        self.gridLayout.addLayout(self.HBox, 0, 1, 1, 1)
+
+        self.VBox = QtWidgets.QVBoxLayout()
+
+
         self.gridLayoutWidget_2 = QtWidgets.QWidget(self.tab_2)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
 
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_2.setHorizontalSpacing(50)
+        self.gridLayout_2.setVerticalSpacing(50)
         self.gridLayout_2.setObjectName("gridLayout_2")
+
+        self.HBox_2 = QtWidgets.QHBoxLayout()
+        self.gridLayout_2.addLayout(self.HBox_2, 0, 1, 1, 1)
 
     def setupBars(self):
         """ Initializes bars and place it in grid"""
@@ -141,24 +168,32 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
-    def setupDates(self):
+    def setupCalenders(self):
         """ Initializes dates and place it in grid"""
-        self.dateEdit = QtWidgets.QDateEdit(self.gridLayoutWidget_2)
-        self.dateEdit.setObjectName("dateEdit")
+        self.calendar = QtWidgets.QDateEdit(self.gridLayoutWidget)
+        self.calendar.setObjectName("calendar")
 
-        self.gridLayout_2.addWidget(self.dateEdit, 0, 2, 1, 1)
+        self.calendar_2 = QtWidgets.QCalendarWidget(self.gridLayoutWidget_2)
+        self.calendar_2.setObjectName("calendar_2")
+
+        self.HBox.addWidget(self.calendar)
+
+        self.HBox_2.addWidget(self.calendar_2)
 
     def setupTextEditors(self):
         """ Initializes text editors and place it in grid"""
         self.textEdit = QtWidgets.QTextEdit(self.gridLayoutWidget)
+        self.textEdit.resize(100, 200)
         self.textEdit.setObjectName("textEdit")
 
+
         self.textEdit_2 = QtWidgets.QTextEdit(self.gridLayoutWidget)
+        self.textEdit_2.resize(100, 200)
         self.textEdit_2.setObjectName("textEdit_2")
 
-        self.gridLayout.addWidget(self.textEdit, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.textEdit, 2, 0, 1, 1)
 
-        self.gridLayout.addWidget(self.textEdit_2, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.textEdit_2, 2, 1, 1, 1)
 
         self.textBrowser = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
         self.textBrowser.setObjectName("textBrowser")
@@ -173,7 +208,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def setupText(self):
         """ Sets text of all widgets"""
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "PersonalApp"))
         self.label_1.setText(_translate("MainWindow", "Share with me your achievement"))
         self.label_2.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
 
@@ -185,6 +220,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_3.setText(_translate("MainWindow", "Select date:"))
         self.label_6.setText(_translate("MainWindow", "History:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
+
+        self.textEdit.setText(_translate("MainWindow", "That is first textEdit"))
+        self.textEdit_2.setText(_translate("MainWindow", "That is second textEdit"))
+
+        self.button.setText(_translate("MainWindow", "Submit a result"))
+        self.button_2.setText(_translate("MainWindow", "Submit a goal"))
 
 
 
