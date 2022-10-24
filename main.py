@@ -1,10 +1,31 @@
 """
 Tasks:
-- refactor names of variables
-- admit what I have to refactor next
-- add date at 1 tab (done)
-- change sizes, spacing and so on
-- add local directory to git (done)
+Essential:
+        Code:
+        - refactor names of variables
+        - add a remainder panel on first tab, which states what I planned to do today
+        - add colors
+        - admit what I have to do next
+
+        Noncode:
+        - decide what kind of statistics I would like to show
+        - implement the previous task on app
+        - decide how to replace or modify tabs
+        - find another way(window) to show and add info
+
+List of undone stuff:
+        - change sizes, spacing and so on
+        - add a database to storage an information that have submitted (at first storage it in a list)
+        - search how to make cool button
+        - make a window resizeable with flexible interface
+
+        -- search ho to make a better calendar
+        -- add logging system (in future with databases)
+        -- if I had an empty space, I would add a cyclic video with capybaras
+
+Done stuff:
+        - add date at 1 tab (24.10.22)
+        - add local directory to git (24.10.22)
 """
 
 
@@ -89,13 +110,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.gridLayout.addWidget(self.label_2, 5, 0, 1, 3)
 
-        self.HBox_2.addWidget(self.label_3)
+        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
 
         self.gridLayout.addWidget(self.label_4, 3, 0, 2, 1)
 
         self.HBox.addWidget(self.label_5)
 
-        self.gridLayout_2.addWidget(self.label_6, 0, 0, 1, 1)
+        self.HBox_2.addWidget(self.label_6)
 
     def setupTabs(self):
         """ Initializes tabs and place it in grid"""
@@ -126,6 +147,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.gridLayout.addWidget(self.button_2, 3, 1, 1, 1)
 
+        self.button_3 = QtWidgets.QPushButton(self.gridLayoutWidget_2)
+        self.button_3.resize(50, 50)
+        self.button_3.setObjectName("button_3")
+
+        self.gridLayout_2.addWidget(self.button_3, 1, 0, 1, 1)
+
     def setupLayouts(self):
         """ Initializes layouts and place it in grid"""
         self.gridLayoutWidget = QtWidgets.QWidget(self.tab_1)
@@ -151,11 +178,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setHorizontalSpacing(50)
-        self.gridLayout_2.setVerticalSpacing(50)
+        self.gridLayout_2.setVerticalSpacing(10)
         self.gridLayout_2.setObjectName("gridLayout_2")
 
         self.HBox_2 = QtWidgets.QHBoxLayout()
-        self.gridLayout_2.addLayout(self.HBox_2, 0, 1, 1, 1)
+        self.gridLayout_2.addLayout(self.HBox_2, 0, 0, 1, 1)
 
     def setupBars(self):
         """ Initializes bars and place it in grid"""
@@ -196,12 +223,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.gridLayout.addWidget(self.textEdit_2, 2, 1, 1, 1)
 
         self.textBrowser = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
+        self.textBrowser.resize(200, 100)
         self.textBrowser.setObjectName("textBrowser")
 
         self.textBrowser_2 = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
         self.textBrowser_2.setObjectName("textBrowser_2")
 
-        self.gridLayout_2.addWidget(self.textBrowser, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.textBrowser, 2, 0, 1, 1)
 
         self.gridLayout_2.addWidget(self.textBrowser_2, 1, 1, 1, 1)
 
@@ -217,8 +245,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_4.setText(_translate("MainWindow", "Achievement has been recorded"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
 
-        self.label_3.setText(_translate("MainWindow", "Select date:"))
-        self.label_6.setText(_translate("MainWindow", "History:"))
+        self.label_3.setText(_translate("MainWindow", "There'll be some statistics"))
+        self.label_6.setText(_translate("MainWindow", "Select date or range of dates ot see your history:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
         self.textEdit.setText(_translate("MainWindow", "That is first textEdit"))
@@ -226,6 +254,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.button.setText(_translate("MainWindow", "Submit a result"))
         self.button_2.setText(_translate("MainWindow", "Submit a goal"))
+        self.button_3.setText(_translate("MainWindow", "Search"))
 
 
 
