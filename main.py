@@ -1,6 +1,6 @@
 """
 Tasks:
-Essential:
+For today:
         Code:
         - refactor names of variables
         - add a remainder panel on first tab, which states what I planned to do today
@@ -14,6 +14,7 @@ Essential:
         - find another way(window) to show and add info
 
 List of undone stuff:
+        - add a documentation to the functions
         - change sizes, spacing and so on
         - add a database to storage an information that have submitted (at first storage it in a list)
         - search how to make cool button
