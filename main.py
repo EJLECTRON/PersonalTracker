@@ -1,36 +1,39 @@
 """
 Tasks:
-On going:
-        Code:
-        - add a remainder panel on first tab, which states what I planned to do today
-        - add colors
-        - admit what I have to do next
+    On going:
+            Code:
+            - DRY
+            - add dialog windows
+            - add colors
+            - admit what I have to do next
 
-        Noncode:
-        - decide what kind of statistics I would like to show
-        - decide how to replace or modify tabs
-        - find another way(window) to show and add info
+            Noncode:
+            - decide what kind of statistics I would like to show
+            - decide how to replace or modify tabs
+            - Search how to work with dialogs windows
+            - find another way(window) to show and add info
 
-List of undone stuff:
-        - implement statistics
-        - add a better documentation to the functions
-        - change sizes, spacing and so on
-        - add a database to storage an information that have submitted (at first storage it in a list)
-        - search how to make cool button
-        - make a window resizeable with flexible interface
+    List of undone stuff:
+            - implement statistics
+            - add a better documentation to the functions
+            - change sizes, spacing and so on
+            - add a database to storage an information that have submitted (at first storage it in a list)
+            - search how to make cool button
+            - make a window resizeable with flexible interface
 
-        -- search ho to make a better calendar
-        -- add logging system (in future with databases)
-        -- if I had an empty space, I would add a cyclic video with capybaras
+            -- search ho to make a better calendar
+            -- add logging system (in future with databases)
+            -- if I had an empty space, I would add a cyclic video with capybaras
 
-Done stuff:
-        - refactor names of variables (25.10.22)
-        - add date at 1 tab (24.10.22)
-        - add local directory to git (24.10.22)
+    Done stuff:
+            - add a remainder panel on first tab, which states what I planned to do today (25.10.22)
+            - refactor names of variables (25.10.22)
+            - add date at 1 tab (24.10.22)
+            - add local directory to git (24.10.22)
 """
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 
 class Ui_Application(QtWidgets.QApplication):
@@ -38,13 +41,41 @@ class Ui_Application(QtWidgets.QApplication):
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        self._setStylesApp()
+        #self._setStylesApp()
 
     def _setStylesApp(self):
         styles = """
             QLabel{
                 font-size: 20px;
-                color: #800000;
+                color: #3fc46c;
+            }
+            
+            QPushButton {
+                color: #3fc46c;
+            }
+            
+            QDateEdit {
+                color: #3fc46c;
+            }
+            
+            QTextEdit {
+                color: #3fc46c;
+            }
+            
+            QRadioButton {
+                color: #3fc46c;
+            }
+            
+            QVBoxLayout {
+                background-color: #6c3fc4;
+            }
+            
+            QHBoxLayout {
+                background-color: #6c3fc4;
+            }
+            
+            QWidget {
+                background-color: #c46c3f;
             }
         """
 
@@ -63,8 +94,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         """ Initializes all objects in app"""
         self.x = 200
         self.y = 150
-        self.WIDTH = 1536
-        self.HEIGHT = 864
+        self.WIDTH = 1400
+        self.HEIGHT = 700
 
         self.setObjectName("self")
         self.setGeometry(self.x, self.y, self.WIDTH, self.HEIGHT)
@@ -79,10 +110,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self._setupCalenders()
         self._setupButtons()
         self._setupBars()
+        self._setupRadioButtons()
 
         self.setCentralWidget(self.centralwidget)
 
-        self._setupText()
+        self._setupTexts()
         self.tabWidget.setCurrentIndex(0)
         #QtCore.QMetaObject.connectSlotsByName(self)
 
@@ -110,22 +142,27 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.dateRangeLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
         self.dateRangeLabel.setObjectName("dateRangeLabel")
 
+        self.tasksToDoLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.tasksToDoLabel.setObjectName("tasksToDoLabel")
+
         self.tab1gridLayout.addWidget(self.shareLabel, 0, 0, 1, 1)
 
-        self.tab1gridLayout.addWidget(self.noteLabel, 5, 0, 1, 3)
-
-        self.tab2gridLayout.addWidget(self.statLabel, 0, 1, 1, 1)
+        self.tab1gridLayout.addWidget(self.noteLabel, 5, 0, 1, 2)
 
         self.tab1gridLayout.addWidget(self.recordedLabel, 3, 0, 2, 1)
 
         self.tab1HBox01.addWidget(self.setGoalLabel)
+
+        self.tab1VBox02.addWidget(self.tasksToDoLabel)
+
+        self.tab2gridLayout.addWidget(self.statLabel, 0, 1, 1, 1)
 
         self.tab2HBox00.addWidget(self.dateRangeLabel)
 
     def _setupTabs(self):
         """ Initializes tabs and place it in grid"""
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 0, self.WIDTH, self.HEIGHT))
+        self.tabWidget.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT- 100))
         self.tabWidget.setMovable(False)
         self.tabWidget.setObjectName("tabWidget")
 
@@ -172,7 +209,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tab1HBox01 = QtWidgets.QHBoxLayout()
         self.tab1gridLayout.addLayout(self.tab1HBox01, 0, 1, 1, 1)
 
-        #self.VBox = QtWidgets.QVBoxLayout()
+        self.tab1VBox02 = QtWidgets.QVBoxLayout()
+        self.tab1gridLayout.addLayout(self.tab1VBox02, 0, 2, 1, 1)
 
 
         self.tab2gridLayoutW = QtWidgets.QWidget(self.tab_2)
@@ -237,20 +275,22 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.tab2gridLayout.addWidget(self.textBrowser_2, 1, 1, 1, 1)
 
-    def _setupText(self):
+    def _setupTexts(self):
         """ Sets text of all widgets"""
+
         _translate = QtCore.QCoreApplication.translate
+
         self.setWindowTitle(_translate("MainWindow", "PersonalApp"))
-        self.shareLabel.setText(_translate("MainWindow", "Share with me your achievement"))
+
+        self.shareLabel.setText(_translate("MainWindow", "Share with me your achievement:"))
         self.noteLabel.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
-
         self.setGoalLabel.setText(_translate("MainWindow", "Set your goal for the following day:"))
-
         self.recordedLabel.setText(_translate("MainWindow", "Achievement has been recorded"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
-
         self.statLabel.setText(_translate("MainWindow", "There'll be some statistics"))
         self.dateRangeLabel.setText(_translate("MainWindow", "Select date or range of dates to see your history:"))
+        self.tasksToDoLabel.setText(_translate("Main Window", "That is your tasks for today:"))
+
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
         self.textEditSubmitAch.setText(_translate("MainWindow", "That is first textEdit"))
@@ -260,8 +300,29 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.buttonSubmitGoal.setText(_translate("MainWindow", "Submit a goal"))
         self.buttonSearch.setText(_translate("MainWindow", "Search"))
 
+    def _setupGroupBoxes(self):
+        "Initializes group boxes and add them to the grid"
 
+    def _setupRadioButtons(self):
+        """ Initializes radiobuttons for the groupbox"""
 
+        self.radioButton = QtWidgets.QRadioButton(self.tab1gridLayoutW)
+        self.radioButton.setText("First task")
+        self.radioButton.setObjectName("radioButton")
+
+        self.tab1VBox02.addWidget(self.radioButton)
+
+        self.radioButton_2 = QtWidgets.QRadioButton(self.tab1gridLayoutW)
+        self.radioButton_2.setText("Second task")
+        self.radioButton_2.setObjectName("radioButton_2")
+
+        self.tab1VBox02.addWidget(self.radioButton_2)
+
+        self.radioButton_3 = QtWidgets.QRadioButton(self.tab1gridLayoutW)
+        self.radioButton_3.setText("Third task")
+        self.radioButton_3.setObjectName("radioButton_3")
+
+        self.tab1VBox02.addWidget(self.radioButton_3)
 
 if __name__ == "__main__":
     app = Ui_Application()
