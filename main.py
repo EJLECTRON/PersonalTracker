@@ -1,20 +1,19 @@
 """
 Tasks:
-For today:
+On going:
         Code:
-        - refactor names of variables
         - add a remainder panel on first tab, which states what I planned to do today
         - add colors
         - admit what I have to do next
 
         Noncode:
         - decide what kind of statistics I would like to show
-        - implement the previous task on app
         - decide how to replace or modify tabs
         - find another way(window) to show and add info
 
 List of undone stuff:
-        - add a documentation to the functions
+        - implement statistics
+        - add a better documentation to the functions
         - change sizes, spacing and so on
         - add a database to storage an information that have submitted (at first storage it in a list)
         - search how to make cool button
@@ -25,6 +24,7 @@ List of undone stuff:
         -- if I had an empty space, I would add a cyclic video with capybaras
 
 Done stuff:
+        - refactor names of variables (25.10.22)
         - add date at 1 tab (24.10.22)
         - add local directory to git (24.10.22)
 """
@@ -34,12 +34,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Application(QtWidgets.QApplication):
+    """ Custom class for application"""
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        self.setStylesApp()
+        self._setStylesApp()
 
-    def setStylesApp(self):
+    def _setStylesApp(self):
         styles = """
             QLabel{
                 font-size: 20px;
@@ -50,14 +51,15 @@ class Ui_Application(QtWidgets.QApplication):
         self.setStyleSheet(styles)
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
+    """ Custom class for Main Window"""
     def __init__(self):
         """ Initializes  window"""
         super().__init__()
 
-        self.setupUi()
+        self._setupUi()
 
 
-    def setupUi(self):
+    def _setupUi(self):
         """ Initializes all objects in app"""
         self.x = 200
         self.y = 150
@@ -70,56 +72,57 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
 
-        self.setupTabs()
-        self.setupLayouts()
-        self.setupLabels()
-        self.setupTextEditors()
-        self.setupCalenders()
-        self.setupButtons()
+        self._setupTabs()
+        self._setupLayouts()
+        self._setupLabels()
+        self._setupTextEditors()
+        self._setupCalenders()
+        self._setupButtons()
+        self._setupBars()
 
         self.setCentralWidget(self.centralwidget)
 
-        self.setupText()
+        self._setupText()
         self.tabWidget.setCurrentIndex(0)
         #QtCore.QMetaObject.connectSlotsByName(self)
 
-    def setupLabels(self):
+    def _setupLabels(self):
         """ Initializes labels and place it in grid"""
-        self.label_1 = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.label_1.setWordWrap(False)
-        self.label_1.setObjectName("label_1")
+        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.shareLabel.setWordWrap(False)
+        self.shareLabel.setObjectName("shareLabel")
 
-        self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
+        self.noteLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.noteLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.noteLabel.setObjectName("noteLabel")
 
-        self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.label_3.setObjectName("label_3")
+        self.statLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
+        self.statLabel.setObjectName("statLabel")
 
         #this text appears only after the achievement has been recorded
-        self.label_4 = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.label_4.setObjectName("label_4")
-        self.label_4.setHidden(True)
+        self.recordedLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.recordedLabel.setObjectName("recordedLabel")
+        self.recordedLabel.setHidden(True)
 
-        self.label_5 = QtWidgets.QLabel(self.gridLayoutWidget)
-        self.label_5.setObjectName("label_5")
+        self.setGoalLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.setGoalLabel.setObjectName("setGoalLabel")
 
-        self.label_6 = QtWidgets.QLabel(self.gridLayoutWidget_2)
-        self.label_6.setObjectName("label_6")
+        self.dateRangeLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
+        self.dateRangeLabel.setObjectName("dateRangeLabel")
 
-        self.gridLayout.addWidget(self.label_1, 0, 0, 1, 1)
+        self.tab1gridLayout.addWidget(self.shareLabel, 0, 0, 1, 1)
 
-        self.gridLayout.addWidget(self.label_2, 5, 0, 1, 3)
+        self.tab1gridLayout.addWidget(self.noteLabel, 5, 0, 1, 3)
 
-        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
+        self.tab2gridLayout.addWidget(self.statLabel, 0, 1, 1, 1)
 
-        self.gridLayout.addWidget(self.label_4, 3, 0, 2, 1)
+        self.tab1gridLayout.addWidget(self.recordedLabel, 3, 0, 2, 1)
 
-        self.HBox.addWidget(self.label_5)
+        self.tab1HBox01.addWidget(self.setGoalLabel)
 
-        self.HBox_2.addWidget(self.label_6)
+        self.tab2HBox00.addWidget(self.dateRangeLabel)
 
-    def setupTabs(self):
+    def _setupTabs(self):
         """ Initializes tabs and place it in grid"""
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, self.WIDTH, self.HEIGHT))
@@ -135,57 +138,57 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tabWidget.addTab(self.tab_1, "")
         self.tabWidget.addTab(self.tab_2, "")
 
-    def setupButtons(self):
-        self.button = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.button.resize(50, 50)
-        self.button.setObjectName("button")
+    def _setupButtons(self):
+        self.buttonSubmitAch = QtWidgets.QPushButton(self.tab1gridLayoutW)
+        self.buttonSubmitAch.resize(50, 50)
+        self.buttonSubmitAch.setObjectName("buttonSubmitAch")
 
-        self.gridLayout.addWidget(self.button, 3, 0, 1, 1)
+        self.tab1gridLayout.addWidget(self.buttonSubmitAch, 3, 0, 1, 1)
 
-        self.button_2 = QtWidgets.QPushButton(self.gridLayoutWidget)
-        self.button_2.resize(50, 50)
-        self.button_2.setObjectName("button_2")
+        self.buttonSubmitGoal = QtWidgets.QPushButton(self.tab1gridLayoutW)
+        self.buttonSubmitGoal.resize(50, 50)
+        self.buttonSubmitGoal.setObjectName("buttonSubmitGoal")
 
-        self.gridLayout.addWidget(self.button_2, 3, 1, 1, 1)
+        self.tab1gridLayout.addWidget(self.buttonSubmitGoal, 3, 1, 1, 1)
 
-        self.button_3 = QtWidgets.QPushButton(self.gridLayoutWidget_2)
-        self.button_3.resize(50, 50)
-        self.button_3.setObjectName("button_3")
+        self.buttonSearch = QtWidgets.QPushButton(self.tab2gridLayoutW)
+        self.buttonSearch.resize(50, 50)
+        self.buttonSearch.setObjectName("buttonSearch")
 
-        self.gridLayout_2.addWidget(self.button_3, 1, 0, 1, 1)
+        self.tab2gridLayout.addWidget(self.buttonSearch, 1, 0, 1, 1)
 
-    def setupLayouts(self):
+    def _setupLayouts(self):
         """ Initializes layouts and place it in grid"""
-        self.gridLayoutWidget = QtWidgets.QWidget(self.tab_1)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
-        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.tab1gridLayoutW = QtWidgets.QWidget(self.tab_1)
+        self.tab1gridLayoutW.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
+        self.tab1gridLayoutW.setObjectName("tab1gridLayoutW")
 
-        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setHorizontalSpacing(50)
-        self.gridLayout.setVerticalSpacing(50)
-        self.gridLayout.setObjectName("gridLayout")
+        self.tab1gridLayout = QtWidgets.QGridLayout(self.tab1gridLayoutW)
+        self.tab1gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.tab1gridLayout.setHorizontalSpacing(50)
+        self.tab1gridLayout.setVerticalSpacing(50)
+        self.tab1gridLayout.setObjectName("tab1gridLayout")
 
-        self.HBox = QtWidgets.QHBoxLayout()
-        self.gridLayout.addLayout(self.HBox, 0, 1, 1, 1)
+        self.tab1HBox01 = QtWidgets.QHBoxLayout()
+        self.tab1gridLayout.addLayout(self.tab1HBox01, 0, 1, 1, 1)
 
-        self.VBox = QtWidgets.QVBoxLayout()
+        #self.VBox = QtWidgets.QVBoxLayout()
 
 
-        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.tab_2)
-        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
-        self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
+        self.tab2gridLayoutW = QtWidgets.QWidget(self.tab_2)
+        self.tab2gridLayoutW.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
+        self.tab2gridLayoutW.setObjectName("tab2gridLayoutW")
 
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_2.setHorizontalSpacing(50)
-        self.gridLayout_2.setVerticalSpacing(10)
-        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.tab2gridLayout = QtWidgets.QGridLayout(self.tab2gridLayoutW)
+        self.tab2gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.tab2gridLayout.setHorizontalSpacing(50)
+        self.tab2gridLayout.setVerticalSpacing(10)
+        self.tab2gridLayout.setObjectName("tab2gridLayout")
 
-        self.HBox_2 = QtWidgets.QHBoxLayout()
-        self.gridLayout_2.addLayout(self.HBox_2, 0, 0, 1, 1)
+        self.tab2HBox00 = QtWidgets.QHBoxLayout()
+        self.tab2gridLayout.addLayout(self.tab2HBox00, 0, 0, 1, 1)
 
-    def setupBars(self):
+    def _setupBars(self):
         """ Initializes bars and place it in grid"""
         self.menubar = QtWidgets.QMenuBar(self)
         self.menubar.setGeometry(QtCore.QRect(0, 0, self.WIDTH - 100, self.HEIGHT - 100))
@@ -196,66 +199,66 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
-    def setupCalenders(self):
+    def _setupCalenders(self):
         """ Initializes dates and place it in grid"""
-        self.calendar = QtWidgets.QDateEdit(self.gridLayoutWidget)
-        self.calendar.setObjectName("calendar")
+        self.tab1Calendar = QtWidgets.QDateEdit(self.tab1gridLayoutW)
+        self.tab1Calendar.setObjectName("tab1Calendar")
 
-        self.calendar_2 = QtWidgets.QCalendarWidget(self.gridLayoutWidget_2)
-        self.calendar_2.setObjectName("calendar_2")
+        self.tab2Calendar = QtWidgets.QCalendarWidget(self.tab2gridLayoutW)
+        self.tab2Calendar.setObjectName("tab2Calendar")
 
-        self.HBox.addWidget(self.calendar)
+        self.tab1HBox01.addWidget(self.tab1Calendar)
 
-        self.HBox_2.addWidget(self.calendar_2)
+        self.tab2HBox00.addWidget(self.tab2Calendar)
 
-    def setupTextEditors(self):
+    def _setupTextEditors(self):
         """ Initializes text editors and place it in grid"""
-        self.textEdit = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit.resize(100, 200)
-        self.textEdit.setObjectName("textEdit")
+        self.textEditSubmitAch = QtWidgets.QTextEdit(self.tab1gridLayoutW)
+        self.textEditSubmitAch.resize(100, 200)
+        self.textEditSubmitAch.setObjectName("textEditSubmitAch")
 
 
-        self.textEdit_2 = QtWidgets.QTextEdit(self.gridLayoutWidget)
-        self.textEdit_2.resize(100, 200)
-        self.textEdit_2.setObjectName("textEdit_2")
+        self.textEditSubmitGoal = QtWidgets.QTextEdit(self.tab1gridLayoutW)
+        self.textEditSubmitGoal.resize(100, 200)
+        self.textEditSubmitGoal.setObjectName("textEditSubmitGoal")
 
-        self.gridLayout.addWidget(self.textEdit, 2, 0, 1, 1)
+        self.tab1gridLayout.addWidget(self.textEditSubmitAch, 2, 0, 1, 1)
 
-        self.gridLayout.addWidget(self.textEdit_2, 2, 1, 1, 1)
+        self.tab1gridLayout.addWidget(self.textEditSubmitGoal, 2, 1, 1, 1)
 
-        self.textBrowser = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
-        self.textBrowser.resize(200, 100)
-        self.textBrowser.setObjectName("textBrowser")
+        self.textBrowserShow = QtWidgets.QTextBrowser(self.tab2gridLayoutW)
+        self.textBrowserShow.resize(200, 100)
+        self.textBrowserShow.setObjectName("textBrowserShow")
 
-        self.textBrowser_2 = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
+        self.textBrowser_2 = QtWidgets.QTextBrowser(self.tab2gridLayoutW)
         self.textBrowser_2.setObjectName("textBrowser_2")
 
-        self.gridLayout_2.addWidget(self.textBrowser, 2, 0, 1, 1)
+        self.tab2gridLayout.addWidget(self.textBrowserShow, 2, 0, 1, 1)
 
-        self.gridLayout_2.addWidget(self.textBrowser_2, 1, 1, 1, 1)
+        self.tab2gridLayout.addWidget(self.textBrowser_2, 1, 1, 1, 1)
 
-    def setupText(self):
+    def _setupText(self):
         """ Sets text of all widgets"""
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "PersonalApp"))
-        self.label_1.setText(_translate("MainWindow", "Share with me your achievement"))
-        self.label_2.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
+        self.shareLabel.setText(_translate("MainWindow", "Share with me your achievement"))
+        self.noteLabel.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
 
-        self.label_5.setText(_translate("MainWindow", "Set your goal for the following day:"))
+        self.setGoalLabel.setText(_translate("MainWindow", "Set your goal for the following day:"))
 
-        self.label_4.setText(_translate("MainWindow", "Achievement has been recorded"))
+        self.recordedLabel.setText(_translate("MainWindow", "Achievement has been recorded"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
 
-        self.label_3.setText(_translate("MainWindow", "There'll be some statistics"))
-        self.label_6.setText(_translate("MainWindow", "Select date or range of dates ot see your history:"))
+        self.statLabel.setText(_translate("MainWindow", "There'll be some statistics"))
+        self.dateRangeLabel.setText(_translate("MainWindow", "Select date or range of dates to see your history:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
-        self.textEdit.setText(_translate("MainWindow", "That is first textEdit"))
-        self.textEdit_2.setText(_translate("MainWindow", "That is second textEdit"))
+        self.textEditSubmitAch.setText(_translate("MainWindow", "That is first textEdit"))
+        self.textEditSubmitGoal.setText(_translate("MainWindow", "That is second textEdit"))
 
-        self.button.setText(_translate("MainWindow", "Submit a result"))
-        self.button_2.setText(_translate("MainWindow", "Submit a goal"))
-        self.button_3.setText(_translate("MainWindow", "Search"))
+        self.buttonSubmitAch.setText(_translate("MainWindow", "Submit a result"))
+        self.buttonSubmitGoal.setText(_translate("MainWindow", "Submit a goal"))
+        self.buttonSearch.setText(_translate("MainWindow", "Search"))
 
 
 
