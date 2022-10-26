@@ -2,7 +2,8 @@
 Tasks:
     On going:
             Code:
-            - DRY
+            - DRY (have to think about using decorators)
+            - take an idea of interface from utorrent
             - add dialog windows
             - add colors
             - admit what I have to do next
@@ -34,6 +35,8 @@ Tasks:
 
 
 from PyQt5 import QtCore, QtWidgets
+from functools import singledispatch
+from multipledispatch import dispatch
 
 
 class Ui_Application(QtWidgets.QApplication):
@@ -121,7 +124,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def _setupLabels(self):
         """ Initializes labels and place it in grid"""
         self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.shareLabel.setWordWrap(False)
         self.shareLabel.setObjectName("shareLabel")
 
         self.noteLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
@@ -323,6 +325,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.radioButton_3.setObjectName("radioButton_3")
 
         self.tab1VBox02.addWidget(self.radioButton_3)
+
+    @dispatch(str)
+    def createLabel(self, name):
+        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
+        self.shareLabel.setObjectName(name)
 
 if __name__ == "__main__":
     app = Ui_Application()
