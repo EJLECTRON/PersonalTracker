@@ -117,7 +117,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupTexts()
         self.tabWidget.setCurrentIndex(0)
-        #QtCore.QMetaObject.connectSlotsByName(self)
 
     def _setupLabels(self):
         """ Initializes labels and place it in grid"""
