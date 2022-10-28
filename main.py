@@ -323,7 +323,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         This function supports different number of arguments(next numbers doesn't include 'self'):
         4 args(QWidget, str, Qt, bool)
         """
+
         label = None
+
         match len(args):
             case 2:
                 label = QtWidgets.QLabel(args[0])
