@@ -35,8 +35,6 @@ Tasks:
 
 
 from PyQt5 import QtCore, QtWidgets
-from functools import singledispatch
-from multipledispatch import dispatch
 
 
 class Ui_Application(QtWidgets.QApplication):
@@ -44,7 +42,7 @@ class Ui_Application(QtWidgets.QApplication):
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        #self._setStylesApp()
+        self._setStylesApp()
 
     def _setStylesApp(self):
         styles = """
@@ -123,29 +121,20 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def _setupLabels(self):
         """ Initializes labels and place it in grid"""
-        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.shareLabel.setObjectName("shareLabel")
+        self.shareLabel = self._createLabel(self.tab1gridLayoutW, "shareLabel")
 
-        self.noteLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.noteLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.noteLabel.setObjectName("noteLabel")
-
-        self.statLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
-        self.statLabel.setObjectName("statLabel")
+        self.noteLabel = self._createLabel(self.tab1gridLayoutW, "noteLabel", QtCore.Qt.AlignCenter)
 
         #this text appears only after the achievement has been recorded
-        self.recordedLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.recordedLabel.setObjectName("recordedLabel")
-        self.recordedLabel.setHidden(True)
+        self.recordedLabel = self._createLabel(self.tab1gridLayoutW, "recordedLabel", True)
 
-        self.setGoalLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.setGoalLabel.setObjectName("setGoalLabel")
+        self.setGoalLabel = self._createLabel(self.tab1gridLayoutW, "setGoalLabel")
 
-        self.dateRangeLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
-        self.dateRangeLabel.setObjectName("dateRangeLabel")
+        self.dateRangeLabel = self._createLabel(self.tab2gridLayoutW, "dateRangeLabel")
 
-        self.tasksToDoLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.tasksToDoLabel.setObjectName("tasksToDoLabel")
+        self.tasksToDoLabel = self._createLabel(self.tab1gridLayoutW, "tasksToDoLabel")
+
+        self.statLabel = self._createLabel(self.tab2gridLayoutW, "statLabel")
 
         self.tab1gridLayout.addWidget(self.shareLabel, 0, 0, 1, 1)
 
@@ -168,11 +157,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tabWidget.setMovable(False)
         self.tabWidget.setObjectName("tabWidget")
 
-        self.tab_1 = QtWidgets.QWidget()
-        self.tab_1.setObjectName("tab_1")
+        self.tab_1 = self._createTab("tab_1")
 
-        self.tab_2 = QtWidgets.QWidget()
-        self.tab_2.setObjectName("tab_2")
+        self.tab_2 = self._createTab("tab_2")
 
         self.tabWidget.addTab(self.tab_1, "")
         self.tabWidget.addTab(self.tab_2, "")
@@ -326,10 +313,40 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.tab1VBox02.addWidget(self.radioButton_3)
 
-    @dispatch(str)
-    def createLabel(self, name):
-        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.shareLabel.setObjectName(name)
+    def _createTab(self, name):
+        tab = QtWidgets.QWidget()
+        tab.setObjectName(name)
+
+        return tab
+
+    def _createLabel(self, *args):
+        """ Creates a label and customises it.
+        This function supports different number of arguments(next numbers doesn't include 'self'):
+        4 args(QWidget, str, Qt, bool)
+        """
+        label = None
+        match len(args):
+            case 2:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+
+            case 3:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+                #check this out (if switch conditions, there is an error)
+                if type(args[2] == bool) :
+                    label.setHidden(args[2])
+                elif type(args[2] == type(QtCore.Qt.AlignCenter)):
+                    label.setAlignment(args[2])
+
+            case 4:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+                label.setAlignment(args[2])
+                label.setHidden(args[3])
+
+        return label
+
 
 if __name__ == "__main__":
     app = Ui_Application()
