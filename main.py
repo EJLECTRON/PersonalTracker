@@ -35,8 +35,6 @@ Tasks:
 
 
 from PyQt5 import QtCore, QtWidgets
-from functools import singledispatch
-from multipledispatch import dispatch
 
 
 class Ui_Application(QtWidgets.QApplication):
@@ -44,7 +42,7 @@ class Ui_Application(QtWidgets.QApplication):
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        #self._setStylesApp()
+        self._setStylesApp()
 
     def _setStylesApp(self):
         styles = """
@@ -92,7 +90,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupUi()
 
-
+# ---------------setup----------------------
     def _setupUi(self):
         """ Initializes all objects in app"""
         self.x = 200
@@ -119,33 +117,23 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupTexts()
         self.tabWidget.setCurrentIndex(0)
-        #QtCore.QMetaObject.connectSlotsByName(self)
 
     def _setupLabels(self):
         """ Initializes labels and place it in grid"""
-        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.shareLabel.setObjectName("shareLabel")
+        self.shareLabel = self._createLabel(self.tab1gridLayoutW, "shareLabel")
 
-        self.noteLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.noteLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.noteLabel.setObjectName("noteLabel")
-
-        self.statLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
-        self.statLabel.setObjectName("statLabel")
+        self.noteLabel = self._createLabel(self.tab1gridLayoutW, "noteLabel", QtCore.Qt.AlignCenter)
 
         #this text appears only after the achievement has been recorded
-        self.recordedLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.recordedLabel.setObjectName("recordedLabel")
-        self.recordedLabel.setHidden(True)
+        self.recordedLabel = self._createLabel(self.tab1gridLayoutW, "recordedLabel", True)
 
-        self.setGoalLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.setGoalLabel.setObjectName("setGoalLabel")
+        self.setGoalLabel = self._createLabel(self.tab1gridLayoutW, "setGoalLabel")
 
-        self.dateRangeLabel = QtWidgets.QLabel(self.tab2gridLayoutW)
-        self.dateRangeLabel.setObjectName("dateRangeLabel")
+        self.dateRangeLabel = self._createLabel(self.tab2gridLayoutW, "dateRangeLabel")
 
-        self.tasksToDoLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.tasksToDoLabel.setObjectName("tasksToDoLabel")
+        self.tasksToDoLabel = self._createLabel(self.tab1gridLayoutW, "tasksToDoLabel")
+
+        self.statLabel = self._createLabel(self.tab2gridLayoutW, "statLabel")
 
         self.tab1gridLayout.addWidget(self.shareLabel, 0, 0, 1, 1)
 
@@ -168,32 +156,21 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.tabWidget.setMovable(False)
         self.tabWidget.setObjectName("tabWidget")
 
-        self.tab_1 = QtWidgets.QWidget()
-        self.tab_1.setObjectName("tab_1")
+        self.tab_1 = self._createTab("tab_1")
 
-        self.tab_2 = QtWidgets.QWidget()
-        self.tab_2.setObjectName("tab_2")
+        self.tab_2 = self._createTab("tab_2")
 
         self.tabWidget.addTab(self.tab_1, "")
         self.tabWidget.addTab(self.tab_2, "")
 
     def _setupButtons(self):
-        self.buttonSubmitAch = QtWidgets.QPushButton(self.tab1gridLayoutW)
-        self.buttonSubmitAch.resize(50, 50)
-        self.buttonSubmitAch.setObjectName("buttonSubmitAch")
-
+        self.buttonSubmitAch = self._createButton(self.tab1gridLayoutW, "buttonSubmitAch", 50, 50)
         self.tab1gridLayout.addWidget(self.buttonSubmitAch, 3, 0, 1, 1)
 
-        self.buttonSubmitGoal = QtWidgets.QPushButton(self.tab1gridLayoutW)
-        self.buttonSubmitGoal.resize(50, 50)
-        self.buttonSubmitGoal.setObjectName("buttonSubmitGoal")
-
+        self.buttonSubmitGoal = self._createButton(self.tab1gridLayoutW, "buttonSubmitGoal", 50, 50)
         self.tab1gridLayout.addWidget(self.buttonSubmitGoal, 3, 1, 1, 1)
 
-        self.buttonSearch = QtWidgets.QPushButton(self.tab2gridLayoutW)
-        self.buttonSearch.resize(50, 50)
-        self.buttonSearch.setObjectName("buttonSearch")
-
+        self.buttonSearch = self._createButton(self.tab1gridLayoutW, "buttonSearch", 50, 50)
         self.tab2gridLayout.addWidget(self.buttonSearch, 1, 0, 1, 1)
 
     def _setupLayouts(self):
@@ -253,14 +230,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def _setupTextEditors(self):
         """ Initializes text editors and place it in grid"""
-        self.textEditSubmitAch = QtWidgets.QTextEdit(self.tab1gridLayoutW)
-        self.textEditSubmitAch.resize(100, 200)
-        self.textEditSubmitAch.setObjectName("textEditSubmitAch")
+        self.textEditSubmitAch = self._createTextEdit(self.tab1gridLayoutW, "textEditSubmitAch", 100, 200)
 
-
-        self.textEditSubmitGoal = QtWidgets.QTextEdit(self.tab1gridLayoutW)
-        self.textEditSubmitGoal.resize(100, 200)
-        self.textEditSubmitGoal.setObjectName("textEditSubmitGoal")
+        self.textEditSubmitGoal = self._createTextEdit(self.tab1gridLayoutW, "textEditSubmitGoal", 100, 200)
 
         self.tab1gridLayout.addWidget(self.textEditSubmitAch, 2, 0, 1, 1)
 
@@ -308,28 +280,99 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def _setupRadioButtons(self):
         """ Initializes radiobuttons for the groupbox"""
 
-        self.radioButton = QtWidgets.QRadioButton(self.tab1gridLayoutW)
-        self.radioButton.setText("First task")
-        self.radioButton.setObjectName("radioButton")
-
+        self.radioButton = self._createRadioButton(self.tab1gridLayoutW, "radioButton", "First task")
         self.tab1VBox02.addWidget(self.radioButton)
 
-        self.radioButton_2 = QtWidgets.QRadioButton(self.tab1gridLayoutW)
-        self.radioButton_2.setText("Second task")
-        self.radioButton_2.setObjectName("radioButton_2")
-
+        self.radioButton_2 = self._createRadioButton(self.tab1gridLayoutW, "radioButton_2", "Second task")
         self.tab1VBox02.addWidget(self.radioButton_2)
 
-        self.radioButton_3 = QtWidgets.QRadioButton(self.tab1gridLayoutW)
-        self.radioButton_3.setText("Third task")
-        self.radioButton_3.setObjectName("radioButton_3")
-
+        self.radioButton_3 = self._createRadioButton(self.tab1gridLayoutW, "radioButton_3", "Third task")
         self.tab1VBox02.addWidget(self.radioButton_3)
 
-    @dispatch(str)
-    def createLabel(self, name):
-        self.shareLabel = QtWidgets.QLabel(self.tab1gridLayoutW)
-        self.shareLabel.setObjectName(name)
+#--------------addition to setup------------------------------
+    def _createTab(self, name):
+        tab = QtWidgets.QWidget()
+        tab.setObjectName(name)
+
+        return tab
+
+    def _createLabel(self, *args):
+        """ Creates a label and customises it.
+        This function supports different number of arguments:
+        4 args(QWidget, name, Qt, bool)
+        """
+
+        label = None
+
+        match len(args):
+            case 2:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+
+            case 3:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+                #check this out (if switch conditions, there is an error)
+                if type(args[2] == bool) :
+                    label.setHidden(args[2])
+                elif type(args[2] == type(QtCore.Qt.AlignCenter)):
+                    label.setAlignment(args[2])
+
+            case 4:
+                label = QtWidgets.QLabel(args[0])
+                label.setObjectName(args[1])
+                label.setAlignment(args[2])
+                label.setHidden(args[3])
+
+        return label
+
+    def _createButton(self, *args):
+        """Creates a button and customises it.
+        This function supports different number of arguments:
+        4 args(QWidget, name, x, y)
+        """
+
+        button = None
+
+        match len(args):
+            case 4:
+                button = QtWidgets.QPushButton(args[0])
+                button.resize(args[2], args[3])
+                button.setObjectName(args[1])
+
+        return button
+
+    def _createTextEdit(self, *args):
+        """ Creates a text editor and customises it.
+        This function supports different number of arguments:
+        4 args(QWidget, name, x, y)
+        """
+
+        textEdit = None
+
+        match len(args):
+            case 4:
+                textEdit = QtWidgets.QTextEdit(args[0])
+                textEdit.resize(args[2], args[3])
+                textEdit.setObjectName(args[1])
+
+        return textEdit
+
+    def _createRadioButton(self, *args):
+        """ Creates a radio button and customises it.
+        This function supports different number of arguments:
+        3 args(QWidget, name, text)
+        """
+
+        radioButton = None
+
+        match len(args):
+            case 3:
+                radioButton = QtWidgets.QRadioButton(args[0])
+                radioButton.setObjectName(args[1])
+                radioButton.setText(args[2])
+
+        return radioButton
 
 if __name__ == "__main__":
     app = Ui_Application()

@@ -1,6 +1,7 @@
 import sys
 import PySide6.QtWidgets as qtw
 import PySide6.QtGui as qtg
+from PyQt5 import QtCore
 
 class Window(qtw.QWidget):
     def __init__(self):
@@ -23,10 +24,3 @@ class Window(qtw.QWidget):
         self.setGeometry(300, 300, 200, 200)
         self.setWindowTitle('PyQt6 Grid Layout')
         self.show()
-
-if __name__ == "__main__":
-    app = qtw.QApplication()
-
-    window = Window()
-
-    app.exec()
