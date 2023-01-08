@@ -4,6 +4,7 @@ Tasks:
             Code:
             - add dialog windows
             - add colors
+            - remake goals from textedit to radiobuttons
             - admit what I have to do next
 
             Noncode:
@@ -19,47 +20,58 @@ Tasks:
             - change sizes, spacing and so on
             - add a database to storage an information that have submitted (at first storage it in a list)
             - search how to make cool button
+            - add GIFs
             - make a window resizeable with flexible interface
 
             -- search ho to make a better calendar
             -- add logging system (in future with databases)
             -- if I had an empty space, I would add a cyclic video with capybaras
-
-    Done stuff:
-            - add a remainder panel on first tab, which states what I planned to do today (25.10.22)
-            - refactor names of variables (25.10.22)
-            - add date at 1 tab (24.10.22)
-            - add local directory to git (24.10.22)
 """
 
-
+# TODO: When you click on calendar: on the first tab you get achievements
+#                                  on the second tab you get goals
 from PyQt5 import QtCore, QtWidgets
-
+#from PyQt5.uic import loadUiType
+from os import path
+import sys
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        #self._setStylesApp()
+        self._setStylesApp()
 
     def _setStylesApp(self):
+
         styles = """
+            QWidget{
+                background-color: #3fc46c;
+            }
+            
             QLabel{
                 font-size: 20px;
                 color: #3fc46c;
             }
             
             QPushButton {
-                color: #3fc46c;
+                color: #000000;
+                background-color: #c46c3f;
+                border-style: outset;
+                border-width: 2px;
+                border-radius: 10px;
+                border-color: beige;
+                font: bold 14px;
+                min-width: 10em;
+                padding: 6px;
             }
-            
+                 
             QDateEdit {
                 color: #3fc46c;
             }
             
             QTextEdit {
-                color: #3fc46c;
+                background-color: #ffffff;
             }
             
             QRadioButton {
@@ -73,10 +85,6 @@ class Ui_Application(QtWidgets.QApplication):
             QHBoxLayout {
                 background-color: #6c3fc4;
             }
-            
-            QWidget {
-                background-color: #c46c3f;
-            }
         """
 
         self.setStyleSheet(styles)
@@ -89,6 +97,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupUi()
 
+        self._buttonActions()
+
+
 # ---------------setup----------------------
     def _setupUi(self):
         """ Initializes all objects in app"""
@@ -100,7 +111,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setObjectName("self")
         self.setGeometry(self.x, self.y, self.WIDTH, self.HEIGHT)
 
-        #have to place it somewhere else
+        # have to place it somewhere else
         self.mainWidget = QtWidgets.QWidget(self)
         self.mainWidget.setObjectName("mainWidget")
 
@@ -108,12 +119,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupTabs()
         self._setupLayouts()
-        #self._setupLabels()
+        # self._setupLabels()
         self._setupTextEditors()
-        #self._setupCalenders()
+        self._setupCalendars()
         self._setupButtons()
         self._setupBars()
-        #self._setupRadioButtons()
+        # self._setupRadioButtons()
 
         self.setCentralWidget(self.mainWidget)
 
@@ -126,7 +137,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self.noteLabel = self._createLabel(self.tab1gridLayoutW, "noteLabel", QtCore.Qt.AlignCenter)
 
-        #this text appears only after the achievement has been recorded
+        # this text appears only after the achievement has been recorded
         self.recordedLabel = self._createLabel(self.tab1gridLayoutW, "recordedLabel", True)
 
         self.setGoalLabel = self._createLabel(self.tab1gridLayoutW, "setGoalLabel")
@@ -155,10 +166,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         """ Initializes tabs and place it in grid"""
         self.tabWidget = QtWidgets.QTabWidget(self.mainWidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 200, 200))
-        #self.tabWidget.setMovable(False)
+        # self.tabWidget.setMovable(False)
         self.tabWidget.setObjectName("tabWidget")
 
-        self.maingridLayout.addWidget(self.tabWidget, 2, 1, 1, 1)
+        self.maingridLayout.addWidget(self.tabWidget, 2, 2, 1, 1)
 
         self.tab_1 = self._createTab("tab_1")
 
@@ -170,12 +181,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def _setupLayouts(self):
         """ Initializes layouts and place it in grid"""
 
-        self.tab1gridLayoutW = self._createWidgetForLayout(self.tab_1, "tab1gridLayoutW")
+        self.tab1gridLayoutW = self._createWidget(self.tab_1, "tab1gridLayoutW")
 
         self.tab1gridLayout = self._createLayout(self.tab1gridLayoutW, "tab1gridLayout", 50, 50,
         0, 0, 0, 0)
 
-        self.tab2gridLayoutW = self._createWidgetForLayout(self.tab_2, "tab2gridLayoutW", 0, 0,
+        self.tab2gridLayoutW = self._createWidget(self.tab_2, "tab2gridLayoutW", 0, 0,
         self.tab_2.frameGeometry().width(), self.tab_2.frameGeometry().height())
 
         self.tab2gridLayout = self._createLayout(self.tab2gridLayoutW, "tab2gridLayout", 50, 10,
@@ -183,7 +194,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def _setupTextEditors(self):
         """ Initializes text editors and place it in grid"""
-
         self.textEditSubmitAch = self._createTextEdit(self.mainWidget, "textEditSubmitAch", 100, 200)
 
         self.textEditSubmitGoal = self._createTextEdit(self.mainWidget, "textEditSubmitGoal", 100, 200)
@@ -191,12 +201,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.maingridLayout.addWidget(self.textEditSubmitAch, 0, 0, 1, 1)
 
         self.maingridLayout.addWidget(self.textEditSubmitGoal, 0, 1, 1, 1)
-
+        # TODO: instead of it make a lot of radiobuttons
         self.textBrowserShow = QtWidgets.QTextBrowser(self.mainWidget)
         self.textBrowserShow.resize(200, 100)
         self.textBrowserShow.setObjectName("textBrowserShow")
+        self.textBrowserShow.setReadOnly(True)
 
-        self.maingridLayout.addWidget(self.textBrowserShow, 2, 0, 1, 1)
+        self.maingridLayout.addWidget(self.textBrowserShow, 2, 0, 1, 2)
 
     def _setupButtons(self):
         """ Initializes buttons and place it in grid"""
@@ -217,26 +228,37 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
+    def _setupCalendars(self):
+        self.calendar = QtWidgets.QCalendarWidget(self)
+
+        self.calendar.setObjectName("calendar")
+
+        self.maingridLayout.addWidget(self.calendar, 0, 2, 1, 1)
+
     def _setupTexts(self):
         """ Sets text of all widgets"""
 
         _translate = QtCore.QCoreApplication.translate
 
         self.setWindowTitle(_translate("MainWindow", "PersonalApp"))
+
+        self.textEditSubmitGoal.setText(_translate("MainWindow", "Set your goal for the following day:"))
+        self.textBrowserShow.setText(_translate("Main Window", "That is your tasks for today:"))
+        self.textEditSubmitAch.setText(_translate("MainWindow", "Share with me your achievement:"))
+
         """
-        self.shareLabel.setText(_translate("MainWindow", "Share with me your achievement:"))
         self.noteLabel.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
-        self.setGoalLabel.setText(_translate("MainWindow", "Set your goal for the following day:"))
+        
         self.recordedLabel.setText(_translate("MainWindow", "Achievement has been recorded"))
         self.statLabel.setText(_translate("MainWindow", "There'll be some statistics"))
         self.dateRangeLabel.setText(_translate("MainWindow", "Select date or range of dates to see your history:"))
-        self.tasksToDoLabel.setText(_translate("Main Window", "That is your tasks for today:"))
+       
         """
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
-        self.textEditSubmitAch.setText(_translate("MainWindow", "That is first textEdit"))
-        self.textEditSubmitGoal.setText(_translate("MainWindow", "That is second textEdit"))
+        #self.textEditSubmitAch.setDocument(_translate("MainWindow", "Share with me your achievement"))
+        #self.textEditSubmitGoal.setDocument(_translate("MainWindow", "That is second textEdit"))
 
         self.buttonSubmitAch.setText(_translate("MainWindow", "Submit a result"))
         self.buttonSubmitGoal.setText(_translate("MainWindow", "Submit a goal"))
@@ -244,13 +266,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
 
 #--------------addition to setup------------------------------
-    def _createTab(self, name):
-        tab = QtWidgets.QWidget()
-        tab.setObjectName(name)
 
-        return tab
-
-    def _createWidgetForLayout(self, *args):
+    def _createWidget(self, *args):
         """ Creates a widget in order to put it into a layout and customises it.
         This function supports different number of arguments:
         6 args(QObject, name, x, y, width, height)
@@ -268,6 +285,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 widget.setGeometry(QtCore.QRect(args[2], args[3], args[4], args[5]))
 
         return widget
+
+    def _createTab(self, name):
+        tab = QtWidgets.QWidget()
+        tab.setObjectName(name)
+
+        return tab
 
     def _createLayout(self, *args):
         """ Creates a layout and customises it.
@@ -356,6 +379,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 textEdit.resize(args[2], args[3])
                 textEdit.setObjectName(args[1])
 
+
         return textEdit
 
     def _createRadioButton(self, *args):
@@ -373,6 +397,24 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 radioButton.setText(args[2])
 
         return radioButton
+
+#-----------actions----------------------------------------------
+
+    def _buttonActions(self):
+        self.buttonSubmitGoal.clicked.connect(self.submitGoal)
+
+        self.buttonSubmitAch.clicked.connect(self.submitAchievement)
+
+#-----------buttons functions------------------------------------
+
+    def submitGoal(self):
+        """ Write info into database and clear textEdit"""
+        print("Goal has been recorded")
+
+    def submitAchievement(self):
+        """ Write info into database and clear textEdit"""
+        print("Achievement has been recorded")
+
 
 if __name__ == "__main__":
     app = Ui_Application()
