@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../icons/icons8-news-64 (1).png</file>
     <file>../icons/icons8-github.gif</file>
     <file>../icons/icons8-github-48.png</file>
     <file>../icons/icons8-instagram.gif</file>
