@@ -1,5 +1,15 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../icons/icons8-github.gif</file>
+    <file>../icons/icons8-github-48.png</file>
+    <file>../icons/icons8-instagram.gif</file>
+    <file>../icons/icons8-instagram-48.png</file>
+    <file>../icons/icons8-linkedin-48.png</file>
+    <file>../icons/icons8-stack-overflow-48.png</file>
+    <file>../icons/icons8-twitter.gif</file>
+    <file>../icons/icons8-twitter-48.png</file>
+    <file>../icons/icons8-youtube.gif</file>
+    <file>../icons/icons8-youtube-48.png</file>
     <file>../icons/2124475_app_bar_chart_essential_ui_icon.png</file>
     <file>../icons/6498732_application_list_menu_mobile_smartphone_icon.png</file>
     <file>../icons/7324045_ui_interface_email_mail_message_icon.png</file>
