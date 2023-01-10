@@ -111,6 +111,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setObjectName("self")
         self.setGeometry(self.x, self.y, self.WIDTH, self.HEIGHT)
 
+
         # have to place it somewhere else
         self.mainWidget = QtWidgets.QWidget(self)
         self.mainWidget.setObjectName("mainWidget")
@@ -119,6 +120,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         self._setupTabs()
         self._setupLayouts()
+
         # self._setupLabels()
         self._setupTextEditors()
         self._setupCalendars()
@@ -166,6 +168,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         """ Initializes tabs and place it in grid"""
         self.tabWidget = QtWidgets.QTabWidget(self.mainWidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 200, 200))
+
         # self.tabWidget.setMovable(False)
         self.tabWidget.setObjectName("tabWidget")
 
@@ -201,6 +204,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.maingridLayout.addWidget(self.textEditSubmitAch, 0, 0, 1, 1)
 
         self.maingridLayout.addWidget(self.textEditSubmitGoal, 0, 1, 1, 1)
+        
         # TODO: instead of it make a lot of radiobuttons
         self.textBrowserShow = QtWidgets.QTextBrowser(self.mainWidget)
         self.textBrowserShow.resize(200, 100)
@@ -208,6 +212,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.textBrowserShow.setReadOnly(True)
 
         self.maingridLayout.addWidget(self.textBrowserShow, 2, 0, 1, 2)
+
 
     def _setupButtons(self):
         """ Initializes buttons and place it in grid"""
@@ -246,13 +251,13 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.textBrowserShow.setText(_translate("Main Window", "That is your tasks for today:"))
         self.textEditSubmitAch.setText(_translate("MainWindow", "Share with me your achievement:"))
 
-        """
+
         self.noteLabel.setText(_translate("MainWindow", "Note: If you want to see your history then move to the next tab"))
         
         self.recordedLabel.setText(_translate("MainWindow", "Achievement has been recorded"))
         self.statLabel.setText(_translate("MainWindow", "There'll be some statistics"))
         self.dateRangeLabel.setText(_translate("MainWindow", "Select date or range of dates to see your history:"))
-       
+
         """
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
@@ -263,7 +268,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.buttonSubmitAch.setText(_translate("MainWindow", "Submit a result"))
         self.buttonSubmitGoal.setText(_translate("MainWindow", "Submit a goal"))
         #self.buttonSearch.setText(_translate("MainWindow", "Search"))
-
 
 #--------------addition to setup------------------------------
 
@@ -283,6 +287,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 widget = QtWidgets.QWidget(args[0])
                 widget.setObjectName(args[1])
                 widget.setGeometry(QtCore.QRect(args[2], args[3], args[4], args[5]))
+
 
         return widget
 
@@ -414,7 +419,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def submitAchievement(self):
         """ Write info into database and clear textEdit"""
         print("Achievement has been recorded")
-
 
 if __name__ == "__main__":
     app = Ui_Application()
