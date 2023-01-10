@@ -1,0 +1,40 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../icons/icons8-news-64 (1).png</file>
+    <file>../icons/icons8-github.gif</file>
+    <file>../icons/icons8-github-48.png</file>
+    <file>../icons/icons8-instagram.gif</file>
+    <file>../icons/icons8-instagram-48.png</file>
+    <file>../icons/icons8-linkedin-48.png</file>
+    <file>../icons/icons8-stack-overflow-48.png</file>
+    <file>../icons/icons8-twitter.gif</file>
+    <file>../icons/icons8-twitter-48.png</file>
+    <file>../icons/icons8-youtube.gif</file>
+    <file>../icons/icons8-youtube-48.png</file>
+    <file>../icons/2124475_app_bar_chart_essential_ui_icon.png</file>
+    <file>../icons/6498732_application_list_menu_mobile_smartphone_icon.png</file>
+    <file>../icons/7324045_ui_interface_email_mail_message_icon.png</file>
+    <file>../icons/7549001_user_interface_graph_chart_business_icon.png</file>
+    <file>../icons/download-icon-614x460.png</file>
+    <file>../icons/get.png</file>
+    <file>../icons/icons8-done.gif</file>
+    <file>../icons/icons8-done-64.png</file>
+    <file>../icons/icons8-edit.gif</file>
+    <file>../icons/icons8-edit-64.png</file>
+    <file>../icons/icons8-female-user-64.png</file>
+    <file>../icons/icons8-home.gif</file>
+    <file>../icons/icons8-home-64.png</file>
+    <file>../icons/icons8-menu-64.png</file>
+    <file>../icons/icons8-news-64.png</file>
+    <file>../icons/icons8-plus.gif</file>
+    <file>../icons/icons8-plus-64.png</file>
+    <file>../icons/icons8-settings-64.png</file>
+    <file>../icons/icons8-trash-can.gif</file>
+    <file>../icons/icons8-trash-can-64.png</file>
+    <file>../icons/icons8-user-male-64.png</file>
+    <file>../icons/sumbit.png</file>
+  </qresource>
+  <qresource prefix="images">
+    <file>../images/Знімок екрана 2023-01-08 142920.png</file>
+  </qresource>
+</RCC>
