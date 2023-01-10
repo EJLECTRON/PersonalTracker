@@ -1,4 +1,4 @@
 *.log
-literature/
-.idea/
-__pycache__/
+literature
+.idea
+__pycache__
