@@ -1,0 +1,6 @@
+*.log
+literature
+.idea
+__pycache__
+*.bat
+*config.json

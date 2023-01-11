@@ -30,9 +30,14 @@ Tasks:
 
 # TODO: When you click on calendar: on the first tab you get achievements
 #                                  on the second tab you get goals
+
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import QEvent
 
 from ui_interface import *
+from jsonHandler import *
+
+from pymongo import MongoClient
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
@@ -58,9 +63,11 @@ class MainWindow(QtWidgets.QMainWindow):
 #-----------actions----------------------------------------------
 
     def __buttonActions(self):
+
         self.ui.mainCentralBtn.clicked.connect(self.submitGoal)
 
         self.ui.mainBottomBtn.clicked.connect(self.submitAchievement)
+
 
 #-----------buttons functions------------------------------------
 
@@ -74,10 +81,26 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
+    cfg = ConfigHandler()
+
+    cfg.takeCredentialsFromConfig('admin')
+
+    client = MongoClient(cfg.gatherCredentials())
+
+    db = client['TestData']
+
+    db_collection = db['testData']
+
+    print(db_collection.find_one())
+
+    client.close()
+"""
     app = Ui_Application()
+    
+        window = MainWindow()
+    
+        window.show()
+    
+        app.exec()
+"""
 
-    window = MainWindow()
-
-    window.show()
-
-    app.exec()

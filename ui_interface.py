@@ -38,7 +38,6 @@ class Ui_MainWindow(object):
 "\n"
 "#leftSubContainer QPushButton\n"
 "{\n"
-"    border: none;\n"
 "    text-align: left;\n"
 "    padding: 5px 10px;\n"
 "    border-top-left-radius: 10 px;\n"
@@ -55,6 +54,11 @@ class Ui_MainWindow(object):
 "    border: 1px solid;\n"
 "    border-radius: 3px;\n"
 "    text-align: left;\n"
+"}\n"
+"\n"
+"#mainSubContainer QPushButton:hover\n"
+"{\n"
+"    background-color: #F4976C;\n"
 "}\n"
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -387,3 +391,13 @@ class Ui_MainWindow(object):
         self.achLabel.setText(_translate("MainWindow", "Share with me your achievement:"))
         self.mainBottomBtn.setText(_translate("MainWindow", "Submit"))
 import resources_rc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
