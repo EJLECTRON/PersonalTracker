@@ -1,41 +1,13 @@
-"""
-Tasks:
-    On going:
-            Code:
-            - add dialog windows
-            - add colors
-            - remake goals from textedit to radiobuttons
-            - admit what I have to do next
-
-            Noncode:
-            - take an idea of interface from utorrent
-            - decide what kind of statistics I would like to show
-            - decide how to replace or modify tabs
-            - Search how to work with dialogs windows
-            - find another way(window) to show and add info
-
-    List of undone stuff:
-            - implement statistics
-            - add a better documentation to the functions
-            - change sizes, spacing and so on
-            - add a database to storage an information that have submitted (at first storage it in a list)
-            - search how to make cool button
-            - add GIFs
-            - make a window resizeable with flexible interface
-
-            -- search ho to make a better calendar
-            -- add logging system (in future with databases)
-            -- if I had an empty space, I would add a cyclic video with capybaras
-"""
-
 # TODO: When you click on calendar: on the first tab you get achievements
-#                                  on the second tab you get goals
+#                                   on the second tab you get goals
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QEvent
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QMovie
+from PyQt5 import uic
 
 from ui_interface import *
 from jsonHandler import *
+from dialog_tasks import *
 
 from pymongo import MongoClient
 
@@ -56,7 +28,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.__buttonActions()
+        #self.dialog =
+
+        try:
+            self.__buttonActions()
+
+            self.__animationActions()
+        except Exception:
+            raise Exception("Something goes wrong")
 
         self.show()
 
@@ -64,23 +43,39 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __buttonActions(self):
 
-        self.ui.mainCentralBtn.clicked.connect(self.submitGoal)
+        self.ui.mainCentralBtn.clicked.connect(self.__submitGoal)
 
-        self.ui.mainBottomBtn.clicked.connect(self.submitAchievement)
+        self.ui.mainBottomBtn.clicked.connect(self.__submitAchievement)
 
+        self.ui.getTasksBtn.clicked.connect(self.__showTasks)
+
+    def __animationActions(self):
+        self.__capybaraAnimation()
+
+#-----------animation functions----------------------------------q
+    def __capybaraAnimation(self):
+        self.gif = QtGui.QMovie("images/sleeping_capybara.gif")
+        #self.gif = QtGui.QMovie("images/capybara.gif")
+
+        self.ui.capybara_2.setMovie(self.gif)
+
+        self.gif.start()
 
 #-----------buttons functions------------------------------------
 
-    def submitGoal(self):
+    def __submitGoal(self):
         """ Write info into database and clear textEdit"""
         print("Goal has been recorded")
 
-    def submitAchievement(self):
+    def __submitAchievement(self):
         """ Write info into database and clear textEdit"""
         print("Achievement has been recorded")
 
+    def __showTasks(self):
+        pass
 
 if __name__ == "__main__":
+    """
     cfg = ConfigHandler()
 
     cfg.takeCredentialsFromConfig('admin')
@@ -91,16 +86,16 @@ if __name__ == "__main__":
 
     db_collection = db['testData']
 
-    print(db_collection.find_one())
+    print(db_collection.find_one()['task1'])
 
     client.close()
-"""
+    """
     app = Ui_Application()
     
-        window = MainWindow()
+    window = MainWindow()
     
-        window.show()
-    
-        app.exec()
-"""
+    window.show()
+
+    app.exec()
+
 

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1083, 722)
+        MainWindow.resize(1022, 679)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -59,6 +59,11 @@ class Ui_MainWindow(object):
 "#mainSubContainer QPushButton:hover\n"
 "{\n"
 "    background-color: #F4976C;\n"
+"}\n"
+"\n"
+"#leftMenuContainer QPushButton:hover\n"
+"{\n"
+"    background-color: #BDBBBB;\n"
 "}\n"
 "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -165,7 +170,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.reportBtn)
         self.verticalLayout_4.addWidget(self.leftBottomFrame, 0, QtCore.Qt.AlignBottom)
         self.verticalLayout.addWidget(self.leftSubContainer, 0, QtCore.Qt.AlignLeft)
-        self.horizontalLayout.addWidget(self.leftMenuContainer, 0, QtCore.Qt.AlignLeft)
+        self.horizontalLayout.addWidget(self.leftMenuContainer)
         self.mainMenuContainer = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -174,10 +179,14 @@ class Ui_MainWindow(object):
         self.mainMenuContainer.setSizePolicy(sizePolicy)
         self.mainMenuContainer.setObjectName("mainMenuContainer")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.mainMenuContainer)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.mainSubContainer = QtWidgets.QWidget(self.mainMenuContainer)
         self.mainSubContainer.setObjectName("mainSubContainer")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.mainSubContainer)
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 11)
+        self.verticalLayout_5.setSpacing(11)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.mainTopWidget = QtWidgets.QWidget(self.mainSubContainer)
         self.mainTopWidget.setObjectName("mainTopWidget")
@@ -332,6 +341,7 @@ class Ui_MainWindow(object):
         self.mainBottomWidget = QtWidgets.QWidget(self.mainSubContainer)
         self.mainBottomWidget.setObjectName("mainBottomWidget")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.mainBottomWidget)
+        self.verticalLayout_6.setContentsMargins(11, 11, 11, -1)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.mainBottomFrame = QtWidgets.QFrame(self.mainBottomWidget)
         self.mainBottomFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
