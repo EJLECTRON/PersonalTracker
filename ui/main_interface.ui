@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>679</height>
+    <width>1020</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -164,7 +164,7 @@
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/6498732_application_list_menu_mobile_smartphone_icon.png</normaloff>:/icons/icons/6498732_application_list_menu_mobile_smartphone_icon.png</iconset>
                </property>
                <property name="iconSize">
@@ -202,7 +202,7 @@
                 <string>Home</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/icons8-home-64.png</normaloff>:/icons/icons/icons8-home-64.png</iconset>
                </property>
                <property name="iconSize">
@@ -222,7 +222,7 @@
                 <string>Archive data</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/icons8-news-64.png</normaloff>:/icons/icons/icons8-news-64.png</iconset>
                </property>
                <property name="iconSize">
@@ -242,7 +242,7 @@
                 <string>Data Analysis</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/7549001_user_interface_graph_chart_business_icon.png</normaloff>:/icons/icons/7549001_user_interface_graph_chart_business_icon.png</iconset>
                </property>
                <property name="iconSize">
@@ -259,7 +259,7 @@
                 <string>Helpful articles</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/icons8-news-64 (1).png</normaloff>:/icons/icons/icons8-news-64 (1).png</iconset>
                </property>
                <property name="iconSize">
@@ -304,7 +304,7 @@
                 <string>Settings</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/icons8-settings-64.png</normaloff>:/icons/icons/icons8-settings-64.png</iconset>
                </property>
                <property name="iconSize">
@@ -324,7 +324,7 @@
                 <string>Report</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/7324045_ui_interface_email_mail_message_icon.png</normaloff>:/icons/icons/7324045_ui_interface_email_mail_message_icon.png</iconset>
                </property>
                <property name="iconSize">
@@ -423,7 +423,7 @@
                    <string>Click Me</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/get.png</normaloff>:/icons/icons/get.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -449,7 +449,7 @@
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap resource="resources.qrc">:/images/images/Знімок екрана 2023-01-08 142920.png</pixmap>
+                      <pixmap resource="main_resources.qrc">:/images/images/Знімок екрана 2023-01-08 142920.png</pixmap>
                      </property>
                     </widget>
                    </item>
@@ -521,7 +521,7 @@
                    <string>Youtube</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-youtube-48.png</normaloff>:/icons/icons/icons8-youtube-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -544,7 +544,7 @@
                    <string>Twitter</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-twitter-48.png</normaloff>:/icons/icons/icons8-twitter-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -567,7 +567,7 @@
                    <string>GitHub</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-github-48.png</normaloff>:/icons/icons/icons8-github-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -590,7 +590,7 @@
                    <string>LinkedIn</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-linkedin-48.png</normaloff>:/icons/icons/icons8-linkedin-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -613,7 +613,7 @@
                    <string>Instagram</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-instagram-48.png</normaloff>:/icons/icons/icons8-instagram-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -636,7 +636,7 @@
                    <string>StackOverFlow</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="main_resources.qrc">
                     <normaloff>:/icons/icons/icons8-stack-overflow-48.png</normaloff>:/icons/icons/icons8-stack-overflow-48.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -706,7 +706,7 @@
                 <string>Submit</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/sumbit.png</normaloff>:/icons/icons/sumbit.png</iconset>
                </property>
                <property name="iconSize">
@@ -769,7 +769,7 @@
                 <string>Submit</string>
                </property>
                <property name="icon">
-                <iconset resource="resources.qrc">
+                <iconset resource="main_resources.qrc">
                  <normaloff>:/icons/icons/sumbit.png</normaloff>:/icons/icons/sumbit.png</iconset>
                </property>
                <property name="iconSize">
@@ -793,7 +793,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="main_resources.qrc"/>
  </resources>
  <connections/>
 </ui>

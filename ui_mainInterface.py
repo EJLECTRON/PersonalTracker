@@ -400,7 +400,7 @@ class Ui_MainWindow(object):
         self.mainCentralBtn.setText(_translate("MainWindow", "Submit"))
         self.achLabel.setText(_translate("MainWindow", "Share with me your achievement:"))
         self.mainBottomBtn.setText(_translate("MainWindow", "Submit"))
-import resources_rc
+import main_resources_rc
 
 
 if __name__ == "__main__":

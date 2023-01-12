@@ -5,7 +5,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtGui import QMovie
 from PyQt5 import uic
 
-from ui_interface import *
+from ui_mainInterface import *
 from jsonHandler import *
 from dialog_tasks import *
 
@@ -28,8 +28,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        #self.dialog =
-
         try:
             self.__buttonActions()
 
@@ -38,6 +36,12 @@ class MainWindow(QtWidgets.QMainWindow):
             raise Exception("Something goes wrong")
 
         self.show()
+
+        self.dialogTasks = QtWidgets.QDialog()
+        uic.loadUi('ui/dialog_tasks.ui', self.dialogTasks)
+
+        self.dialogArchive = QtWidgets.QDialog()
+        uic.loadUi('ui/archive_interface.ui', self.dialogArchive)
 
 #-----------actions----------------------------------------------
 
@@ -72,6 +76,9 @@ class MainWindow(QtWidgets.QMainWindow):
         print("Achievement has been recorded")
 
     def __showTasks(self):
+        self.dialogTasks.show()
+    #TODO: add all windows to QStackedWidget and make functions that use widget.setCurrentIndex()
+    def __showArchive(self):
         pass
 
 if __name__ == "__main__":
