@@ -8,6 +8,9 @@ from PyQt5 import uic
 from ui_mainInterface import *
 from jsonHandler import *
 from dialog_tasks import *
+from ui_archiveInterface import *
+from ui_articlesInterface import *
+from ui_dataAnalysisInterface import *
 
 from pymongo import MongoClient
 
@@ -35,14 +38,8 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             raise Exception("Something goes wrong")
 
-        self.show()
-
         self.dialogTasks = QtWidgets.QDialog()
         uic.loadUi('ui/dialog_tasks.ui', self.dialogTasks)
-
-        self.dialogArchive = QtWidgets.QDialog()
-        uic.loadUi('ui/archive_interface.ui', self.dialogArchive)
-
 #-----------actions----------------------------------------------
 
     def __buttonActions(self):
@@ -52,6 +49,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.mainBottomBtn.clicked.connect(self.__submitAchievement)
 
         self.ui.getTasksBtn.clicked.connect(self.__showTasks)
+
+        self.ui.homeBtn.clicked.connect(self.__showHome)
+
+        self.ui.archiveBtn.clicked.connect(self.__showArchive)
+
+        self.ui.dataAnalysisBtn.clicked.connect(self.__showAnalysis)
 
     def __animationActions(self):
         self.__capybaraAnimation()
@@ -77,10 +80,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __showTasks(self):
         self.dialogTasks.show()
-    #TODO: add all windows to QStackedWidget and make functions that use widget.setCurrentIndex()
-    def __showArchive(self):
-        pass
 
+    #TODO: fix the issue: i change "screen" only once (figure out about currectIndex())
+    def __showHome(self):
+        stackedWindows.setCurrentIndex(0)
+
+    def __showArchive(self):
+        stackedWindows.setCurrentIndex(1)
+
+    def __showAnalysis(self):
+        stackedWindows.setCurrentIndex(2)
 if __name__ == "__main__":
     """
     cfg = ConfigHandler()
@@ -98,11 +107,26 @@ if __name__ == "__main__":
     client.close()
     """
     app = Ui_Application()
-    
-    window = MainWindow()
-    
-    window.show()
 
+    stackedWindows = QtWidgets.QStackedWidget()
+
+    mainWindow = MainWindow()
+
+    archiveWindow = QtWidgets.QWidget()
+    Ui_ArchiveWidget().setupUi(archiveWindow)
+
+    analysisWindow = QtWidgets.QWidget()
+    Ui_DataAnalysisWidget().setupUi(analysisWindow)
+
+    articlesWindow = QtWidgets.QWidget()
+    Ui_ArticlesWidget().setupUi(articlesWindow)
+
+    stackedWindows.addWidget(mainWindow)
+    stackedWindows.addWidget(archiveWindow)
+    stackedWindows.addWidget(analysisWindow)
+    stackedWindows.addWidget(articlesWindow)
+
+    stackedWindows.show()
     app.exec()
 
 

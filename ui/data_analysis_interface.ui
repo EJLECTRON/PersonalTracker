@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ArchiveWidget</class>
- <widget class="QWidget" name="ArchiveWidget">
+ <class>DataAnalysisWidget</class>
+ <widget class="QWidget" name="DataAnalysisWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>986</width>
+    <width>1000</width>
     <height>670</height>
    </rect>
   </property>
@@ -37,26 +37,22 @@
 	border-bottom-left-radius: 10 px;
 }
 
+#mainSubContainer QPushButton
+{
+	border: 1px solid;
+	border-radius: 3px;
+	text-align: left;
+}
+
+#mainSubContainer QPushButton:hover
+{
+	background-color: #F4976C;
+}
+
 #leftMenuContainer QPushButton:hover
 {
 	background-color: #BDBBBB;
 }
-
-#mainBottomWidget QLabel
-{
-	font-size: 24 px;
-}
-
-#mainBottomWidget QTextBrowser
-{
-	background-color: #FFFFFF;
-}
-
-QCalendarWidget
-{
-	background-color: #FFFFFF;
-}
-
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -78,14 +74,11 @@ QCalendarWidget
    <item>
     <widget class="QWidget" name="centralwidget" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>0</number>
-      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
       <property name="topMargin">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="rightMargin">
        <number>0</number>
@@ -290,7 +283,7 @@ QCalendarWidget
               </property>
              </spacer>
             </item>
-            <item>
+            <item alignment="Qt::AlignBottom">
              <widget class="QFrame" name="leftBottomFrame">
               <property name="frameShape">
                <enum>QFrame::StyledPanel</enum>
@@ -375,67 +368,24 @@ QCalendarWidget
          <item>
           <widget class="QWidget" name="mainSubContainer" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_6">
-            <property name="spacing">
-             <number>11</number>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>11</number>
-            </property>
-            <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+            <item alignment="Qt::AlignTop">
              <widget class="QWidget" name="mainTopWidget" native="true">
               <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item alignment="Qt::AlignHCenter">
+                <widget class="QLabel" name="plotLabel">
+                 <property name="text">
+                  <string>There'll be plot</string>
+                 </property>
+                </widget>
+               </item>
                <item>
-                <widget class="QCalendarWidget" name="calendarWidget"/>
+                <widget class="QTextBrowser" name="textBrowser"/>
                </item>
               </layout>
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="mainBottomWidget" native="true">
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <item>
-                <widget class="QWidget" name="subTopWidget" native="true">
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                   <widget class="QLabel" name="tasksLabel">
-                    <property name="text">
-                     <string>Tasks:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                   <widget class="QLabel" name="achLabel">
-                    <property name="text">
-                     <string>Achievements:</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="subBottomWidget" native="true">
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
-                  <item>
-                   <widget class="QTextBrowser" name="tasksTextBrowser"/>
-                  </item>
-                  <item>
-                   <widget class="QTextBrowser" name="achTextBrowser"/>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
+             <widget class="QWidget" name="mainBottomWidget" native="true"/>
             </item>
            </layout>
           </widget>

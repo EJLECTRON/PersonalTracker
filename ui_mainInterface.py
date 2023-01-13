@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'interface.ui'
+# Form implementation generated from reading ui file 'main_interface.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1022, 679)
+        MainWindow.resize(1020, 622)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -138,13 +138,13 @@ class Ui_MainWindow(object):
         self.dataAnalysisBtn.setIconSize(QtCore.QSize(24, 24))
         self.dataAnalysisBtn.setObjectName("dataAnalysisBtn")
         self.verticalLayout_2.addWidget(self.dataAnalysisBtn)
-        self.pushButton = QtWidgets.QPushButton(self.leftCentralFrame)
+        self.articlesBtn = QtWidgets.QPushButton(self.leftCentralFrame)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/icons/icons/icons8-news-64 (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon4)
-        self.pushButton.setIconSize(QtCore.QSize(24, 24))
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout_2.addWidget(self.pushButton)
+        self.articlesBtn.setIcon(icon4)
+        self.articlesBtn.setIconSize(QtCore.QSize(24, 24))
+        self.articlesBtn.setObjectName("articlesBtn")
+        self.verticalLayout_2.addWidget(self.articlesBtn)
         self.verticalLayout_4.addWidget(self.leftCentralFrame, 0, QtCore.Qt.AlignTop)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_4.addItem(spacerItem)
@@ -381,7 +381,7 @@ class Ui_MainWindow(object):
         self.archiveBtn.setText(_translate("MainWindow", "Archive data"))
         self.dataAnalysisBtn.setToolTip(_translate("MainWindow", "Data Analysis"))
         self.dataAnalysisBtn.setText(_translate("MainWindow", "Data Analysis"))
-        self.pushButton.setText(_translate("MainWindow", "Helpful articles"))
+        self.articlesBtn.setText(_translate("MainWindow", "Helpful articles"))
         self.settingsBtn.setToolTip(_translate("MainWindow", "Settings"))
         self.settingsBtn.setText(_translate("MainWindow", "Settings"))
         self.reportBtn.setToolTip(_translate("MainWindow", "Report"))
