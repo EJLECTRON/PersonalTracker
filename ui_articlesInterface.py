@@ -66,7 +66,7 @@ class Ui_ArticlesWidget(object):
         self.centralwidget = QtWidgets.QWidget(ArticlesWidget)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 11, 11)
+        self.horizontalLayout.setContentsMargins(0, 0, 11, 0)
         self.horizontalLayout.setSpacing(7)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.leftMenuContainer = QtWidgets.QWidget(self.centralwidget)

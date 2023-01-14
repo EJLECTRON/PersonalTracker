@@ -48,13 +48,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.mainBottomBtn.clicked.connect(self.__submitAchievement)
 
+        self.leftMenuActions()
+
+    #TODO: Make it open to other windows, perhaps put it in separate class
+    def leftMenuActions(self):
         self.ui.getTasksBtn.clicked.connect(self.__showTasks)
 
-        self.ui.homeBtn.clicked.connect(self.__showHome)
+        self.ui.homeBtn.clicked.connect(self.showHome)
 
-        self.ui.archiveBtn.clicked.connect(self.__showArchive)
+        self.ui.archiveBtn.clicked.connect(self.showArchive)
 
-        self.ui.dataAnalysisBtn.clicked.connect(self.__showAnalysis)
+        self.ui.dataAnalysisBtn.clicked.connect(self.showAnalysis)
+
+        self.ui.articlesBtn.clicked.connect(self.showArticles)
 
     def __animationActions(self):
         self.__capybaraAnimation()
@@ -82,14 +88,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.dialogTasks.show()
 
     #TODO: fix the issue: i change "screen" only once (figure out about currectIndex())
-    def __showHome(self):
+    def showHome(self):
         stackedWindows.setCurrentIndex(0)
+        print(stackedWindows.currentIndex())
 
-    def __showArchive(self):
+    def showArchive(self):
         stackedWindows.setCurrentIndex(1)
+        print(stackedWindows.currentIndex())
 
-    def __showAnalysis(self):
+    def showAnalysis(self):
         stackedWindows.setCurrentIndex(2)
+        print(stackedWindows.currentIndex())
+
+    def showArticles(self):
+        stackedWindows.setCurrentIndex(3)
+        print(stackedWindows.currentIndex())
+
 if __name__ == "__main__":
     """
     cfg = ConfigHandler()

@@ -4,3 +4,6 @@ literature
 __pycache__
 *.bat
 *config.json
+ui/screen_1.ui
+ui/screen_2.ui
+test.py
