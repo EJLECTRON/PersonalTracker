@@ -1,5 +1,12 @@
+#TODO: write/read info in main menu (today)
+#TODO: extract data from db in archive menu (tomorrow)
+#TODO: sliding leftMenu
+
+
+
 # TODO: When you click on calendar: on the first tab you get achievements
 #                                   on the second tab you get goals
+import webbrowser
 
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QMovie
@@ -49,7 +56,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.__leftMenuActions()
 
-    #TODO: Make it open to other windows, perhaps put it in separate class
+        self.__socialNetworkActions()
+
     def __leftMenuActions(self):
         self.ui.getTasksBtn.clicked.connect(self.__showTasks)
 
@@ -65,11 +73,26 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.reportBtn.clicked.connect(self.__showReport)
 
+    def __socialNetworkActions(self):
+        self.ui.youtubeBtn.clicked.connect(self.__redirectToYoutube)
+
+        self.ui.twitterBtn.clicked.connect(self.__redirectToTwitter)
+
+        self.ui.githubBtn.clicked.connect(self.__redirectToGitHub)
+
+        self.ui.linkedinBtn.clicked.connect(self.__redirectToLinked)
+
+        self.ui.instagramBtn.clicked.connect(self.__redirectToInstagram)
+
+        self.ui.stackoverflowBtn.clicked.connect(self.__redirectToStackOverFlow)
+
+
     def __animationActions(self):
         self.__capybaraAnimation()
 
 #-----------animation functions----------------------------------q
     def __capybaraAnimation(self):
+
         self.gif = QtGui.QMovie("images/sleeping_capybara.gif")
         #self.gif = QtGui.QMovie("images/capybara.gif")
 
@@ -90,7 +113,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def __showTasks(self):
         self.dialogTasks.show()
 
-    #TODO: fix the issue: i change "screen" only once (figure out about currectIndex())
     def __showHome(self):
         self.ui.stackedWidget.setCurrentIndex(0)
 
@@ -108,6 +130,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __showReport(self):
         self.ui.stackedWidget.setCurrentIndex(5)
+
+    def __redirectToYoutube(self):
+        webbrowser.open('https://www.youtube.com/')
+
+    def __redirectToTwitter(self):
+        webbrowser.open('https://twitter.com/home')
+
+    def __redirectToGitHub(self):
+        webbrowser.open('https://github.com/EJLECTRON?tab=repositories')
+
+    def __redirectToLinked(self):
+        webbrowser.open('https://www.linkedin.com/in/mykola-ishchenko-53a65b249/    ')
+
+    def __redirectToInstagram(self):
+        webbrowser.open('https://www.instagram.com/')
+
+    def __redirectToStackOverFlow(self):
+        webbrowser.open('https://stackoverflow.com/')
 
 if __name__ == "__main__":
     """

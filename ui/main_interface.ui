@@ -719,8 +719,8 @@ QTextBrowser
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_8">
-                    <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item alignment="Qt::AlignRight">
                      <widget class="QLabel" name="goalLabel">
                       <property name="text">
                        <string>Set your goal for the chosen day:</string>
@@ -729,6 +729,9 @@ QTextBrowser
                        <set>Qt::AlignCenter</set>
                       </property>
                      </widget>
+                    </item>
+                    <item alignment="Qt::AlignLeft">
+                     <widget class="QDateEdit" name="dateEdit"/>
                     </item>
                    </layout>
                   </widget>
