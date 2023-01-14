@@ -7,9 +7,6 @@ from PyQt5 import uic
 
 from ui_mainInterface import *
 from jsonHandler import *
-from dialog_tasks import *
-from ui_archiveInterface import *
-from ui_articlesInterface import *
 from ui_dataAnalysisInterface import *
 
 from pymongo import MongoClient
@@ -48,19 +45,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.mainBottomBtn.clicked.connect(self.__submitAchievement)
 
-        self.leftMenuActions()
+        self.ui.archiveBtn.clicked.connect(self.__showArchive)
+
+        self.__leftMenuActions()
 
     #TODO: Make it open to other windows, perhaps put it in separate class
-    def leftMenuActions(self):
+    def __leftMenuActions(self):
         self.ui.getTasksBtn.clicked.connect(self.__showTasks)
 
-        self.ui.homeBtn.clicked.connect(self.showHome)
+        self.ui.homeBtn.clicked.connect(self.__showHome)
 
-        self.ui.archiveBtn.clicked.connect(self.showArchive)
+        self.ui.archiveBtn.clicked.connect(self.__showArchive)
 
-        self.ui.dataAnalysisBtn.clicked.connect(self.showAnalysis)
+        self.ui.dataAnalysisBtn.clicked.connect(self.__showAnalysis)
 
-        self.ui.articlesBtn.clicked.connect(self.showArticles)
+        self.ui.articlesBtn.clicked.connect(self.__showArticles)
+
+        self.ui.settingsBtn.clicked.connect(self.__showSettings)
+
+        self.ui.reportBtn.clicked.connect(self.__showReport)
 
     def __animationActions(self):
         self.__capybaraAnimation()
@@ -88,21 +91,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.dialogTasks.show()
 
     #TODO: fix the issue: i change "screen" only once (figure out about currectIndex())
-    def showHome(self):
-        stackedWindows.setCurrentIndex(0)
-        print(stackedWindows.currentIndex())
+    def __showHome(self):
+        self.ui.stackedWidget.setCurrentIndex(0)
 
-    def showArchive(self):
-        stackedWindows.setCurrentIndex(1)
-        print(stackedWindows.currentIndex())
+    def __showArchive(self):
+        self.ui.stackedWidget.setCurrentIndex(1)
 
-    def showAnalysis(self):
-        stackedWindows.setCurrentIndex(2)
-        print(stackedWindows.currentIndex())
+    def __showAnalysis(self):
+        self.ui.stackedWidget.setCurrentIndex(2)
 
-    def showArticles(self):
-        stackedWindows.setCurrentIndex(3)
-        print(stackedWindows.currentIndex())
+    def __showArticles(self):
+        self.ui.stackedWidget.setCurrentIndex(3)
+
+    def __showSettings(self):
+        self.ui.stackedWidget.setCurrentIndex(4)
+
+    def __showReport(self):
+        self.ui.stackedWidget.setCurrentIndex(5)
 
 if __name__ == "__main__":
     """
@@ -122,25 +127,10 @@ if __name__ == "__main__":
     """
     app = Ui_Application()
 
-    stackedWindows = QtWidgets.QStackedWidget()
-
     mainWindow = MainWindow()
 
-    archiveWindow = QtWidgets.QWidget()
-    Ui_ArchiveWidget().setupUi(archiveWindow)
+    mainWindow.show()
 
-    analysisWindow = QtWidgets.QWidget()
-    Ui_DataAnalysisWidget().setupUi(analysisWindow)
-
-    articlesWindow = QtWidgets.QWidget()
-    Ui_ArticlesWidget().setupUi(articlesWindow)
-
-    stackedWindows.addWidget(mainWindow)
-    stackedWindows.addWidget(archiveWindow)
-    stackedWindows.addWidget(analysisWindow)
-    stackedWindows.addWidget(articlesWindow)
-
-    stackedWindows.show()
     app.exec()
 
 
