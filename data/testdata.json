@@ -1,12 +1,21 @@
 [{
-  "task1": "That is first task",
-  "task2": "That is second task",
-  "members": [
-    {
-      "name": "Nick"
-    },
-    {
-      "name": "Anna"
-    }
-  ]
+  "_id": "tasks of Nick",
+  "15/1/2023":
+      [
+        {
+          "1": "First task (Nick, 15/1/2023)"
+        },
+        {
+          "2": "Second task (Nick, 15/1/2023)"
+        },
+        {
+          "3": "Third task (Nick, 15/1/2023)"
+        },
+        {
+          "4": "Fourth task (Nick, 15/1/2023)"
+        },
+        {
+          "5": "Fifth task (Nick, 15/1/2023)"
+        }
+      ]
 }]
