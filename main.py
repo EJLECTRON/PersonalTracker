@@ -7,14 +7,14 @@ import webbrowser
 
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QMovie
-from PyQt5 import uic
 
 from ui_mainInterface import *
-from jsonHandler import *
 from ui_dataAnalysisInterface import *
+from functionallity_reportError import ErrorDialog
+from userClass import User
+from tasksForToday import TasksForToday
 
 from pymongo import MongoClient
-import datetime
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
@@ -26,27 +26,6 @@ class Ui_Application(QtWidgets.QApplication):
     def __setStylesApp(self):
         pass
 
-class User:
-    def __init__(self, clientName):
-        cfg = ConfigHandler()
-
-        cfg.takeCredentialsFromConfig(clientName)
-
-        self.userName = clientName
-        self.client = MongoClient(cfg.gatherCredentials())
-
-    def getTasksForDay(self, date):
-        db = self.client['TestData']
-
-        try:
-            currentCollection = db['Tasks of ' + self.userName]
-
-            tasks = []
-
-            return currentCollection.find_one({}, {"_id": 0, date: 1})
-        except KeyError:
-            return ["You don't have tasks for today"]
-
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, clientName):
         QtWidgets.QMainWindow.__init__(self)
@@ -54,17 +33,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.user = User(clientName)
+
         try:
             self.__buttonActions()
 
             self.__animationActions()
+
+            self.__todayTasksActions()
         except Exception:
             raise Exception("Something goes wrong")
-
-        self.user = User(clientName)
-
-        self.dialogTasks = QtWidgets.QDialog()
-        uic.loadUi('ui/dialog_tasks.ui', self.dialogTasks)
 #-----------actions----------------------------------------------
 
     def __buttonActions(self):
@@ -80,8 +58,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.__socialNetworkActions()
 
     def __leftMenuActions(self):
-        self.ui.getTasksBtn.clicked.connect(self.__showTasks)
-
         self.ui.homeBtn.clicked.connect(self.__showHome)
 
         self.ui.archiveBtn.clicked.connect(self.__showArchive)
@@ -107,6 +83,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.stackoverflowBtn.clicked.connect(self.__redirectToStackOverFlow)
 
+    def __todayTasksActions(self):
+        self.todayTasksWindow = TasksForToday(self.user)
+
+        self.ui.getTasksBtn.clicked.connect(self.todayTasksWindow.show)
+
     def __animationActions(self):
         self.__capybaraAnimation()
 
@@ -130,21 +111,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """ Write info into database and clear textEdit"""
         print("Achievement has been recorded")
 
-    #TODO: remake this function, it's looks awful
-    def __showTasks(self):
-        currentDate = '15/1/2023'
 
-        listOfTasks = self.user.getTasksForDay(currentDate)
-
-        innerCounter = 0
-        try:
-            self.dialogTasks.textBrowser.append(listOfTasks[0])
-        except KeyError:
-            for task in listOfTasks['15/1/2023']:
-                self.dialogTasks.textBrowser.append(task[str(innerCounter + 1)])
-                innerCounter += 1
-
-        self.dialogTasks.show()
 
     def __showHome(self):
         self.ui.stackedWidget.setCurrentIndex(0)
@@ -183,11 +150,6 @@ class MainWindow(QtWidgets.QMainWindow):
         webbrowser.open('https://stackoverflow.com/')
 
 if __name__ == "__main__":
-    """
-    print(db_collection.find_one()['task1'])
-
-    client.close()
-    """
     app = Ui_Application()
 
     mainWindow = MainWindow('Nick')
