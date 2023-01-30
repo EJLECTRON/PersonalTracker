@@ -731,7 +731,14 @@ QTextBrowser
                      </widget>
                     </item>
                     <item alignment="Qt::AlignLeft">
-                     <widget class="QDateEdit" name="dateEdit"/>
+                     <widget class="QDateEdit" name="goalDateEdit">
+                      <property name="currentSection">
+                       <enum>QDateTimeEdit::DaySection</enum>
+                      </property>
+                      <property name="displayFormat">
+                       <string>dd/MM/yyyy</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>

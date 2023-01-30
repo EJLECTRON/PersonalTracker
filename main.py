@@ -6,13 +6,15 @@
 import webbrowser
 
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QMovie
+from datetime import datetime
 
 from ui_mainInterface import *
 from ui_dataAnalysisInterface import *
-from functionallity_reportError import ErrorDialog
+from differentWindows import ErrorDialog, MessageAlert
 from userClass import User
-from tasksForToday import TasksForToday
+from getTasksForToday import TasksForToday
 
 from pymongo import MongoClient
 
@@ -57,6 +59,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.__socialNetworkActions()
 
+        self.__dateEditActions()
+
     def __leftMenuActions(self):
         self.ui.homeBtn.clicked.connect(self.__showHome)
 
@@ -91,6 +95,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def __animationActions(self):
         self.__capybaraAnimation()
 
+    def __dateEditActions(self):
+        currentDate = QDate.fromString(datetime.now().strftime("%d/%m/%Y"), "dd/MM/yyyy")
+
+        self.ui.goalDateEdit.setDate(currentDate)
+
 #-----------animation functions----------------------------------q
     def __capybaraAnimation(self):
 
@@ -105,13 +114,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __submitGoal(self):
         """ Write info into database and clear textEdit"""
-        print("Goal has been recorded")
+        dataNeededToSubmit = self.ui.goalLineEdit.text()
+        dateNeededToSubmit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
+        #TODO: implement functionallity
+        self.user.submitGoal(dataNeededToSubmit, dateNeededToSubmit)
+
+        self.ui.goalLineEdit.setText("")
+
+        self.__showAlertMessage()
 
     def __submitAchievement(self):
         """ Write info into database and clear textEdit"""
         print("Achievement has been recorded")
-
-
 
     def __showHome(self):
         self.ui.stackedWidget.setCurrentIndex(0)
@@ -148,6 +162,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __redirectToStackOverFlow(self):
         webbrowser.open('https://stackoverflow.com/')
+
+    def __showAlertMessage(self):
+        self.alertMessage = MessageAlert("Data has been recorded")
+
+        self.alertMessage.show()
 
 if __name__ == "__main__":
     app = Ui_Application()

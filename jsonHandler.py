@@ -23,8 +23,3 @@ class ConfigHandler(object):
 
     def gatherCredentials(self):
         return self.start + self.user + ":" + self.password + self.end
-
-
-
-def takeInfointoList(name):
-    pass

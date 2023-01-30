@@ -1,9 +1,10 @@
 from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtGui import QIcon
 from ui_reportError import Ui_Dialog
 from uuid import uuid4
 
 class ErrorDialog(QtWidgets.QDialog):
-    def __init__(self):
+    def __init__(self, textOfError = "Unknown problem"):
         QtWidgets.QDialog.__init__(self)
 
         self.ui = Ui_Dialog()
@@ -13,9 +14,9 @@ class ErrorDialog(QtWidgets.QDialog):
 
         self.__insertIdIntoLabel(self.id)
 
-        self.__buttonActions()
+        self.__insertTextOfErrorIntoLabel(textOfError)
 
-        self.show()
+        self.__buttonActions()
 
     def __buttonActions(self):
         pass
@@ -25,8 +26,10 @@ class ErrorDialog(QtWidgets.QDialog):
 
         self.ui.idLabel.setText(_translate("Dialog", "Error id: " + id))
 
-    def insertTextOfErrorIntoLabel(self, text):
-        pass
+    def __insertTextOfErrorIntoLabel(self, text):
+        _translate = QtCore.QCoreApplication.translate
+
+        self.ui.errorLabel.setText(_translate("Dialog", "The text of the error: " + text))
 
     def __generateId(self):
         id = str(uuid4())
@@ -37,3 +40,12 @@ class ErrorDialog(QtWidgets.QDialog):
         pass
 
 
+class MessageAlert(QtWidgets.QMessageBox):
+    def __init__(self, text):
+        QtWidgets.QMessageBox.__init__(self)
+
+        self.setWindowTitle("Alert message")
+
+        self.setWindowIcon(QIcon('icons/icons8-information-50.png'))
+
+        self.setText(text)

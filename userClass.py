@@ -10,3 +10,6 @@ class User:
 
         self.userName = clientName
         self.client = MongoClient(cfg.gatherCredentials())
+
+    def submitGoal(self, data, date):
+        pass

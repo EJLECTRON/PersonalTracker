@@ -4,8 +4,7 @@ from datetime import datetime
 
 
 from ui_dialog import Ui_Dialog
-from functionallity_reportError import ErrorDialog
-
+from differentWindows import ErrorDialog
 
 
 class TasksForToday(QtWidgets.QDialog):
@@ -21,7 +20,7 @@ class TasksForToday(QtWidgets.QDialog):
 
         self.__insertTasksForTodayIntoWindow(self.tasksForToday, currentDate = datetime.now().strftime("%d/%m/%Y"))
 
-
+    #TODO: add an error handling to that
     def __insertTasksForTodayIntoWindow(self, collOfTasks, currentDate):
         if self.ui.textBrowser.toPlainText() == "":
             innerCounter = 0
@@ -33,11 +32,12 @@ class TasksForToday(QtWidgets.QDialog):
             except KeyError:
                 self.ui.textBrowser.append(collOfTasks["error"])
 
+    # TODO: add an error handling to that
     def __extractTasksForDay(self):
         try:
             db = self.user.client['TestData']
         except pymongo.errors.OperationFailure:
-            ErrorDialog()
+            pass
 
         currentCollection = db[self.user.userName + "'s tasks"]
 
