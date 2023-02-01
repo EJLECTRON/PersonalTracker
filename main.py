@@ -116,8 +116,10 @@ class MainWindow(QtWidgets.QMainWindow):
         """ Write info into database and clear textEdit"""
         dataNeededToSubmit = self.ui.goalLineEdit.text()
         dateNeededToSubmit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
-        #TODO: implement functionallity
-        self.user.submitGoal(dataNeededToSubmit, dateNeededToSubmit)
+
+        if not dataNeededToSubmit == "":
+            # TODO: implement functionallity
+            self.user.submitGoal(dataNeededToSubmit, dateNeededToSubmit)
 
         self.ui.goalLineEdit.setText("")
 
@@ -125,7 +127,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __submitAchievement(self):
         """ Write info into database and clear textEdit"""
-        print("Achievement has been recorded")
+        dataNeededToSubmit = self.ui.achLineEdit.text()
+        dateNeededToSubmit = datetime.now().strftime("%d/%m/%Y")
+
+        if not dataNeededToSubmit == "":
+            # TODO: implement functionallity
+            self.user.submitAch(dataNeededToSubmit, dateNeededToSubmit)
+
+        self.ui.goalLineEdit.setText("")
+
+        self.__showAlertMessage()
 
     def __showHome(self):
         self.ui.stackedWidget.setCurrentIndex(0)

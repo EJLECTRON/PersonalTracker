@@ -23,14 +23,11 @@ class TasksForToday(QtWidgets.QDialog):
     #TODO: add an error handling to that
     def __insertTasksForTodayIntoWindow(self, collOfTasks, currentDate):
         if self.ui.textBrowser.toPlainText() == "":
-            innerCounter = 0
+            print(collOfTasks[currentDate][0])
 
-            try:
-                for task in collOfTasks[currentDate]:
-                    self.ui.textBrowser.append(task[str(innerCounter + 1)])
-                    innerCounter += 1
-            except KeyError:
-                self.ui.textBrowser.append(collOfTasks["error"])
+            for id, task in collOfTasks[currentDate][0].items():
+                self.ui.textBrowser.append(task)
+
 
     # TODO: add an error handling to that
     def __extractTasksForDay(self):
