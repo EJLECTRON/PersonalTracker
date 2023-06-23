@@ -10,7 +10,7 @@ class TasksForDay:
         :param user: current user (type: User from user_class.py)
         :param data: data to submit
         :param date: date in text format '%d/%m/%Y'
-        :return:
+        :return: response from db
         """
         response = TasksForDay().__log_in_and_submit_tasks_for_given_date(user, data, date)
 
