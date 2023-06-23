@@ -102,10 +102,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         tasks_tuple = tasks_for_today.get_tasks_for_given_date(self.user, datetime.now().strftime("%d/%m/%Y"))
 
-        self.ui.homeTasksTextBrowser.clear()
+        if tasks_tuple:
+            self.ui.homeTasksTextBrowser.clear()
 
-        for task in tasks_tuple:
-            self.ui.homeTasksTextBrowser.append(str(task))
+            for task in tasks_tuple:
+                self.ui.homeTasksTextBrowser.append(str(task))
 
 
     def __animationActions(self):
