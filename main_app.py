@@ -135,11 +135,15 @@ class MainWindow(QtWidgets.QMainWindow):
         date_needed_to_submit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
 
         if not data_needed_to_submit == "":
-            self.user.submit_goal(data_needed_to_submit, date_needed_to_submit)
+            response = self.user.submit_goal(data_needed_to_submit, date_needed_to_submit)
 
             self.ui.goalLineEdit.setText("")
 
-            self.__showAlertMessage()
+            if date_needed_to_submit == datetime.now().strftime("%d/%m/%Y"):
+                self.__todayTasksActions()
+
+            if response:
+                self.__showAlertMessage(response)
 
     def __submitAchievement(self):
         """ Write info into database and clear textEdit"""
@@ -190,8 +194,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def __redirectToStackOverFlow(self):
         webbrowser.open('https://stackoverflow.com/')
 
-    def __showAlertMessage(self):
-        self.alertMessage = MessageAlert("Data has been recorded")
+    def __showAlertMessage(self, response: str):
+        """
+        Shows alert message
+        :param response: shows response from server
+        :return: None
+        """
+        self.alertMessage = MessageAlert(response)
 
         self.alertMessage.show()
 

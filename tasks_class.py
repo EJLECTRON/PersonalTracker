@@ -1,26 +1,53 @@
 from pymongo.errors import OperationFailure
 from error_class import ErrorIntoUI
+from pprint import pprint
 
 class TasksForDay:
-
     @staticmethod
     def submit_goal_for_given_date(user, data: str, date: str):
         """
         Submit task for given date for given user
-        :param user: current user
+        :param user: current user (type: User from user_class.py)
         :param data: data to submit
         :param date: date in text format '%d/%m/%Y'
         :return:
         """
-        pass
+        response = TasksForDay().__log_in_and_submit_tasks_for_given_date(user, data, date)
 
+        return response
+
+    def __log_in_and_submit_tasks_for_given_date(self, user, data: str, date: str):
+        """
+
+        :param user: current user (type: User from user_class.py)
+        :param data: given tasks
+        :param date: date in text format '%d/%m/%Y'
+        :return: response from db
+        """
+        #TODO: when submitting task for date, check if there is already task for this date
+        # if there is, then update it (done), if not, then create new one
+
+
+        db = self.logging_to_user_db(user)
+
+        print(data)
+
+        if db is not None:
+            try:
+                db.tasks.update_one({date: {'$exists': True}}, {"$push": {date: data}})
+
+                return "Task was successfully submitted"
+            except OperationFailure:
+                possible_error = f"Error: can't submit task for {date}, report this issue"
+
+                ErrorIntoUI(possible_error)
 
     @staticmethod
     def get_tasks_for_given_date(user, date: str):
         """
         Get tasks for given date for given user
 
-        :param user: current user
+        :param user: current user (type: User from user_class.py)
         :param date: date in text format '%d/%m/%Y'
         :return: tuple of tasks
         """
@@ -37,18 +64,26 @@ class TasksForDay:
         """
         db = self.logging_to_user_db(user)
 
-        if db:
-            coll_of_tasks = db.tasks.find_one({}, {"_id": 0, date: 1})
+        if db is not None:
+            cursor_object_of_tasks_for_given_date = db.tasks.find_one({}, {"_id": 0, date: 1})
 
-            result = self.__extract_tasks_for_given_date(coll_of_tasks, date)
+            result = self.__extract_tasks_for_given_date(cursor_object_of_tasks_for_given_date, date)
 
             return result
 
-    def __extract_tasks_for_given_date(self, coll_of_tasks, date: str):
+    def __extract_tasks_for_given_date(self, cursor_object_of_tasks_for_given_date, date: str):
+        """
+        Extract tasks for given date from cursor object
+        :param cursor_object_of_tasks_for_given_date:
+                type: Cursor,
+                it's a dict with date as a key and list of tasks as a value
+        :param date: date in text format '%d/%m/%Y'
+        :return: tuple of tasks
+        """
         result = []
-
+        
         try:
-            for name_of_task, task in coll_of_tasks[date].items():
+            for task in cursor_object_of_tasks_for_given_date[date]:
                 result.append(task)
         except (KeyError, TypeError):
             possible_error = f"Error: tasks for {date} wasn't found"
@@ -61,7 +96,7 @@ class TasksForDay:
     def logging_to_user_db(user):
         """
         Logging to user db
-        :param user: user to log in
+        :param user: user to log in (type: User from user_class.py)
         :return: connection to user db or None if error
         """
         try:

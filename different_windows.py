@@ -48,4 +48,7 @@ class MessageAlert(QtWidgets.QMessageBox):
 
         self.setWindowIcon(QIcon('icons/icons8-information-50.png'))
 
+        self.set_text_of_message(text)
+
+    def set_text_of_message(self, text):
         self.setText(text)
