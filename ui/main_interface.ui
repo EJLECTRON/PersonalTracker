@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>PersonalTracker</class>
+ <widget class="QMainWindow" name="PersonalTracker">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -26,7 +26,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PersonalTracker</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="main_resources.qrc">
+    <normaloff>:/icons/icon.png</normaloff>:/icons/icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*
@@ -37,6 +41,12 @@
 QTextBrowser
 {
 	background-color: #FFFFFF;
+}
+
+#mainMenu QLineEdit
+{
+	background-color: #000000;
+    color: #FFFFFF
 }
 
 #centralwidget
@@ -57,9 +67,16 @@ QTextBrowser
 	border-bottom-left-radius: 10 px;
 }
 
-#quoteTextBrow
+#homeTasksTextBrowser
 {
-	background-color: #B4DFE5;
+	background-color: #000000;
+	color: #FFFFFF
+}
+
+#usefulWidget
+{
+	background-color: #000000;
+	color: #FFFFFF
 }
 
 #mainSubContainer QPushButton
@@ -403,34 +420,10 @@ QTextBrowser
            </property>
            <item>
             <widget class="QWidget" name="mainSubContainer" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <property name="spacing">
-               <number>11</number>
-              </property>
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <property name="bottomMargin">
-               <number>11</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="0" column="0" colspan="2">
                <widget class="QWidget" name="mainTopWidget" native="true">
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
-                 <property name="leftMargin">
-                  <number>6</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>5</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>11</number>
-                 </property>
                  <item>
                   <widget class="QWidget" name="leftSubWidget" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -444,9 +437,9 @@ QTextBrowser
                       </property>
                       <layout class="QHBoxLayout" name="horizontalLayout_4">
                        <item>
-                        <widget class="QLabel" name="tasksLabel">
+                        <widget class="QLabel" name="quoteLabel">
                          <property name="text">
-                          <string>Click on button to discover your tasks for today:</string>
+                          <string>Click on button to get an inspiring quote or a joke:</string>
                          </property>
                         </widget>
                        </item>
@@ -454,7 +447,7 @@ QTextBrowser
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter">
-                     <widget class="QPushButton" name="getTasksBtn">
+                     <widget class="QPushButton" name="getQuoteBtn">
                       <property name="minimumSize">
                        <size>
                         <width>85</width>
@@ -505,7 +498,7 @@ QTextBrowser
                   <widget class="QWidget" name="centralSubWidget" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_12">
                     <item>
-                     <widget class="QFrame" name="quoteFrame">
+                     <widget class="QFrame" name="tasksFrame">
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
                       </property>
@@ -514,9 +507,9 @@ QTextBrowser
                       </property>
                       <layout class="QHBoxLayout" name="horizontalLayout_8">
                        <item>
-                        <widget class="QLabel" name="quoteLabel">
+                        <widget class="QLabel" name="tasksLabel">
                          <property name="text">
-                          <string>Quote of a day:</string>
+                          <string>Tasks for today:</string>
                          </property>
                         </widget>
                        </item>
@@ -524,12 +517,20 @@ QTextBrowser
                      </widget>
                     </item>
                     <item>
-                     <widget class="QTextBrowser" name="quoteTextBrow"/>
+                     <widget class="QTextBrowser" name="homeTasksTextBrowser">
+                      <property name="html">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#ffffff;&quot;&gt;None&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
                  </item>
-                 <item alignment="Qt::AlignRight">
+                 <item>
                   <widget class="QWidget" name="rigthSubWidget" native="true">
                    <layout class="QVBoxLayout" name="verticalLayout_10">
                     <item>
@@ -708,7 +709,7 @@ QTextBrowser
                 </layout>
                </widget>
               </item>
-              <item alignment="Qt::AlignBottom">
+              <item row="1" column="0">
                <widget class="QWidget" name="mainCentralWidget" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_7">
                  <item>
@@ -744,7 +745,11 @@ QTextBrowser
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="goalLineEdit"/>
+                  <widget class="QLineEdit" name="goalLineEdit">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
                  </item>
                  <item alignment="Qt::AlignHCenter">
                   <widget class="QPushButton" name="mainCentralBtn">
@@ -772,7 +777,18 @@ QTextBrowser
                 </layout>
                </widget>
               </item>
-              <item>
+              <item row="1" column="1" rowspan="2">
+               <widget class="QTextBrowser" name="usefulWidget">
+                <property name="html">
+                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;There'll be messages from telegram bot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
                <widget class="QWidget" name="mainBottomWidget" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_6">
                  <property name="leftMargin">
@@ -887,7 +903,7 @@ QTextBrowser
                   <widget class="QWidget" name="subBottomWidget" native="true">
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
-                     <widget class="QTextBrowser" name="tasksTextBrowser"/>
+                     <widget class="QTextBrowser" name="ArchiveTasksTextBrowser"/>
                     </item>
                     <item>
                      <widget class="QTextBrowser" name="achTextBrowser"/>
