@@ -29,7 +29,5 @@ class User:
 
         return response
 
-
-    # TODO: add an error handling to that
     def submitAch(self, data, date):
         pass

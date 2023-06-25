@@ -27,7 +27,9 @@ class Ui_Application(QtWidgets.QApplication):
         pass
 
 class MainWindow(QtWidgets.QMainWindow):
+    """ Custom class for main window"""
     def __init__(self, user: User):
+        """ creating window and setting up all actions"""
         QtWidgets.QMainWindow.__init__(self)
 
         #params of window between reloading
@@ -50,12 +52,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.__today_tasks_actions()
 
-        except Exception:
-            ErrorIntoUI("Something goes wrong")
+        except Exception as error:
+            print(error)
 #-----------actions----------------------------------------------
 
     def __button_actions(self):
-
+        """ setting up all actions for buttons"""
         self.ui.mainCentralBtn.clicked.connect(self.__submit_goal)
 
         self.ui.mainBottomBtn.clicked.connect(self.__submit_achievement)
@@ -69,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.__date_edit_actions()
 
     def __left_menu_actions(self):
+        """ setting up all actions for left menu bar"""
         self.ui.homeBtn.clicked.connect(self.__show_home)
 
         self.ui.archiveBtn.clicked.connect(self.__show_archive)
@@ -82,19 +85,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.reportBtn.clicked.connect(self.__show_report)
 
     def __social_network_actions(self):
+        """ setting up all actions for social network buttons"""
         self.ui.youtubeBtn.clicked.connect(self.__redirect_to_youtube)
 
         self.ui.twitterBtn.clicked.connect(self.__redirect_to_twitter)
 
         self.ui.githubBtn.clicked.connect(self.__redirect_to_github)
 
-        self.ui.linkedinBtn.clicked.connect(self.__redirect_to_linked())
+        self.ui.linkedinBtn.clicked.connect(self.__redirect_to_linked)
 
-        self.ui.instagramBtn.clicked.connect(self.__redirect_to_instagram())
+        self.ui.instagramBtn.clicked.connect(self.__redirect_to_instagram)
 
-        self.ui.stackoverflowBtn.clicked.connect(self.__redirect_to_stackoverflow())
+        self.ui.stackoverflowBtn.clicked.connect(self.__redirect_to_stackoverflow)
 
     def __today_tasks_actions(self):
+        """ gets all tasks for today and shows them for current user in home page"""
         tasks_for_today= TasksForDay()
 
         tasks_tuple = tasks_for_today.get_tasks_for_given_date(self.user, datetime.now().strftime("%d/%m/%Y"))
@@ -107,18 +112,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def __animation_actions(self):
+        """ setting up all actions for animation"""
         self.__capybara_animation()
 
     def __date_edit_actions(self):
+        """ setting up goalDateEdit(date bar for tasks) to current date"""
         current_date = QDate.fromString(datetime.now().strftime("%d/%m/%Y"), "dd/MM/yyyy")
 
         self.ui.goalDateEdit.setDate(current_date)
 
 #-----------animation functions----------------------------------q
     def __capybara_animation(self):
-
+        """ setting up capybara animation"""
         self.gif = QtGui.QMovie("images/sleeping_capybara.gif")
-        #self.gif = QtGui.QMovie("images/capybara.gif")
 
         self.ui.capybara_2.setMovie(self.gif)
 
@@ -127,7 +133,7 @@ class MainWindow(QtWidgets.QMainWindow):
 #-----------buttons functions------------------------------------
 
     def __submit_goal(self):
-        """ Write info into database and clears goalLineEdit"""
+        """ Write info into database and clears goalLineEdit(line for tasks)"""
         data_needed_to_submit = self.ui.goalLineEdit.text()
         date_needed_to_submit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
 
@@ -143,7 +149,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.__show_alert_message(response)
 
     def __submit_achievement(self):
-        """ Write info into database and clear textEdit"""
+        """ Write info into database and clear textEdit(line for achievements)"""
         data_needed_to_submit = self.ui.achLineEdit.text()
         date_needed_to_submit = datetime.now().strftime("%d/%m/%Y")
 
