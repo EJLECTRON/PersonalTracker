@@ -1,6 +1,7 @@
 from pymongo.errors import OperationFailure
 from error_class import ErrorIntoUI
 
+#TODO: somehow make one method for submitting tasks and achievements
 class TasksForDay:
     @staticmethod
     def submit_goal_for_given_date(user, data: str, date: str):
@@ -15,9 +16,43 @@ class TasksForDay:
 
         return response
 
+    @staticmethod
+    def submit_achievement_for_given_date(user, data: str, date: str):
+        """
+        Submit achievement for given date for given user
+        :param user: current user (type: User from user_class.py)
+        :param data: data to submit
+        :param date: date in text format '%d/%m/%Y'
+        :return: response from db
+        """
+        response = TasksForDay().__log_in_and_submit_achievement_for_given_date(user, data, date)
+
+        return response
+
+    def __log_in_and_submit_achievement_for_given_date(self, user, data: str, date: str):
+        """
+        :param user: current user (type: User from user_class.py)
+        :param data: given tasks
+        :param date: date in text format '%d/%m/%Y'
+        :return: response from db
+        """
+        db = self.logging_to_user_db(user)
+
+        if db is not None:
+            try:
+                status = db.achievements.find_one_and_update({date: {'$exists': True}}, {"$push": {date: data}})
+
+                if status is None:
+                    db.achievements.insert_one({date: [data]})
+
+                return "Achievement was successfully submitted"
+            except OperationFailure:
+                possible_error = f"Error: can't submit achievement for {date}, report this issue"
+
+                ErrorIntoUI(possible_error)
+
     def __log_in_and_submit_tasks_for_given_date(self, user, data: str, date: str):
         """
-
         :param user: current user (type: User from user_class.py)
         :param data: given tasks
         :param date: date in text format '%d/%m/%Y'

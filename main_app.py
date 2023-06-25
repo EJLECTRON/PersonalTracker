@@ -15,6 +15,7 @@ from different_windows import MessageAlert
 from user_class import User
 from tasks_class import TasksForDay
 from error_class import ErrorIntoUI
+from quote_class import Quote
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
@@ -63,6 +64,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.mainBottomBtn.clicked.connect(self.__submit_achievement)
 
         self.ui.archiveBtn.clicked.connect(self.__show_archive)
+
+        self.ui.getQuoteBtn.clicked.connect(self.__get_quote)
 
         self.__left_menu_actions()
 
@@ -154,16 +157,20 @@ class MainWindow(QtWidgets.QMainWindow):
         date_needed_to_submit = datetime.now().strftime("%d/%m/%Y")
 
         if not data_needed_to_submit == "":
-            # TODO: implement functionality
-            response = self.user.submitAch(data_needed_to_submit, date_needed_to_submit)
+            response = self.user.submit_achievement(data_needed_to_submit, date_needed_to_submit)
 
-            self.ui.goalLineEdit.setText("")
-
-            if date_needed_to_submit == datetime.now().strftime("%d/%m/%Y"):
-                pass #self.__today_ach_actions()
+            self.ui.achLineEdit.setText("")
             
             if response:
                 self.__show_alert_message(response)
+
+    def __get_quote(self):
+        """ Write quote into popping window"""
+        quote = Quote().get_quote(self.user)
+
+        self.alert_message = MessageAlert(quote)
+
+        self.alert_message.show()
 
     def __show_home(self):
         self.ui.stackedWidget.setCurrentIndex(0)
