@@ -1,6 +1,5 @@
 from pymongo.errors import OperationFailure
 from error_class import ErrorIntoUI
-from pprint import pprint
 
 class TasksForDay:
     @staticmethod
@@ -24,17 +23,15 @@ class TasksForDay:
         :param date: date in text format '%d/%m/%Y'
         :return: response from db
         """
-        #TODO: when submitting task for date, check if there is already task for this date
-        # if there is, then update it (done), if not, then create new one
-
 
         db = self.logging_to_user_db(user)
 
-        print(data)
-
         if db is not None:
             try:
-                db.tasks.update_one({date: {'$exists': True}}, {"$push": {date: data}})
+                status = db.tasks.find_one_and_update({date: {'$exists': True}}, {"$push": {date: data}})
+
+                if status is None:
+                    db.tasks.insert_one({date: [data]})
 
                 return "Task was successfully submitted"
             except OperationFailure:
@@ -51,6 +48,7 @@ class TasksForDay:
         :param date: date in text format '%d/%m/%Y'
         :return: tuple of tasks
         """
+
         tasks_for_given_date = TasksForDay().__log_in_and_extract_tasks_for_given_date(user, date)
 
         return tasks_for_given_date
@@ -65,7 +63,7 @@ class TasksForDay:
         db = self.logging_to_user_db(user)
 
         if db is not None:
-            cursor_object_of_tasks_for_given_date = db.tasks.find_one({}, {"_id": 0, date: 1})
+            cursor_object_of_tasks_for_given_date = db.tasks.find_one({date: {'$exists': True}}, {"_id": 0})
 
             result = self.__extract_tasks_for_given_date(cursor_object_of_tasks_for_given_date, date)
 
@@ -86,9 +84,9 @@ class TasksForDay:
             for task in cursor_object_of_tasks_for_given_date[date]:
                 result.append(task)
         except (KeyError, TypeError):
-            possible_error = f"Error: tasks for {date} wasn't found"
+            result = f"Error: tasks for {date} wasn't found"
 
-            ErrorIntoUI(possible_error)
+            ErrorIntoUI(result)
 
         return tuple(result)
 

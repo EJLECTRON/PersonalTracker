@@ -1,9 +1,5 @@
 #TODO: sliding leftMenu
 
-#TODO: synchronise changes of ui with back
-
-#TODO: add reload to pages or similar
-
 #TODO: change lowerCamelCase to snake_case
 
 import webbrowser
@@ -18,15 +14,16 @@ from ui_data_analysis_interface import *
 from different_windows import MessageAlert
 from user_class import User
 from tasks_class import TasksForDay
+from error_class import ErrorIntoUI
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
     def __init__(self):
         super(Ui_Application, self).__init__([])
 
-        self.__setStylesApp()
+        self.__set_styles_app()
 
-    def __setStylesApp(self):
+    def __set_styles_app(self):
         pass
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -47,57 +44,57 @@ class MainWindow(QtWidgets.QMainWindow):
         self.user = user
 
         try:
-            self.__buttonActions()
+            self.__button_actions()
 
-            self.__animationActions()
+            self.__animation_actions()
 
-            self.__todayTasksActions()
+            self.__today_tasks_actions()
 
         except Exception:
-            raise Exception("Something goes wrong")
+            ErrorIntoUI("Something goes wrong")
 #-----------actions----------------------------------------------
 
-    def __buttonActions(self):
+    def __button_actions(self):
 
-        self.ui.mainCentralBtn.clicked.connect(self.__submitGoal)
+        self.ui.mainCentralBtn.clicked.connect(self.__submit_goal)
 
-        self.ui.mainBottomBtn.clicked.connect(self.__submitAchievement)
+        self.ui.mainBottomBtn.clicked.connect(self.__submit_achievement)
 
-        self.ui.archiveBtn.clicked.connect(self.__showArchive)
+        self.ui.archiveBtn.clicked.connect(self.__show_archive)
 
-        self.__leftMenuActions()
+        self.__left_menu_actions()
 
-        self.__socialNetworkActions()
+        self.__social_network_actions()
 
-        self.__dateEditActions()
+        self.__date_edit_actions()
 
-    def __leftMenuActions(self):
-        self.ui.homeBtn.clicked.connect(self.__showHome)
+    def __left_menu_actions(self):
+        self.ui.homeBtn.clicked.connect(self.__show_home)
 
-        self.ui.archiveBtn.clicked.connect(self.__showArchive)
+        self.ui.archiveBtn.clicked.connect(self.__show_archive)
 
-        self.ui.dataAnalysisBtn.clicked.connect(self.__showAnalysis)
+        self.ui.dataAnalysisBtn.clicked.connect(self.__show_analysis)
 
-        self.ui.articlesBtn.clicked.connect(self.__showArticles)
+        self.ui.articlesBtn.clicked.connect(self.__show_articles)
 
-        self.ui.settingsBtn.clicked.connect(self.__showSettings)
+        self.ui.settingsBtn.clicked.connect(self.__show_settings)
 
-        self.ui.reportBtn.clicked.connect(self.__showReport)
+        self.ui.reportBtn.clicked.connect(self.__show_report)
 
-    def __socialNetworkActions(self):
-        self.ui.youtubeBtn.clicked.connect(self.__redirectToYoutube)
+    def __social_network_actions(self):
+        self.ui.youtubeBtn.clicked.connect(self.__redirect_to_youtube)
 
-        self.ui.twitterBtn.clicked.connect(self.__redirectToTwitter)
+        self.ui.twitterBtn.clicked.connect(self.__redirect_to_twitter)
 
-        self.ui.githubBtn.clicked.connect(self.__redirectToGitHub)
+        self.ui.githubBtn.clicked.connect(self.__redirect_to_github)
 
-        self.ui.linkedinBtn.clicked.connect(self.__redirectToLinked)
+        self.ui.linkedinBtn.clicked.connect(self.__redirect_to_linked())
 
-        self.ui.instagramBtn.clicked.connect(self.__redirectToInstagram)
+        self.ui.instagramBtn.clicked.connect(self.__redirect_to_instagram())
 
-        self.ui.stackoverflowBtn.clicked.connect(self.__redirectToStackOverFlow)
+        self.ui.stackoverflowBtn.clicked.connect(self.__redirect_to_stackoverflow())
 
-    def __todayTasksActions(self):
+    def __today_tasks_actions(self):
         tasks_for_today= TasksForDay()
 
         tasks_tuple = tasks_for_today.get_tasks_for_given_date(self.user, datetime.now().strftime("%d/%m/%Y"))
@@ -109,16 +106,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.ui.homeTasksTextBrowser.append(str(task))
 
 
-    def __animationActions(self):
-        self.__capybaraAnimation()
+    def __animation_actions(self):
+        self.__capybara_animation()
 
-    def __dateEditActions(self):
+    def __date_edit_actions(self):
         current_date = QDate.fromString(datetime.now().strftime("%d/%m/%Y"), "dd/MM/yyyy")
 
         self.ui.goalDateEdit.setDate(current_date)
 
 #-----------animation functions----------------------------------q
-    def __capybaraAnimation(self):
+    def __capybara_animation(self):
 
         self.gif = QtGui.QMovie("images/sleeping_capybara.gif")
         #self.gif = QtGui.QMovie("images/capybara.gif")
@@ -129,7 +126,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 #-----------buttons functions------------------------------------
 
-    def __submitGoal(self):
+    def __submit_goal(self):
         """ Write info into database and clears goalLineEdit"""
         data_needed_to_submit = self.ui.goalLineEdit.text()
         date_needed_to_submit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
@@ -140,69 +137,73 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.goalLineEdit.setText("")
 
             if date_needed_to_submit == datetime.now().strftime("%d/%m/%Y"):
-                self.__todayTasksActions()
+                self.__today_tasks_actions()
 
             if response:
-                self.__showAlertMessage(response)
+                self.__show_alert_message(response)
 
-    def __submitAchievement(self):
+    def __submit_achievement(self):
         """ Write info into database and clear textEdit"""
         data_needed_to_submit = self.ui.achLineEdit.text()
         date_needed_to_submit = datetime.now().strftime("%d/%m/%Y")
 
         if not data_needed_to_submit == "":
             # TODO: implement functionality
-            self.user.submitAch(data_needed_to_submit, date_needed_to_submit)
+            response = self.user.submitAch(data_needed_to_submit, date_needed_to_submit)
 
-        self.ui.goalLineEdit.setText("")
+            self.ui.goalLineEdit.setText("")
 
-        self.__showAlertMessage()
+            if date_needed_to_submit == datetime.now().strftime("%d/%m/%Y"):
+                pass #self.__today_ach_actions()
+            
+            if response:
+                self.__show_alert_message(response)
 
-    def __showHome(self):
+    def __show_home(self):
         self.ui.stackedWidget.setCurrentIndex(0)
 
-    def __showArchive(self):
+    def __show_archive(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
-    def __showAnalysis(self):
+    def __show_analysis(self):
         self.ui.stackedWidget.setCurrentIndex(2)
 
-    def __showArticles(self):
+    def __show_articles(self):
         self.ui.stackedWidget.setCurrentIndex(3)
 
-    def __showSettings(self):
+    def __show_settings(self):
         self.ui.stackedWidget.setCurrentIndex(4)
 
-    def __showReport(self):
+    def __show_report(self):
         self.ui.stackedWidget.setCurrentIndex(5)
 
-    def __redirectToYoutube(self):
+    def __redirect_to_youtube(self):
         webbrowser.open('https://www.youtube.com/')
 
-    def __redirectToTwitter(self):
+    def __redirect_to_twitter(self):
         webbrowser.open('https://twitter.com/home')
 
-    def __redirectToGitHub(self):
+    def __redirect_to_github(self):
         webbrowser.open('https://github.com/EJLECTRON?tab=repositories')
 
-    def __redirectToLinked(self):
+    def __redirect_to_linked(self):
         webbrowser.open('https://www.linkedin.com/in/mykola-ishchenko-53a65b249/')
 
-    def __redirectToInstagram(self):
+    def __redirect_to_instagram(self):
         webbrowser.open('https://www.instagram.com/')
 
-    def __redirectToStackOverFlow(self):
+    def __redirect_to_stackoverflow(self):
         webbrowser.open('https://stackoverflow.com/')
 
-    def __showAlertMessage(self, response: str):
+    def __show_alert_message(self, response: str):
         """
         Shows alert message
         :param response: shows response from server
         :return: None
         """
-        self.alertMessage = MessageAlert(response)
+        self.alert_message = MessageAlert(response)
 
-        self.alertMessage.show()
+        self.alert_message.show()
 
 
 
