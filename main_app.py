@@ -1,7 +1,5 @@
 #TODO: sliding leftMenu
 
-#TODO: change lowerCamelCase to snake_case
-
 import webbrowser
 
 from PyQt5 import QtWidgets
@@ -9,7 +7,7 @@ from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QMovie
 from datetime import datetime
 
-from ui_main_interface import *
+from ui_mainInterface import *
 from ui_data_analysis_interface import *
 from different_windows import MessageAlert
 from user_class import User

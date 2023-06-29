@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>614</height>
+    <height>616</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -94,6 +94,7 @@ QTextBrowser
 #leftMenuContainer QPushButton:hover
 {
 	background-color: #BDBBBB;
+	border: 1px solid;
 }
 </string>
   </property>
