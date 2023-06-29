@@ -1,3 +1,27 @@
+from main_app import Ui_Application, MainWindow
+from user_class import User
+from hashlib import sha256
+
+LOGIN_NAME = 'login'
+LOGIN_PASSWORD = 'F5YMtBhoIdLuHjog'
+
+def get_hashed_password(password: str):
+    pass
+
+def get_credentials_of_user(user_name: str, user_password: str):
+    pass
+
+if __name__ == "__main__":
+    temp_client = User(LOGIN_NAME, LOGIN_PASSWORD)
+    user_name, user_password = 'Mykola', 'that_is_s0me_password'
+    app = Ui_Application()
+
+    mainWindow = MainWindow(temp_client)
+
+    mainWindow.show()
+
+    app.exec()
+
 """
 Tasks:
     On going:
@@ -258,7 +282,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statLabel.setText(_translate("MainWindow", "There'll be some statistics"))
         self.dateRangeLabel.setText(_translate("MainWindow", "Select date or range of dates to see your history:"))
 
-        """
+        
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("MainWindow", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))
 
