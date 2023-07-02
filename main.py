@@ -21,7 +21,9 @@ if __name__ == "__main__":
 
     start_window.show()
 
-    main_window = MainWindow(temp_client)
+
+    #if load all windows a once, then it will be a lot of memory usage and loading will be with lags
+    #main_window = MainWindow(temp_client)
 
     #main_window.show()
 
