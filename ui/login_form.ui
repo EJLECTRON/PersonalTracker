@@ -78,6 +78,40 @@ QLineEdit{
 	background-color: #C5C6C7;
 }
 
+#logInWidget QPushButton:hover{
+	background-color: #D2FDFF;
+}
+
+#forgotPasswordWidget QPushButton:hover{
+	background-color: #F4976C;
+}
+
+#createAccountBtn:hover{
+	background-color: #D2FDFF;
+}
+
+#logInWidget{
+	background-color: #F4976C;
+}
+
+#signUpWidget{
+	background-color: #F4976C;
+}
+
+#closeTabWidget {
+	background-color: #F4976C;
+}
+
+#forgotPasswordBtn:hover{
+	background-color: #F4976C;
+}
+
+#forgotPasswordBtn{
+	background-color: #F4976C;
+	border: 0px;
+	color: #303C6C;
+}
+
 #welcomeBackLabel{
 	font-size: 36px;
 }
@@ -94,24 +128,6 @@ QLineEdit{
 	font-size: 14px;
 }
 
-
-#forgotPasswordBtn{
-	background-color: #F4976C;
-	border: 0px;
-	color: #303C6C;
-}
-
-#logInWidget{
-	background-color: #F4976C;
-}
-
-#signUpWidget{
-	background-color: #F4976C;
-}
-
-#closeTabWidget {
-	background-color: #F4976C;
-}
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -824,7 +840,7 @@ QLineEdit{
          <number>113</number>
         </property>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="createAccountBtn">
           <property name="minimumSize">
            <size>
             <width>250</width>
@@ -900,7 +916,7 @@ QLineEdit{
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="test.qrc">:/newPrefix/OIG (2).jpeg</pixmap>
+           <pixmap resource="main_resources.qrc">:/newPrefix/images/OIG (2).jpeg</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -928,7 +944,6 @@ QLineEdit{
   </layout>
  </widget>
  <resources>
-  <include location="test.qrc"/>
   <include location="main_resources.qrc"/>
  </resources>
  <connections/>

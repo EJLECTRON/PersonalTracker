@@ -1,4 +1,5 @@
 from main_app import Ui_Application, MainWindow
+from start_app import StartWindow
 from user_class import User
 from hashlib import sha256
 
@@ -16,8 +17,12 @@ if __name__ == "__main__":
     user_name, user_password = 'Mykola', 'that_is_s0me_password'
     app = Ui_Application()
 
-    mainWindow = MainWindow(temp_client)
+    start_window = StartWindow()
 
-    mainWindow.show()
+    start_window.show()
+
+    main_window = MainWindow(temp_client)
+
+    #main_window.show()
 
     app.exec()
