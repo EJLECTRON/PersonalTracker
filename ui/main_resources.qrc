@@ -40,6 +40,8 @@
     <file>../images/Знімок екрана 2023-01-08 142920.png</file>
   </qresource>
   <qresource prefix="newPrefix">
+    <file>../icons/close.png</file>
+    <file>../icons/collapse.png</file>
     <file>../images/login_capybara.jpeg</file>
     <file>../images/login_capybara.png</file>
   </qresource>
