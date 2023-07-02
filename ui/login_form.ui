@@ -105,7 +105,7 @@ QLineEdit{
 }
 </string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_9">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -201,7 +201,7 @@ QLineEdit{
    <item>
     <widget class="QStackedWidget" name="mainBody">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="logInWidget">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -222,12 +222,36 @@ QLineEdit{
        </property>
        <item>
         <widget class="QWidget" name="leftLogInWidget" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>330</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>330</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="topMargin">
            <number>0</number>
           </property>
           <item>
            <widget class="QWidget" name="welcomeLabelsWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>306</width>
+              <height>140</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>306</width>
+              <height>140</height>
+             </size>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QLabel" name="welcomeBackLabel">
@@ -238,6 +262,18 @@ QLineEdit{
              </item>
              <item>
               <widget class="QLabel" name="logInFancyLabel">
+               <property name="minimumSize">
+                <size>
+                 <width>290</width>
+                 <height>75</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>290</width>
+                 <height>75</height>
+                </size>
+               </property>
                <property name="text">
                 <string>Log in to the system and track your progress with us!</string>
                </property>
@@ -254,6 +290,18 @@ QLineEdit{
           </item>
           <item alignment="Qt::AlignLeft">
            <widget class="QWidget" name="authorizationWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>290</width>
+              <height>403</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>290</width>
+              <height>403</height>
+             </size>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <property name="leftMargin">
               <number>11</number>
@@ -300,6 +348,9 @@ QLineEdit{
                     <height>35</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">border-radius: 14.5;</string>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -311,11 +362,20 @@ QLineEdit{
                 </item>
                 <item>
                  <widget class="QLineEdit" name="passwordLineEdit">
+                  <property name="minimumSize">
+                   <size>
+                    <width>250</width>
+                    <height>35</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>250</width>
                     <height>35</height>
                    </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">border-radius: 14.5;</string>
                   </property>
                  </widget>
                 </item>
@@ -392,7 +452,7 @@ QLineEdit{
                <property name="sizeHint" stdset="0">
                 <size>
                  <width>100</width>
-                 <height>20</height>
+                 <height>10</height>
                 </size>
                </property>
               </spacer>
@@ -474,7 +534,7 @@ QLineEdit{
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="main_resources.qrc">:/newPrefix/images/login_capybara.png</pixmap>
+             <pixmap>:/newPrefix/images/login_capybara.png</pixmap>
             </property>
            </widget>
           </item>
@@ -502,13 +562,308 @@ QLineEdit{
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="signUpWidget"/>
+     <widget class="QWidget" name="signUpWidget">
+      <widget class="QWidget" name="joinPersonalTrackerWidget" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>-1</y>
+         <width>600</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>600</width>
+         <height>91</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>600</width>
+         <height>91</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <property name="leftMargin">
+         <number>83</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="joinPersonalTrackerLabel">
+          <property name="minimumSize">
+           <size>
+            <width>431</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>431</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Verdana,serif</family>
+            <pointsize>-1</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Join Personal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="newUserWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>90</y>
+         <width>601</width>
+         <height>281</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <property name="spacing">
+         <number>1</number>
+        </property>
+        <property name="leftMargin">
+         <number>52</number>
+        </property>
+        <property name="rightMargin">
+         <number>52</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="usernameLabel">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="usernameLineEdit">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 19;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="newPasswordLabel">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="newPasswordLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 19;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="repeatPasswordLabel">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Repeat Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="repeatPasswordLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 19;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="createUserCapybaraWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>370</y>
+         <width>311</width>
+         <height>194</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>311</width>
+         <height>194</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>311</width>
+         <height>194</height>
+        </size>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="leftMargin">
+         <number>52</number>
+        </property>
+        <property name="topMargin">
+         <number>43</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>113</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>250</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 19;</string>
+          </property>
+          <property name="text">
+           <string>Create account</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="capybaraCarrotWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>370</y>
+         <width>291</width>
+         <height>194</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="capybaraCarrot">
+          <property name="minimumSize">
+           <size>
+            <width>175</width>
+            <height>170</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>175</width>
+            <height>170</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-image: url(:/newPrefix/OIG (2).jpeg);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="test.qrc">:/newPrefix/OIG (2).jpeg</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>51</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
   <include location="main_resources.qrc"/>
+  <include location="test.qrc"/>
  </resources>
  <connections/>
 </ui>
