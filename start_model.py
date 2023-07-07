@@ -1,37 +1,33 @@
+import os
+from dotenv import load_dotenv
 from ui_startInterface import *
 from start_controller import StartController
 
-# for .env
-import os
-from dotenv import load_dotenv
+
+
 class StartModel(QtWidgets.QWidget):
     """ Custom class for start window"""
 
-    def __init__(self):
+    def __init__(self, user_name=None, password=None, repeated_password=None):
         load_dotenv()
 
         super().__init__()
-        self.user_name = None
-        self.password = None
-        self.repeated_password = None
-        self.db = None
-        self.controller = StartController()
-
-    def try_to_log_in(self, user_name, password):
         self.user_name = user_name
         self.password = password
-        if self.user_name != None and self.password != None:
-            self.db = os.getenv("LINK_ADD_USER_PART1") + user_name + ":" + password + os.getenv("LINK_ADD_USER_PART2")
-            return self.controller.try_to_log_in(self.db)
+        self.repeated_password = repeated_password
+        self.controller = StartController()
+
+    def try_to_log_in(self):
+        if self.user_name is not None and self.password is not None:
+            db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
+            return self.controller.try_to_log_in(db)
         else:
             return False
 
-    def try_to_sign_up(self, user_name, password, repeated_password):
-        if user_name != None and password == repeated_password and password != None:
-            self.user_name = user_name
-            self.password = password
-            self.db = os.getenv("LINK_ADD_USER_PART1") + user_name + ":" + password + os.getenv("LINK_ADD_USER_PART2")
-            result = self.controller.try_to_sign_up(user_name, password)
+    def try_to_sign_up(self):
+        if self.user_name is not None and self.password is not None and self.password == self.repeated_password:
+            #db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
+            result = self.controller.try_to_sign_up(self.user_name, self.password)
             return result
 
     """

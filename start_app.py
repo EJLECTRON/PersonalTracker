@@ -58,11 +58,12 @@ class StartWindow(QtWidgets.QWidget):
     def __log_in(self):
         user_name = self.ui.logInLineEdit.text()
         password = self.ui.passwordLineEdit.text()
-        start = StartModel()
-        result = start.try_to_log_in(user_name, password)
-        if result != None:
-            self.__close_window_open_main_window()
 
+        start = StartModel(user_name, password)
+        result = start.try_to_log_in()
+
+        if result is not None:
+            self.__close_window_open_main_window()
         else:
             QtWidgets.QMessageBox.about(self, "Error", "User not found, try again or create new user")
             print(f"User {user_name} not found")
@@ -72,5 +73,6 @@ class StartWindow(QtWidgets.QWidget):
         user_name = self.ui.usernameLineEdit.text()
         password = self.ui.newPasswordLineEdit.text()
         repeated_password = self.ui.repeatPasswordLineEdit.text()
-        start = StartModel()
-        start.try_to_sign_up(user_name, password, repeated_password)
+
+        start = StartModel(user_name, password, repeated_password)
+        start.try_to_sign_up()
