@@ -13,18 +13,18 @@ def get_credentials_of_user(user_name: str, user_password: str):
     pass
 
 if __name__ == "__main__":
-    temp_client = User(LOGIN_NAME, LOGIN_PASSWORD)
-    user_name, user_password = 'Mykola', 'that_is_s0me_password'
     app = Ui_Application()
 
-    start_window = StartWindow()
+    #start_window = StartWindow()
 
-    start_window.show()
+    #start_window.show()
 
+    temp_client = User(LOGIN_NAME, LOGIN_PASSWORD)
+    user_name, user_password = 'Mykola', 'that_is_s0me_password'
 
     #if load all windows a once, then it will be a lot of memory usage and loading will be with lags
-    #main_window = MainWindow(temp_client)
-
-    #main_window.show()
+    main_window = MainWindow(temp_client)
+    
+    main_window.show()
 
     app.exec()

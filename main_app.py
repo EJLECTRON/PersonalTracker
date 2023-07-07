@@ -188,6 +188,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __show_report(self):
         self.ui.stackedWidget.setCurrentIndex(5)
 
+    #TODO: if right click on social media button then show window to edit link
     def __redirect_to_youtube(self):
         webbrowser.open('https://www.youtube.com/')
 

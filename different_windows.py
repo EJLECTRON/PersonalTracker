@@ -36,7 +36,7 @@ class ErrorDialog(QtWidgets.QDialog):
 
         self.ui.errorLabel.setText(_translate("Dialog", "The text of the error: " + text))
 
-    def __sendIssue(self):
+    def __send_issue(self):
         pass
 
 

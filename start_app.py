@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt
 from ui_startInterface import *
 
@@ -6,7 +6,7 @@ class StartWindow(QtWidgets.QWidget):
     """ Custom class for start window"""
 
     def __init__(self):
-        QtWidgets.QWidget.__init__(self)
+        QWidget.__init__(self)
 
         self.ui = Ui_Form()
         self.ui.setupUi(self)
