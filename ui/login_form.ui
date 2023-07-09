@@ -132,6 +132,10 @@ QLineEdit{
 	font-size: 14px;
 }
 
+#quoteLabel{
+	font-size: 18px;
+}
+
 </string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -636,7 +640,7 @@ QLineEdit{
           <item>
            <widget class="QLabel" name="quoteLabel">
             <property name="text">
-             <string/>
+             <string>Some quote...</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>

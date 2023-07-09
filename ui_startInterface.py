@@ -117,6 +117,10 @@ class Ui_Form(object):
 "    font-size: 14px;\n"
 "}\n"
 "\n"
+"#quoteLabel{\n"
+"    font-size: 18px;\n"
+"}\n"
+"\n"
 "")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -270,7 +274,6 @@ class Ui_Form(object):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.quoteLabel = QtWidgets.QLabel(self.rightLogInWidget)
-        self.quoteLabel.setText("")
         self.quoteLabel.setWordWrap(True)
         self.quoteLabel.setObjectName("quoteLabel")
         self.verticalLayout_2.addWidget(self.quoteLabel)
@@ -407,6 +410,7 @@ class Ui_Form(object):
         self.forgotPasswordBtn.setText(_translate("Form", "Forgot password?"))
         self.signInBtn.setText(_translate("Form", "Sign in"))
         self.newUserBtn.setText(_translate("Form", "I\'m a new user"))
+        self.quoteLabel.setText(_translate("Form", "Some quote..."))
         self.returnToMenuBtn.setText(_translate("Form", "Return"))
         self.joinPersonalTrackerLabel.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:20pt;\">Join Personal Tracker</span></p></body></html>"))
         self.usernameLabel.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt;\">Username:</span></p></body></html>"))
