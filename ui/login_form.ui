@@ -102,11 +102,13 @@ QLineEdit{
 	background-color: #F4976C;
 }
 
-#forgotPasswordBtn:hover{
+#forgotPasswordBtn{
 	background-color: #F4976C;
+	border: 0px;
+	color: #303C6C;
 }
 
-#forgotPasswordBtn{
+#returnToMenuBtn{
 	background-color: #F4976C;
 	border: 0px;
 	color: #303C6C;
@@ -277,7 +279,7 @@ QLineEdit{
    <item>
     <widget class="QStackedWidget" name="mainBody">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="logInWidget">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -652,7 +654,7 @@ QLineEdit{
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-1</y>
+         <y>0</y>
          <width>600</width>
          <height>91</height>
         </rect>
@@ -670,9 +672,74 @@ QLineEdit{
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <property name="leftMargin">
          <number>83</number>
         </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="returnToMenuWidget" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="returnToMenuBtn">
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>19</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>19</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Return</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item>
          <widget class="QLabel" name="joinPersonalTrackerLabel">
           <property name="minimumSize">

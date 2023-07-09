@@ -87,11 +87,13 @@ class Ui_Form(object):
 "    background-color: #F4976C;\n"
 "}\n"
 "\n"
-"#forgotPasswordBtn:hover{\n"
+"#forgotPasswordBtn{\n"
 "    background-color: #F4976C;\n"
+"    border: 0px;\n"
+"    color: #303C6C;\n"
 "}\n"
 "\n"
-"#forgotPasswordBtn{\n"
+"#returnToMenuBtn{\n"
 "    background-color: #F4976C;\n"
 "    border: 0px;\n"
 "    color: #303C6C;\n"
@@ -277,13 +279,28 @@ class Ui_Form(object):
         self.signUpWidget.setObjectName("signUpWidget")
         self.joinPersonalTrackerWidget = QtWidgets.QWidget(self.signUpWidget)
         self.joinPersonalTrackerWidget.setEnabled(True)
-        self.joinPersonalTrackerWidget.setGeometry(QtCore.QRect(0, -1, 600, 91))
+        self.joinPersonalTrackerWidget.setGeometry(QtCore.QRect(0, 0, 600, 91))
         self.joinPersonalTrackerWidget.setMinimumSize(QtCore.QSize(600, 91))
         self.joinPersonalTrackerWidget.setMaximumSize(QtCore.QSize(600, 91))
         self.joinPersonalTrackerWidget.setObjectName("joinPersonalTrackerWidget")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.joinPersonalTrackerWidget)
-        self.verticalLayout_8.setContentsMargins(83, 0, 0, 0)
+        self.verticalLayout_8.setContentsMargins(83, 0, 0, 10)
+        self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.returnToMenuWidget = QtWidgets.QWidget(self.joinPersonalTrackerWidget)
+        self.returnToMenuWidget.setObjectName("returnToMenuWidget")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.returnToMenuWidget)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem5)
+        self.returnToMenuBtn = QtWidgets.QPushButton(self.returnToMenuWidget)
+        self.returnToMenuBtn.setMinimumSize(QtCore.QSize(100, 19))
+        self.returnToMenuBtn.setMaximumSize(QtCore.QSize(100, 19))
+        self.returnToMenuBtn.setObjectName("returnToMenuBtn")
+        self.horizontalLayout_6.addWidget(self.returnToMenuBtn)
+        self.verticalLayout_8.addWidget(self.returnToMenuWidget)
         self.joinPersonalTrackerLabel = QtWidgets.QLabel(self.joinPersonalTrackerWidget)
         self.joinPersonalTrackerLabel.setMinimumSize(QtCore.QSize(431, 41))
         self.joinPersonalTrackerLabel.setMaximumSize(QtCore.QSize(431, 41))
@@ -350,8 +367,8 @@ class Ui_Form(object):
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setSpacing(0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem5)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem6)
         self.capybaraCarrot = QtWidgets.QLabel(self.capybaraCarrotWidget)
         self.capybaraCarrot.setMinimumSize(QtCore.QSize(175, 170))
         self.capybaraCarrot.setMaximumSize(QtCore.QSize(175, 170))
@@ -362,13 +379,13 @@ class Ui_Form(object):
         self.capybaraCarrot.setScaledContents(True)
         self.capybaraCarrot.setObjectName("capybaraCarrot")
         self.horizontalLayout_5.addWidget(self.capybaraCarrot)
-        spacerItem6 = QtWidgets.QSpacerItem(51, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem6)
+        spacerItem7 = QtWidgets.QSpacerItem(51, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem7)
         self.mainBody.addWidget(self.signUpWidget)
         self.verticalLayout_9.addWidget(self.mainBody)
 
         self.retranslateUi(Form)
-        self.mainBody.setCurrentIndex(0)
+        self.mainBody.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -382,6 +399,7 @@ class Ui_Form(object):
         self.forgotPasswordBtn.setText(_translate("Form", "Forgot password?"))
         self.signInBtn.setText(_translate("Form", "Sign in"))
         self.newUserBtn.setText(_translate("Form", "I\'m a new user"))
+        self.returnToMenuBtn.setText(_translate("Form", "Return"))
         self.joinPersonalTrackerLabel.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:20pt;\">Join Personal Tracker</span></p></body></html>"))
         self.usernameLabel.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt;\">Username:</span></p></body></html>"))
         self.newPasswordLabel.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt;\">Password:</span></p></body></html>"))

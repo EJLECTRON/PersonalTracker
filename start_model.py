@@ -17,18 +17,23 @@ class StartModel(QtWidgets.QWidget):
         self.repeated_password = repeated_password
         self.controller = StartController()
 
+    def is_correct_data_for_log_in(self):
+        """ checks if given data to model is correct to log in to db"""
+        return self.user_name is not None and self.password is not None and self.user_name != "" and self.password != ""
+
+    def is_correct_data_for_sign_up(self):
+        """ checks if given data to model is correct to sign up to db"""
+        return self.is_correct_data_for_log_in() and self.password == self.repeated_password
+
     def try_to_log_in(self):
-        if self.user_name is not None and self.password is not None:
-            db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
-            return self.controller.try_to_log_in(db)
-        else:
-            return False
+        db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
+        return self.controller.try_to_log_in(db)
+
 
     def try_to_sign_up(self):
-        if self.user_name is not None and self.password is not None and self.password == self.repeated_password:
-            #db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
-            result = self.controller.try_to_sign_up(self.user_name, self.password)
-            return result
+        #db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
+        result = self.controller.try_to_sign_up(self.user_name, self.password)
+        return result
 
     """
     def create_main_window(self):

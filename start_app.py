@@ -22,9 +22,11 @@ class StartWindow(QtWidgets.QWidget):
             print(error)
 
     def mousePressEvent(self, event):
+        """ mouse press event that updates old position of window"""
         self.old_pos = event.globalPos()
 
     def mouseMoveEvent(self, event):
+        """ mouse move event that moves window"""
         delta = QPoint(event.globalPos() - self.old_pos)
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.old_pos = event.globalPos()
@@ -63,13 +65,15 @@ class StartWindow(QtWidgets.QWidget):
     def __close_window_open_main_window(self):
         self.close()
 
-
     def __log_in(self):
         user_name = self.ui.logInLineEdit.text()
         password = self.ui.passwordLineEdit.text()
 
         start = StartModel(user_name, password)
-        result = start.try_to_log_in()
+        result = None
+
+        if start.is_correct_data_for_log_in():
+            result = start.try_to_log_in()
 
         if result is not None:
             self.__close_window_open_main_window()
@@ -84,4 +88,6 @@ class StartWindow(QtWidgets.QWidget):
         repeated_password = self.ui.repeatPasswordLineEdit.text()
 
         start = StartModel(user_name, password, repeated_password)
-        start.try_to_sign_up()
+
+        if start.is_correct_data_for_sign_up():
+            start.try_to_sign_up()
