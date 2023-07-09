@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QPoint
 from PyQt5 import QtWidgets
 from ui_startInterface import Ui_Form
 from start_model import StartModel
@@ -13,12 +13,21 @@ class StartWindow(QtWidgets.QWidget):
 
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.old_pos = self.pos()
 
         try:
             self.__button_actions()
             self.__hide_tool_tip()
         except Exception as error:
             print(error)
+
+    def mousePressEvent(self, event):
+        self.old_pos = event.globalPos()
+
+    def mouseMoveEvent(self, event):
+        delta = QPoint(event.globalPos() - self.old_pos)
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+        self.old_pos = event.globalPos()
 
     def __button_actions(self):
         """ setting up all actions for buttons"""
