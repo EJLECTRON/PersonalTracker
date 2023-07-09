@@ -96,6 +96,8 @@ class Ui_Form(object):
 "#returnToMenuBtn{\n"
 "    background-color: #F4976C;\n"
 "    border: 0px;\n"
+"    font-size: 15px;\n"
+"    font-family: \"Roboto\", serif;\n"
 "    color: #303C6C;\n"
 "}\n"
 "\n"
@@ -242,15 +244,21 @@ class Ui_Form(object):
         self.forgotPasswordBtn.setObjectName("forgotPasswordBtn")
         self.horizontalLayout_3.addWidget(self.forgotPasswordBtn)
         self.verticalLayout_6.addWidget(self.forgotPasswordWidget, 0, QtCore.Qt.AlignRight)
-        spacerItem3 = QtWidgets.QSpacerItem(100, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_6.addItem(spacerItem3)
         self.signInBtn = QtWidgets.QPushButton(self.authorizationWidget)
         self.signInBtn.setMinimumSize(QtCore.QSize(250, 35))
         self.signInBtn.setMaximumSize(QtCore.QSize(250, 35))
         self.signInBtn.setStyleSheet("border-radius:17;")
         self.signInBtn.setObjectName("signInBtn")
         self.verticalLayout_6.addWidget(self.signInBtn)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 80, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem3)
+        self.newUserBtn = QtWidgets.QPushButton(self.authorizationWidget)
+        self.newUserBtn.setMinimumSize(QtCore.QSize(250, 35))
+        self.newUserBtn.setMaximumSize(QtCore.QSize(250, 35))
+        self.newUserBtn.setStyleSheet("border-radius:17;")
+        self.newUserBtn.setObjectName("newUserBtn")
+        self.verticalLayout_6.addWidget(self.newUserBtn)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 80, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_6.addItem(spacerItem4)
         self.verticalLayout_3.addWidget(self.authorizationWidget, 0, QtCore.Qt.AlignLeft)
         self.horizontalLayout_2.addWidget(self.leftLogInWidget)
@@ -267,12 +275,6 @@ class Ui_Form(object):
         self.capybaraImage.setPixmap(QtGui.QPixmap(":/newPrefix/images/login_capybara.png"))
         self.capybaraImage.setObjectName("capybaraImage")
         self.verticalLayout_2.addWidget(self.capybaraImage)
-        self.newUserBtn = QtWidgets.QPushButton(self.rightLogInWidget)
-        self.newUserBtn.setMinimumSize(QtCore.QSize(250, 35))
-        self.newUserBtn.setMaximumSize(QtCore.QSize(250, 35))
-        self.newUserBtn.setStyleSheet("border-radius:17;")
-        self.newUserBtn.setObjectName("newUserBtn")
-        self.verticalLayout_2.addWidget(self.newUserBtn)
         self.horizontalLayout_2.addWidget(self.rightLogInWidget)
         self.mainBody.addWidget(self.logInWidget)
         self.signUpWidget = QtWidgets.QWidget()

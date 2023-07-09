@@ -39,6 +39,7 @@ class StartWindow(QtWidgets.QWidget):
         self.ui.collapseWindowBtn.clicked.connect(self.__hide_window)
         self.ui.signInBtn.clicked.connect(self.__log_in)
         self.ui.createAccountBtn.clicked.connect(self.__sign_up)
+        self.ui.returnToMenuBtn.clicked.connect(self.__switch_to_log_in)
 
 
 # -----------buttons functions------------------------------------

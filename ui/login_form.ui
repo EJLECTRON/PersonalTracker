@@ -111,6 +111,8 @@ QLineEdit{
 #returnToMenuBtn{
 	background-color: #F4976C;
 	border: 0px;
+	font-size: 15px;
+	font-family: &quot;Roboto&quot;, serif;
 	color: #303C6C;
 }
 
@@ -520,22 +522,6 @@ QLineEdit{
               </widget>
              </item>
              <item>
-              <spacer name="verticalSpacer">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>100</width>
-                 <height>10</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QPushButton" name="signInBtn">
                <property name="minimumSize">
                 <size>
@@ -558,12 +544,47 @@ QLineEdit{
               </widget>
              </item>
              <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="newUserBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">border-radius:17;</string>
+               </property>
+               <property name="text">
+                <string>I'm a new user</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="verticalSpacer_2">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
                <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
+                <enum>QSizePolicy::Expanding</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -616,28 +637,6 @@ QLineEdit{
             </property>
             <property name="pixmap">
              <pixmap resource="main_resources.qrc">:/newPrefix/images/login_capybara.png</pixmap>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="newUserBtn">
-            <property name="minimumSize">
-             <size>
-              <width>250</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>250</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-radius:17;</string>
-            </property>
-            <property name="text">
-             <string>I'm a new user</string>
             </property>
            </widget>
           </item>
