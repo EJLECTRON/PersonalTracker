@@ -3,14 +3,24 @@ from pymongo.server_api import ServerApi
 import certifi
 import os
 from dotenv import load_dotenv
+from numpy.random import randint
 
 
 class StartController:
     def __init__(self):
         load_dotenv()
 
-    def try_to_log_in(self, db):
-        mongo_client = MongoClient(db, server_api=ServerApi('1'), tlsCAFile=certifi.where())
+    @staticmethod
+    def try_to_ping(mongo_client):
+        try:
+            mongo_client.admin.command('ping')
+            print("Pinged your deployment. You successfully connected to MongoDB!")
+            return mongo_client
+        except Exception as e:
+            print(e)
+
+    def try_to_log_in(self, connection_string):
+        mongo_client = MongoClient(connection_string, server_api=ServerApi('1'), tlsCAFile=certifi.where())
 
         return self.try_to_ping(mongo_client)
 
@@ -21,14 +31,14 @@ class StartController:
 
         return self.try_to_ping(mongo_client)
 
-    @staticmethod
-    def try_to_ping(mongo_client):
-        try:
-            mongo_client.admin.command('ping')
-            print("Pinged your deployment. You successfully connected to MongoDB!")
-            return mongo_client
-        except Exception as e:
-            print(e)
+    def get_quote(self, connection_string):
+        mongo_client = MongoClient(os.getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
+
+        random_quote_key = randint(1, 61)
+
+        quote = mongo_client.quotes.start_quotes.find_one({str(random_quote_key): {"$exists": True}}, {"_id": 0})
+
+        return quote[str(random_quote_key)]
 
 
 

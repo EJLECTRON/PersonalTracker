@@ -26,14 +26,22 @@ class StartModel(QtWidgets.QWidget):
         return self.is_correct_data_for_log_in() and self.password == self.repeated_password
 
     def try_to_log_in(self):
-        db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
-        return self.controller.try_to_log_in(db)
+        connection_string = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
+        return self.controller.try_to_log_in(connection_string)
 
 
     def try_to_sign_up(self):
         #db = os.getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + os.getenv("LINK_ADD_USER_PART2")
         result = self.controller.try_to_sign_up(self.user_name, self.password)
         return result
+
+    def get_quote(self):
+        connection_string = os.getenv("SECRET_LINK_MONGO_ADMIN")
+
+        quote = self.controller.get_quote(connection_string)
+
+        return quote
+
 
     """
     def create_main_window(self):

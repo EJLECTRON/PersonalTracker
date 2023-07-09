@@ -18,6 +18,7 @@ class StartWindow(QtWidgets.QWidget):
         try:
             self.__button_actions()
             self.__hide_tool_tip()
+            self.__show_quote()
         except Exception as error:
             print(error)
 
@@ -41,6 +42,11 @@ class StartWindow(QtWidgets.QWidget):
         self.ui.createAccountBtn.clicked.connect(self.__sign_up)
         self.ui.returnToMenuBtn.clicked.connect(self.__switch_to_log_in)
 
+    def __show_quote(self):
+        """shows random quote from quotes.start_quotes to a top right corner"""
+        quote = StartModel().get_quote()
+
+        self.ui.quoteLabel.setText(quote)
 
 # -----------buttons functions------------------------------------
     def __switch_to_new_user(self):

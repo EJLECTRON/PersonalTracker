@@ -281,12 +281,12 @@ QLineEdit{
    <item>
     <widget class="QStackedWidget" name="mainBody">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="logInWidget">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="spacing">
-        <number>0</number>
+        <number>7</number>
        </property>
        <property name="leftMargin">
         <number>0</number>
@@ -316,6 +316,12 @@ QLineEdit{
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
            <number>0</number>
           </property>
           <item>
@@ -383,8 +389,14 @@ QLineEdit{
              </size>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_6">
+             <property name="spacing">
+              <number>15</number>
+             </property>
              <property name="leftMargin">
               <number>11</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -393,7 +405,7 @@ QLineEdit{
               <widget class="QWidget" name="loginAndPasswordWidget" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <property name="spacing">
-                 <number>20</number>
+                 <number>15</number>
                 </property>
                 <property name="leftMargin">
                  <number>0</number>
@@ -522,6 +534,22 @@ QLineEdit{
               </widget>
              </item>
              <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>10</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <widget class="QPushButton" name="signInBtn">
                <property name="minimumSize">
                 <size>
@@ -542,19 +570,6 @@ QLineEdit{
                 <string>Sign in</string>
                </property>
               </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
              </item>
              <item>
               <widget class="QPushButton" name="newUserBtn">
@@ -616,8 +631,18 @@ QLineEdit{
            <number>20</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>40</number>
           </property>
+          <item>
+           <widget class="QLabel" name="quoteLabel">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QLabel" name="capybaraImage">
             <property name="minimumSize">
