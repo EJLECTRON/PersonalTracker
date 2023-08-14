@@ -1,5 +1,4 @@
 from PyQt5.QtCore import Qt
-from PyQt5 import QtWidgets
 from start_model import StartModel
 from different_windows import MessageAlert
 
@@ -21,8 +20,8 @@ class StartController:
         if self._model.is_correct_data_for_log_in():
             result = self._model.try_to_log_in()
 
-        if result is not None:
-            self.close_window_open_main_window()
+        if result:
+            self.close_window()
         else:
             self.alert_message = MessageAlert("User not found, try again")
             self.alert_message.show()
@@ -36,8 +35,19 @@ class StartController:
         self._model.password = password
         self._model.repeated_password = repeated_password
 
+        response = None
+
         if self._model.is_correct_data_for_sign_up():
-            self._model.try_to_sign_up()
+            response = self._model.try_to_sign_up()
+
+        if response:
+            self.parent.ui.mainBody.setCurrentIndex(0)
+            self.alert_message = MessageAlert("User was created, now you can log in")
+            self.alert_message.show()
+        else:
+            self.alert_message = MessageAlert("Username is occupied, try again")
+            self.alert_message.show()
+
 
     def show_quote(self):
         """ Shows a random quote from quotes.start_quotes in the parent widget """
@@ -63,9 +73,6 @@ class StartController:
 
     def close_window(self):
         """ close window"""
-        self.parent.close()
-
-    def close_window_open_main_window(self):
         self.parent.close()
 
 

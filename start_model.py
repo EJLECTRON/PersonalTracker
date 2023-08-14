@@ -1,6 +1,9 @@
 from os import getenv
 import certifi
 from dotenv import load_dotenv
+from pymongo.errors import OperationFailure
+
+from pprint import pprint
 from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
@@ -60,14 +63,34 @@ class StartModel(QtWidgets.QWidget):
         return self.is_correct_data_for_log_in() and self.password == self.repeated_password
 
     def try_to_log_in(self):
-        connection_string = getenv("LINK_ADD_USER_PART1") + self.user_name + ":" + self.password + getenv("LINK_ADD_USER_PART2")
+        connection_string = getenv("LINK_ADD_USER_PART1") + getenv("READ_ONLY_USER_LOGIN") + ":" + getenv("READ_ONLY_USER_PASSWORD") + getenv("LINK_ADD_USER_PART2")
         mongo_client = MongoClient(connection_string, server_api=ServerApi('1'), tlsCAFile=certifi.where())
+        result = None
+
+        try:
+            password = mongo_client[getenv("USERS_DB_NAME")][self.user_name].find_one({"password": {'$exists': True}}, {"_id": 0})['password']
+            if password == self.password:
+                result = True
+                print('donut')
+        except OperationFailure as err:
+            print(err)
+            result = None
+
+        return result
 
     def try_to_sign_up(self):
-        #db = getenv("LINK_ADD_USER_PART1") + user_name + ":" + password + getenv("LINK_ADD_USER_PART2")
         mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
-        mongo_client.admin.command('createUser', self.user_name, pwd=self.password, roles=['readWrite'])
-        result = self.password.try_to_sign_up(self.user_name, self.password)
+
+        users_db = mongo_client[getenv("USERS_DB_NAME")]
+
+        if self.user_name not in users_db.list_collection_names():
+            users_db.create_collection(self.user_name)
+            users_db[self.user_name].insert_one({"password": self.password})
+            result = True
+        else:
+            result = False
+
+        return result
 
     @staticmethod
     def get_quote():
@@ -76,17 +99,3 @@ class StartModel(QtWidgets.QWidget):
         random_quote_key = randint(1, 61)
         quote = mongo_client.quotes.start_quotes.find_one({str(random_quote_key): {"$exists": True}}, {"_id": 0})
         return quote[str(random_quote_key)]
-
-
-    """
-    def create_main_window(self):
-        temp_client = User(username, password)
-        main_window = MainWindow(temp_client)
-        main_window.show()
-    """
-
-
-
-
-
-

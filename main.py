@@ -22,9 +22,4 @@ if __name__ == "__main__":
     temp_client = User(LOGIN_NAME, LOGIN_PASSWORD)
     user_name, user_password = 'Mykola', 'that_is_s0me_password'
 
-    #if load all windows a once, then it will be a lot of memory usage and loading will be with lags
-    #main_window = MainWindow(temp_client)
-    
-    #main_window.show()
-
     app.exec()
