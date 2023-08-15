@@ -71,10 +71,8 @@ class StartModel(QtWidgets.QWidget):
             password = mongo_client[getenv("USERS_DB_NAME")][self.user_name].find_one({"password": {'$exists': True}}, {"_id": 0})['password']
             if password == self.password:
                 result = True
-                print('donut')
-        except OperationFailure as err:
-            print(err)
-            result = None
+        except (OperationFailure, TypeError):
+            pass
 
         return result
 

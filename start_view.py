@@ -1,7 +1,6 @@
-#TO DO: Add - _alert_message: MessageAlert
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QPoint
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from ui_startInterface import Ui_Form
 from start_controller import StartController
 
@@ -35,6 +34,10 @@ class StartWindow(QtWidgets.QWidget):
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.old_pos = event.globalPos()
 
+    def closeEvent(self, event: QtGui.QCloseEvent):
+        """ close event that shows message box"""
+        event.accept()
+
     def __button_actions(self):
         """ setting up all actions for buttons"""
         self.ui.newUserBtn.clicked.connect(self.controller.switch_to_new_user)
@@ -43,4 +46,4 @@ class StartWindow(QtWidgets.QWidget):
         self.ui.signInBtn.clicked.connect(self.controller.log_in)
         self.ui.createAccountBtn.clicked.connect(self.controller.sign_up)
         self.ui.returnToMenuBtn.clicked.connect(self.controller.switch_to_log_in)
-
+        self.ui.forgotPasswordBtn.clicked.connect(self.controller.forgot_password)
