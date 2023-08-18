@@ -1,4 +1,4 @@
-from main_app import Ui_Application, MainWindow
+from main_view import Ui_Application, MainWindow
 from start_view import StartWindow
 from user_class import User
 
@@ -12,6 +12,7 @@ if __name__ == "__main__":
     start_window = StartWindow()
 
     start_window.show()
+
 
     app.exec()
 
