@@ -61,8 +61,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.mainBottomBtn.clicked.connect(self.__submit_achievement)
 
-        self.ui.archiveBtn.clicked.connect(self.__show_archive)
-
         self.ui.getQuoteBtn.clicked.connect(self.__get_quote)
 
         self.__left_menu_actions()
@@ -74,6 +72,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def __left_menu_actions(self):
         """ setting up all actions for left menu bar"""
         self.ui.homeBtn.clicked.connect(self.__show_home)
+
+        self.ui.makePublicationBtn.clicked.connect(self.__show_publication)
 
         self.ui.archiveBtn.clicked.connect(self.__show_archive)
 
@@ -173,20 +173,23 @@ class MainWindow(QtWidgets.QMainWindow):
     def __show_home(self):
         self.ui.stackedWidget.setCurrentIndex(0)
 
-    def __show_archive(self):
+    def __show_publication(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
-    def __show_analysis(self):
+    def __show_archive(self):
         self.ui.stackedWidget.setCurrentIndex(2)
 
-    def __show_articles(self):
+    def __show_analysis(self):
         self.ui.stackedWidget.setCurrentIndex(3)
 
-    def __show_settings(self):
+    def __show_articles(self):
         self.ui.stackedWidget.setCurrentIndex(4)
 
-    def __show_report(self):
+    def __show_settings(self):
         self.ui.stackedWidget.setCurrentIndex(5)
+
+    def __show_report(self):
+        self.ui.stackedWidget.setCurrentIndex(6)
 
     #TODO: if right click on social media button then show window to edit link
     def __redirect_to_youtube(self):
