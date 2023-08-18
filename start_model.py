@@ -3,7 +3,6 @@ import certifi
 from dotenv import load_dotenv
 from pymongo.errors import OperationFailure
 
-from pprint import pprint
 from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
