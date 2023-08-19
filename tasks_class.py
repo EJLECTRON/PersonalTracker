@@ -123,7 +123,7 @@ class TasksForDay:
 
             ErrorIntoUI(result)
 
-        return tuple(result)
+        return (result, "")
 
     @staticmethod
     def logging_to_user_db(user):
