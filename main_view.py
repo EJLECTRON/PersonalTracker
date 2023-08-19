@@ -57,10 +57,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __button_actions(self):
         """ setting up all actions for buttons"""
-        self.ui.mainCentralBtn.clicked.connect(self.__submit_goal)
-
-        self.ui.mainBottomBtn.clicked.connect(self.__submit_achievement)
-
         self.ui.getQuoteBtn.clicked.connect(self.__get_quote)
 
         self.__left_menu_actions()
@@ -117,10 +113,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.__capybara_animation()
 
     def __date_edit_actions(self):
-        """ setting up goalDateEdit(date bar for tasks) to current date"""
-        current_date = QDate.fromString(datetime.now().strftime("%d/%m/%Y"), "dd/MM/yyyy")
-
-        self.ui.goalDateEdit.setDate(current_date)
+        """ setting up *fill* to current date"""
+        pass
 
 #-----------animation functions----------------------------------q
     def __capybara_animation(self):
