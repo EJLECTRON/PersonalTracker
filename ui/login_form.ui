@@ -789,7 +789,7 @@ QLineEdit{
            </font>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Join Personal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Join Personal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -804,12 +804,24 @@ QLineEdit{
          <x>0</x>
          <y>90</y>
          <width>601</width>
-         <height>281</height>
+         <height>344</height>
         </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>601</width>
+         <height>344</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>601</width>
+         <height>344</height>
+        </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <property name="spacing">
-         <number>1</number>
+         <number>-1</number>
         </property>
         <property name="leftMargin">
          <number>52</number>
@@ -817,8 +829,14 @@ QLineEdit{
         <property name="rightMargin">
          <number>52</number>
         </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
         <item>
          <widget class="QLabel" name="usernameLabel">
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Username:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -847,7 +865,42 @@ QLineEdit{
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="newEmailLabel">
+          <property name="font">
+           <font>
+            <family>Verdana,serif</family>
+            <pointsize>-1</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;E-mail:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="newEmailLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>501</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-radius: 19;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="newPasswordLabel">
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
           <property name="text">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -883,13 +936,13 @@ QLineEdit{
          <widget class="QLineEdit" name="repeatPasswordLineEdit">
           <property name="minimumSize">
            <size>
-            <width>0</width>
+            <width>501</width>
             <height>38</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+            <width>501</width>
             <height>38</height>
            </size>
           </property>
@@ -900,25 +953,121 @@ QLineEdit{
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="capybaraCarrotWidget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>434</y>
+         <width>291</width>
+         <height>130</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>291</width>
+         <height>130</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>291</width>
+         <height>130</height>
+        </size>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>3</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
+        <item>
+         <spacer name="horizontalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>26</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="capybaraCarrot">
+          <property name="minimumSize">
+           <size>
+            <width>124</width>
+            <height>124</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>124</width>
+            <height>124</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-image: url(:/newPrefix/OIG (2).jpeg);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="main_resources.qrc">:/newPrefix/images/OIG (2).jpeg</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>26</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="createUserCapybaraWidget" native="true">
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>370</y>
+         <y>434</y>
          <width>311</width>
-         <height>194</height>
+         <height>130</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
          <width>311</width>
-         <height>194</height>
+         <height>130</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>311</width>
-         <height>194</height>
+         <height>130</height>
         </size>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -926,7 +1075,7 @@ QLineEdit{
          <number>52</number>
         </property>
         <property name="topMargin">
-         <number>43</number>
+         <number>20</number>
         </property>
         <property name="rightMargin">
          <number>0</number>
@@ -955,81 +1104,6 @@ QLineEdit{
            <string>Create account</string>
           </property>
          </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="capybaraCarrotWidget" native="true">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>370</y>
-         <width>291</width>
-         <height>194</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <spacer name="horizontalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="capybaraCarrot">
-          <property name="minimumSize">
-           <size>
-            <width>175</width>
-            <height>170</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>175</width>
-            <height>170</height>
-           </size>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-image: url(:/newPrefix/OIG (2).jpeg);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="main_resources.qrc">:/newPrefix/images/OIG (2).jpeg</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>51</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
