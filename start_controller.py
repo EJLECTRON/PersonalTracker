@@ -22,6 +22,7 @@ class StartController:
     def clear_sign_up(self):
         """ Clears sign up line edit in the _view widget """
         self._view.ui.usernameLineEdit.clear()
+        self._view.ui.newEmailLineEdit.clear()
         self._view.ui.newPasswordLineEdit.clear()
         self._view.ui.repeatPasswordLineEdit.clear()
 
@@ -49,10 +50,12 @@ class StartController:
     def sign_up(self):
         user_name = self._view.ui.usernameLineEdit.text()
         password = self._view.ui.newPasswordLineEdit.text()
+        user_email = self._view.ui.newEmailLineEdit.text()
         repeated_password = self._view.ui.repeatPasswordLineEdit.text()
 
         self._model.user_name = user_name
         self._model.password = password
+        self._model.user_email = user_email
         self._model.repeated_password = repeated_password
 
         response = None
@@ -60,12 +63,15 @@ class StartController:
         if self._model.is_correct_data_for_sign_up():
             response = self._model.try_to_sign_up()
 
-        if response:
+        if response == 1:
             self._view.ui.mainBody.setCurrentIndex(0)
             self.alert_message = MessageAlert("User was created, now you can log in")
             self.alert_message.show()
-        else:
+        elif response == 2:
             self.alert_message = MessageAlert("Username is occupied, try again")
+            self.alert_message.show()
+        elif response == 3:
+            self.alert_message = MessageAlert("Password and repeated password must be the same, try again")
             self.alert_message.show()
 
         self.clear_sign_up()
