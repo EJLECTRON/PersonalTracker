@@ -41,7 +41,7 @@ class StartWindow(QtWidgets.QWidget):
     def __button_actions(self):
         """ setting up all actions for buttons"""
         self.ui.newUserBtn.clicked.connect(self.controller.switch_to_new_user)
-        self.ui.closeWindowBtn.clicked.connect(self.controller.close_window)
+        self.ui.closeWindowBtn.clicked.connect(self.controller.close_window )
         self.ui.collapseWindowBtn.clicked.connect(self.controller.hide_window)
         self.ui.signInBtn.clicked.connect(self.controller.log_in)
         self.ui.createAccountBtn.clicked.connect(self.controller.sign_up)

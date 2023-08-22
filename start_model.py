@@ -2,23 +2,17 @@ from os import getenv
 import certifi
 from dotenv import load_dotenv
 from pymongo.errors import OperationFailure
+
 from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from numpy.random import randint
 
-#for email, add to requirements
-import smtplib
-from random import randint
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-
 
 class StartModel(QtWidgets.QWidget):
     """ Custom class for start window"""
 
-    def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
+    def __init__(self, given_user_name = None, given_password = None, given_repeated_password = None, given_quote = None):
         load_dotenv()   
 
         super().__init__()
@@ -26,11 +20,6 @@ class StartModel(QtWidgets.QWidget):
         self.password = given_password
         self.repeated_password = given_repeated_password
         self.quote = given_quote
-        self.user_email = given_email
-        self.pt_email = getenv("EMAIL")
-        self.pt_email_password = getenv("EMAIL_PASSWORD")
-        self.smtp_server = 'SMTP_SERVER'
-        self.smtp_port = 587
 
     @property
     def user_name(self):
@@ -75,14 +64,14 @@ class StartModel(QtWidgets.QWidget):
     def try_to_log_in(self):
         connection_string = getenv("LINK_ADD_USER_PART1") + getenv("READ_ONLY_USER_LOGIN") + ":" + getenv("READ_ONLY_USER_PASSWORD") + getenv("LINK_ADD_USER_PART2")
         mongo_client = MongoClient(connection_string, server_api=ServerApi('1'), tlsCAFile=certifi.where())
-        result = 1
+        result = None
 
         try:
             password = mongo_client[getenv("USERS_DB_NAME")][self.user_name].find_one({"password": {'$exists': True}}, {"_id": 0})['password']
-            if password != self.password:
-                result = 3
+            if password == self.password:
+                result = True
         except (OperationFailure, TypeError):
-            return 2
+            pass
 
         return result
 
@@ -90,32 +79,14 @@ class StartModel(QtWidgets.QWidget):
         mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
 
         users_db = mongo_client[getenv("USERS_DB_NAME")]
-        message = MIMEMultipart()
-        message['From'] = self.pt_email
-        print(self.pt_email)
-        message['To'] = self.user_email # This is the recipient's email address
-        code = []
-        for _ in range(4):
-            digit = randint(0, 9)
-            code.append(digit)
 
-        given_code = None #add textedit
-        message['Subject'] = "Personal Tracker Registration"
-        body = "Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {}".format(code)
-        message.attach(MIMEText(body, 'plain'))
-        server = smtplib.SMTP(self.smtp_server, self.smtp_port)
-        server.starttls()
-        server.login(self.pt_email, self.pt_email_password)
-        print(self.pt_email_password)
-        server.sendmail(self.pt_email, self.user_email, message.as_string())
-        server.quit()
+        if self.user_name not in users_db.list_collection_names():
+            users_db.create_collection(self.user_name)
+            users_db[self.user_name].insert_one({"password": self.password})
+            result = True
+        else:
+            result = False
 
-        result = False
-        if code == given_code:
-            if self.user_name not in users_db.list_collection_names():
-                users_db.create_collection(self.user_name)
-                users_db[self.user_name].insert_one({"password": self.password})
-                result = True
         return result
 
     @staticmethod
