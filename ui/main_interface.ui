@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>610</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -100,6 +100,11 @@ QTextBrowser
 #publicationLine
 {
 	border: 3px solid;
+}
+
+#setTaskTextEdit
+{
+	background-color: #FFFFFF;
 }
 
 #uploadBtn
@@ -421,7 +426,7 @@ QTextBrowser
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="mainMenu">
           <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -901,7 +906,7 @@ p, li { white-space: pre-wrap; }
                <widget class="QWidget" name="publicationBottomWidget" native="true">
                 <layout class="QVBoxLayout" name="verticalLayout_8">
                  <property name="spacing">
-                  <number>0</number>
+                  <number>10</number>
                  </property>
                  <property name="leftMargin">
                   <number>20</number>
@@ -936,6 +941,9 @@ p, li { white-space: pre-wrap; }
                     <item alignment="Qt::AlignTop">
                      <widget class="QWidget" name="taskAchSubContainer" native="true">
                       <layout class="QVBoxLayout" name="verticalLayout_31">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
                        <item>
                         <widget class="QLabel" name="setTaskLabel">
                          <property name="font">
@@ -953,29 +961,7 @@ p, li { white-space: pre-wrap; }
                          <property name="maximumSize">
                           <size>
                            <width>350</width>
-                           <height>40</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="tellAboutAchLabel">
-                         <property name="font">
-                          <font>
-                           <pointsize>16</pointsize>
-                          </font>
-                         </property>
-                         <property name="text">
-                          <string>Tell me about your achievement:</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QTextEdit" name="tellAboutAchTextEdit">
-                         <property name="maximumSize">
-                          <size>
-                           <width>350</width>
-                           <height>150</height>
+                           <height>220</height>
                           </size>
                          </property>
                         </widget>
@@ -1015,6 +1001,12 @@ p, li { white-space: pre-wrap; }
                        </item>
                        <item>
                         <widget class="QScrollArea" name="scrollArea">
+                         <property name="minimumSize">
+                          <size>
+                           <width>200</width>
+                           <height>150</height>
+                          </size>
+                         </property>
                          <property name="widgetResizable">
                           <bool>true</bool>
                          </property>
@@ -1023,8 +1015,8 @@ p, li { white-space: pre-wrap; }
                            <rect>
                             <x>0</x>
                             <y>0</y>
-                            <width>382</width>
-                            <height>85</height>
+                            <width>396</width>
+                            <height>148</height>
                            </rect>
                           </property>
                          </widget>
@@ -1093,9 +1085,27 @@ p, li { white-space: pre-wrap; }
                     <item>
                      <widget class="QWidget" name="amountOfTimeWIdget" native="true">
                       <layout class="QHBoxLayout" name="horizontalLayout_15">
+                       <property name="spacing">
+                        <number>10</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
                        <item>
                         <widget class="QWidget" name="leftAmountOfTimeSubContainer" native="true">
                          <layout class="QVBoxLayout" name="verticalLayout_33">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
                           <item>
                            <widget class="QLabel" name="scrolingMediaLabel">
                             <property name="text">
@@ -1103,7 +1113,7 @@ p, li { white-space: pre-wrap; }
                             </property>
                            </widget>
                           </item>
-                          <item>
+                          <item alignment="Qt::AlignLeft">
                            <widget class="QDoubleSpinBox" name="scrollingMediaSpin"/>
                           </item>
                           <item>
@@ -1113,23 +1123,26 @@ p, li { white-space: pre-wrap; }
                             </property>
                            </widget>
                           </item>
-                          <item>
+                          <item alignment="Qt::AlignLeft">
                            <widget class="QDoubleSpinBox" name="sleepTimeSpin"/>
                           </item>
                          </layout>
                         </widget>
                        </item>
-                       <item>
-                        <widget class="QWidget" name="rightAmountOfTimeSubContainer" native="true">
+                       <item alignment="Qt::AlignLeft">
+                        <widget class="QWidget" name="centerAmountOfTimeSubContainer" native="true">
                          <layout class="QVBoxLayout" name="verticalLayout_34">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
                           <item>
                            <widget class="QLabel" name="watchingLabel">
                             <property name="text">
-                             <string>Watching films, serials, anime in hours:</string>
+                             <string>Watching films, playing games in hours:</string>
                             </property>
                            </widget>
                           </item>
-                          <item>
+                          <item alignment="Qt::AlignLeft">
                            <widget class="QDoubleSpinBox" name="watchingSpin"/>
                           </item>
                           <item>
@@ -1139,8 +1152,34 @@ p, li { white-space: pre-wrap; }
                             </property>
                            </widget>
                           </item>
-                          <item>
+                          <item alignment="Qt::AlignLeft">
                            <widget class="QDoubleSpinBox" name="routineSpin"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QWidget" name="rightAmountOfTimeSubContainer" native="true">
+                         <layout class="QVBoxLayout" name="verticalLayout_6">
+                          <item>
+                           <widget class="QLabel" name="label_4">
+                            <property name="text">
+                             <string>Social interactions</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignLeft">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_5">
+                            <property name="text">
+                             <string>Something...</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignLeft">
+                           <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
                           </item>
                          </layout>
                         </widget>
