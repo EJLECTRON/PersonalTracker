@@ -9,9 +9,13 @@ LOGIN_PASSWORD = 'F5YMtBhoIdLuHjog'
 if __name__ == "__main__":
     app = Ui_Application()
 
-    user = User(LOGIN_NAME, LOGIN_PASSWORD)
+    # user = User(LOGIN_NAME, LOGIN_PASSWORD)
+    #
+    # start_window = MainWindow(user)
+    #
+    # start_window.show()
 
-    start_window = MainWindow(user)
+    start_window = StartWindow()
 
     start_window.show()
 
