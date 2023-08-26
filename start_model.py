@@ -12,7 +12,7 @@ from numpy.random import randint
 class StartModel(QtWidgets.QWidget):
     """ Custom class for start window"""
 
-    def __init__(self, given_user_name = None, given_password = None, given_repeated_password = None, given_quote = None):
+    def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
         load_dotenv()   
 
         super().__init__()
@@ -20,6 +20,7 @@ class StartModel(QtWidgets.QWidget):
         self.password = given_password
         self.repeated_password = given_repeated_password
         self.quote = given_quote
+        self.email = given_email
 
     @property
     def user_name(self):
@@ -82,7 +83,7 @@ class StartModel(QtWidgets.QWidget):
 
         if self.user_name not in users_db.list_collection_names():
             users_db.create_collection(self.user_name)
-            users_db[self.user_name].insert_one({"password": self.password})
+            users_db[self.user_name].insert_one({"password": self.password, "email": self.email})
             result = True
         else:
             result = False

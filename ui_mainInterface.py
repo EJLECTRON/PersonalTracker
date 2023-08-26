@@ -688,7 +688,7 @@ class Ui_PersonalTracker(object):
         PersonalTracker.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(PersonalTracker)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PersonalTracker)
 
     def retranslateUi(self, PersonalTracker):
