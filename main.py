@@ -10,9 +10,10 @@ if __name__ == "__main__":
     app = Ui_Application()
 
     user = User(LOGIN_NAME, LOGIN_PASSWORD)
-
+    login_window = StartWindow()
     start_window = MainWindow(user)
 
     start_window.show()
+    login_window.show()
 
     app.exec()
