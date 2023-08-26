@@ -67,10 +67,10 @@ class StartController:
             self._view.ui.mainBody.setCurrentIndex(0)
             self.alert_message = MessageAlert("User was created, now you can log in")
             self.alert_message.show()
-        elif response == 0:
+        elif response == 2:
             self.alert_message = MessageAlert("Username is occupied, try again")
             self.alert_message.show()
-        elif response == 2:
+        elif response == 3:
             self.alert_message = MessageAlert("Password and repeated password must be the same, try again")
             self.alert_message.show()
 

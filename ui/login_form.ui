@@ -129,7 +129,7 @@ QLineEdit{
 }
 
 #joinPersonalTrackerLabel{
-	font-size: 14px;
+	font-size: 18px;
 }
 
 #quoteLabel{
@@ -782,14 +782,8 @@ QLineEdit{
             <height>41</height>
            </size>
           </property>
-          <property name="font">
-           <font>
-            <family>Verdana,serif</family>
-            <pointsize>-1</pointsize>
-           </font>
-          </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;Join Personal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Join Personal Tracker&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -821,7 +815,7 @@ QLineEdit{
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <property name="spacing">
-         <number>-1</number>
+         <number>7</number>
         </property>
         <property name="leftMargin">
          <number>52</number>
