@@ -133,8 +133,3 @@ class StartModel(QtWidgets.QWidget):
         quote = mongo_client.quotes.start_quotes.find_one({str(random_quote_key): {"$exists": True}}, {"_id": 0})
         return quote[str(random_quote_key)]
 
-
-
-
-
-
