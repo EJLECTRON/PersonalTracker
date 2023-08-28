@@ -52,3 +52,26 @@ class MessageAlert(QtWidgets.QMessageBox):
 
     def set_text_of_message(self, text):
         self.setText(text)
+
+class CustomDialog(QtWidgets.QDialog):
+    def __init__(self, message):
+        super().__init__()
+
+        self.setWindowTitle("Alert")
+        self.setWindowIcon(QIcon('icons/icons8-information-50.png'))
+        self.setMinimumWidth(300)
+
+        layout = QtWidgets.QVBoxLayout()
+
+        label = QtWidgets.QLabel(message)
+        layout.addWidget(label)
+
+
+        self.line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(self.line_edit)
+
+        ok_button = QtWidgets.QPushButton("OK")
+        #ok_button.clicked.connect(self.accept)
+        layout.addWidget(ok_button)
+
+        self.setLayout(layout)
