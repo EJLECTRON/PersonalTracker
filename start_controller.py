@@ -71,6 +71,9 @@ class StartController:
         elif response == 3:
             self.alert_message = MessageAlert("Error verifying e-mail address")
             self.alert_message.show()
+        elif response == 5:
+            self.alert_message = MessageAlert("E-mail is occupied, try another e-mail")
+            self.alert_message.show()
         else:
             self.custom_dialog = CustomDialog("Enter code from email")
             self.custom_dialog.show()
