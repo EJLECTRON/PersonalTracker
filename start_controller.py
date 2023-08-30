@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from start_model import StartModel
-from different_windows import MessageAlert
-
+from different_windows import MessageAlert, CustomDialog
+from PyQt5 import QtWidgets
 
 class StartController:
     """ Custom class for start window"""
@@ -57,24 +57,36 @@ class StartController:
         self._model.password = password
         self._model.user_email = user_email
         self._model.repeated_password = repeated_password
-
-        response = None
-
+        response = 1
         if self._model.is_correct_data_for_sign_up():
             response = self._model.try_to_sign_up()
 
         if response == 1:
-            self._view.ui.mainBody.setCurrentIndex(0)
-            self.alert_message = MessageAlert("User was created, now you can log in")
+            self.alert_message = MessageAlert("Not all necessary information provided or make sure repeated password is the same as password")
             self.alert_message.show()
         elif response == 2:
-            self.alert_message = MessageAlert("Username is occupied, try again")
+            self._view.ui.mainBody.setCurrentIndex(0)
+            self.alert_message = MessageAlert("Username is occupied, try another username")
             self.alert_message.show()
         elif response == 3:
-            self.alert_message = MessageAlert("Password and repeated password must be the same, try again")
+            self.alert_message = MessageAlert("Error verifying e-mail address")
             self.alert_message.show()
+        elif response == 5:
+            self.alert_message = MessageAlert("E-mail is occupied, try another e-mail")
+            self.alert_message.show()
+        else:
+            self.custom_dialog = CustomDialog("Enter code from email")
+            self.custom_dialog.show()
+            if self.custom_dialog.exec_() == QtWidgets.QDialog.Accepted:
+                if response == self.custom_dialog.entered_code:
+                    self._model.add_new_user()
+                    self.alert_message = MessageAlert("User created successfully")
+                    self.alert_message.show()
+                    self.clear_sign_up()
+                else:
+                    self.alert_message = MessageAlert("Wrong code. Try registering again")
+                    self.alert_message.show()
 
-        self.clear_sign_up()
 
     def switch_to_new_user(self):
         """ switch to the new user window in the _view widget """

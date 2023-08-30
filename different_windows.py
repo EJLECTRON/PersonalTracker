@@ -2,7 +2,6 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QIcon
 from ui_reportError import Ui_Dialog
 from uuid import uuid4
-
 def generate_id_of_error():
     id = str(uuid4())
 
@@ -52,3 +51,34 @@ class MessageAlert(QtWidgets.QMessageBox):
 
     def set_text_of_message(self, text):
         self.setText(text)
+
+
+class CustomDialog(QtWidgets.QDialog):
+    def __init__(self, message):
+        super().__init__()
+        self.entered_code = None
+
+        self.setWindowTitle("Alert")
+        self.setWindowIcon(QIcon('icons/icons8-information-50.png'))
+        self.setMinimumWidth(300)
+
+        layout = QtWidgets.QVBoxLayout()
+
+        label = QtWidgets.QLabel(message)
+        layout.addWidget(label)
+
+        self.line_edit = QtWidgets.QLineEdit()
+        layout.addWidget(self.line_edit)
+
+        self.ok_button = QtWidgets.QPushButton("OK")
+        layout.addWidget(self.ok_button)
+
+        self.ok_button.clicked.connect(self.read_code)  # Connect the signal to the function
+
+        self.setLayout(layout)
+
+    def read_code(self):
+        entered_text = self.line_edit.text()
+        self.entered_code = entered_text
+        self.accept()
+

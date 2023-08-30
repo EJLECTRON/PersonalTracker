@@ -2,25 +2,36 @@ from os import getenv
 import certifi
 from dotenv import load_dotenv
 from pymongo.errors import OperationFailure
-
 from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from numpy.random import randint
+
+#for email, add to requirements
+import smtplib
+from random import randint
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+
 
 
 class StartModel(QtWidgets.QWidget):
     """ Custom class for start window"""
 
     def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
-        load_dotenv()   
+        load_dotenv()
 
         super().__init__()
         self.user_name = given_user_name
         self.password = given_password
         self.repeated_password = given_repeated_password
         self.quote = given_quote
-        self.email = given_email
+        self.user_email = given_email
+        self.pt_email = getenv("EMAIL")
+        self.pt_email_password = getenv("PYCHARM_EMAIL_PASSWORD")
+        self.smtp_server = getenv('SMTP_SERVER')
+        self.smtp_port = getenv('SMTP_PORT')
 
     @property
     def user_name(self):
@@ -56,7 +67,7 @@ class StartModel(QtWidgets.QWidget):
 
     def is_correct_data_for_log_in(self):
         """ checks if given data to model is correct to log in to db"""
-        return self.user_name is not None and self.password is not None and self.user_name != "" and self.password != ""
+        return self.user_name!="" and self.password!="" and self.user_name!=""
 
     def is_correct_data_for_sign_up(self):
         """ checks if given data to model is correct to sign up to db"""
@@ -80,15 +91,47 @@ class StartModel(QtWidgets.QWidget):
         mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
 
         users_db = mongo_client[getenv("USERS_DB_NAME")]
-
+        email_occupied = False
+        for collection_name in users_db.list_collection_names():
+            user_collection = users_db[collection_name]
+            if user_collection.find_one({"email": self.user_email}):
+                email_occupied = True
+                break
         if self.user_name not in users_db.list_collection_names():
-            users_db.create_collection(self.user_name)
-            users_db[self.user_name].insert_one({"password": self.password, "email": self.email})
-            result = True
+            if not email_occupied:
+                try:
+                    message = MIMEMultipart()
+                    message['From'] = self.pt_email
+                    message['To'] = self.user_email # This is the recipient's email address
+                    code = ""
+                    for _ in range(4):
+                        digit = randint(0, 9)
+                        code += str(digit)
+                    message['Subject'] = "Personal Tracker Registration"
+                    body = "Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {}".format(code)
+                    message.attach(MIMEText(body, 'plain'))
+                    server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+                    server.starttls()
+                    server.login(self.pt_email, self.pt_email_password)
+                    server.sendmail(self.pt_email, self.user_email, message.as_string())
+                    server.quit()
+                    return code
+                except:
+                    return 3
+            else:
+                return 5
         else:
-            result = False
+            return 2
 
-        return result
+    def add_new_user(self):
+        mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
+        users_db = mongo_client[getenv("USERS_DB_NAME")]
+        users_db.create_collection(self.user_name)
+        users_db[self.user_name].insert_one({"password": self.password, "email": self.user_email})
+
+
+
+
 
     @staticmethod
     def get_quote():
@@ -97,3 +140,4 @@ class StartModel(QtWidgets.QWidget):
         random_quote_key = randint(1, 61)
         quote = mongo_client.quotes.start_quotes.find_one({str(random_quote_key): {"$exists": True}}, {"_id": 0})
         return quote[str(random_quote_key)]
+
