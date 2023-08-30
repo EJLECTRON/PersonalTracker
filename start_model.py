@@ -67,7 +67,7 @@ class StartModel(QtWidgets.QWidget):
 
     def is_correct_data_for_log_in(self):
         """ checks if given data to model is correct to log in to db"""
-        return self.user_name is not None and self.password is not None and self.user_name is not None
+        return self.user_name!="" and self.password!="" and self.user_name!=""
 
     def is_correct_data_for_sign_up(self):
         """ checks if given data to model is correct to sign up to db"""
@@ -106,7 +106,6 @@ class StartModel(QtWidgets.QWidget):
                 server = smtplib.SMTP(self.smtp_server, self.smtp_port)
                 server.starttls()
                 server.login(self.pt_email, self.pt_email_password)
-                print(self.pt_email_password)
                 server.sendmail(self.pt_email, self.user_email, message.as_string())
                 server.quit()
                 return code

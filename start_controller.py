@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from start_model import StartModel
 from different_windows import MessageAlert, CustomDialog
-
+from PyQt5 import QtWidgets
 
 class StartController:
     """ Custom class for start window"""
@@ -57,14 +57,14 @@ class StartController:
         self._model.password = password
         self._model.user_email = user_email
         self._model.repeated_password = repeated_password
-        response = 4
+        response = 1
         if self._model.is_correct_data_for_sign_up():
             response = self._model.try_to_sign_up()
 
-        elif response == 1:
-            self.alert_message = MessageAlert("Not all necessary information provided")
+        if response == 1:
+            self.alert_message = MessageAlert("Not all necessary information provided or make sure repeated password is the same as password")
             self.alert_message.show()
-        if response == 2:
+        elif response == 2:
             self._view.ui.mainBody.setCurrentIndex(0)
             self.alert_message = MessageAlert("Username is occupied, try another username")
             self.alert_message.show()
@@ -74,14 +74,15 @@ class StartController:
         else:
             self.custom_dialog = CustomDialog("Enter code from email")
             self.custom_dialog.show()
-            if response == self.custom_dialog.line_edit.text():
-                self._model.add_new_user()
-                self.alert_message = MessageAlert("User created successfully")
-                self.alert_message.show()
-                self.clear_sign_up()
-            else:
-                self.alert_message = MessageAlert("Wrong code. Try registering again")
-                self.alert_message.show()
+            if self.custom_dialog.exec_() == QtWidgets.QDialog.Accepted:
+                if response == self.custom_dialog.entered_code:
+                    self._model.add_new_user()
+                    self.alert_message = MessageAlert("User created successfully")
+                    self.alert_message.show()
+                    self.clear_sign_up()
+                else:
+                    self.alert_message = MessageAlert("Wrong code. Try registering again")
+                    self.alert_message.show()
 
 
     def switch_to_new_user(self):
