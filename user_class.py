@@ -28,10 +28,3 @@ class User:
         response = tasks_object.submit_goal_for_given_date(self, data, date)
 
         return response
-
-    def submit_achievement(self, data, date):
-        tasks_object = TasksForDay()
-
-        response = tasks_object.submit_achievement_for_given_date(self, data, date)
-
-        return response

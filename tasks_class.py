@@ -135,8 +135,6 @@ class TasksForDay:
         try:
             db = user.mongo_client[user.get_user_name]
 
-            print(type(db))
-
             return db
         except OperationFailure:
             possible_error = "Can't connect ot database, report this issue"
