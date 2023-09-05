@@ -3,7 +3,6 @@
 import webbrowser
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QMovie
 from datetime import datetime
 
@@ -11,7 +10,6 @@ from ui_mainInterface import *
 from ui_data_analysis_interface import *
 from different_windows import MessageAlert
 from user_class import User
-from error_class import ErrorIntoUI
 from main_controller import MainController
 
 class Ui_Application(QtWidgets.QApplication):
