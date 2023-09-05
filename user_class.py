@@ -1,6 +1,5 @@
 #TODO: use decorators fot logging
 from pymongo import MongoClient
-from tasks_class import TasksForDay
 
 class User:
     def __init__(self, user_name: str, password: str):
@@ -15,16 +14,3 @@ class User:
     @property
     def get_user_name(self):
         return self._user_name
-
-    def submit_goal(self, data: str, date: str):
-        """
-        :param data: task for submit
-        :param date: date of showing task
-        :return response from db
-        """
-
-        tasks_object = TasksForDay()
-
-        response = tasks_object.submit_goal_for_given_date(self, data, date)
-
-        return response

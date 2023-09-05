@@ -100,7 +100,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __today_tasks_actions(self):
         """ gets all tasks for today and shows them for current user in home page"""
-        tasks_tuple = self.controller.tasks_for_today.get_tasks_for_given_date(self.user, datetime.now().strftime("%d/%m/%Y"))
+        tasks_tuple = self.controller.get_tasks_for_day(datetime.now().strftime("%d/%m/%Y"))
 
         if tasks_tuple:
             self.ui.homeTasksTextBrowser.clear()
