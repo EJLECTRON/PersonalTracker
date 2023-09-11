@@ -11,9 +11,9 @@ if __name__ == "__main__":
 
     user = User(LOGIN_NAME, LOGIN_PASSWORD)
 
-    # start_window = MainWindow(user)
+    start_window = MainWindow(user)
 
-    start_window = StartWindow()
+    #start_window = StartWindow()
 
     start_window.show()
 

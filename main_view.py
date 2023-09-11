@@ -3,7 +3,6 @@
 import webbrowser
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QMovie
 from datetime import datetime
 
@@ -11,9 +10,7 @@ from ui_mainInterface import *
 from ui_data_analysis_interface import *
 from different_windows import MessageAlert
 from user_class import User
-from tasks_class import TasksForDay
-from error_class import ErrorIntoUI
-from quote_class import Quote
+from main_controller import MainController
 
 class Ui_Application(QtWidgets.QApplication):
     """ Custom class for application"""
@@ -42,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui = Ui_PersonalTracker()
         self.ui.setupUi(self)
 
-        self.user = user
+        self.controller = MainController(self, user)
 
         try:
             self.__button_actions()
@@ -57,7 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __button_actions(self):
         """ setting up all actions for buttons"""
-        self.ui.getQuoteBtn.clicked.connect(self.__get_quote)
+        self.ui.getQuoteBtn.clicked.connect(self.__show_quote)
 
         self.__left_menu_actions()
 
@@ -95,11 +92,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.stackoverflowBtn.clicked.connect(self.__redirect_to_stackoverflow)
 
+    def __date_edit_actions(self):
+        """ setting up *fill* to current date"""
+        pass
+
     def __today_tasks_actions(self):
         """ gets all tasks for today and shows them for current user in home page"""
-        tasks_for_today= TasksForDay()
-
-        tasks_tuple = tasks_for_today.get_tasks_for_given_date(self.user, datetime.now().strftime("%d/%m/%Y"))
+        tasks_tuple = self.controller.get_tasks_for_day(datetime.now().strftime("%d/%m/%Y"))
 
         if tasks_tuple:
             self.ui.homeTasksTextBrowser.clear()
@@ -111,10 +110,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def __animation_actions(self):
         """ setting up all actions for animation"""
         self.__capybara_animation()
-
-    def __date_edit_actions(self):
-        """ setting up *fill* to current date"""
-        pass
 
 #-----------animation functions----------------------------------q
     def __capybara_animation(self):
@@ -133,7 +128,7 @@ class MainWindow(QtWidgets.QMainWindow):
         date_needed_to_submit = self.ui.goalDateEdit.date().toString("dd/MM/yyyy")
 
         if not data_needed_to_submit == "":
-            response = self.user.submit_goal(data_needed_to_submit, date_needed_to_submit)
+            response = self.controller.submit_goal(data_needed_to_submit, date_needed_to_submit)
 
             self.ui.goalLineEdit.setText("")
 
@@ -143,22 +138,9 @@ class MainWindow(QtWidgets.QMainWindow):
             if response:
                 self.__show_alert_message(response)
 
-    def __submit_achievement(self):
-        """ Write info into database and clear textEdit(line for achievements)"""
-        data_needed_to_submit = self.ui.achLineEdit.text()
-        date_needed_to_submit = datetime.now().strftime("%d/%m/%Y")
-
-        if not data_needed_to_submit == "":
-            response = self.user.submit_achievement(data_needed_to_submit, date_needed_to_submit)
-
-            self.ui.achLineEdit.setText("")
-            
-            if response:
-                self.__show_alert_message(response)
-
-    def __get_quote(self):
+    def __show_quote(self):
         """ Write quote into popping window"""
-        quote = Quote().get_quote(self.user)
+        quote = self.controller.get_quote()
 
         self.alert_message = MessageAlert(quote)
 
@@ -213,6 +195,3 @@ class MainWindow(QtWidgets.QMainWindow):
         self.alert_message = MessageAlert(response)
 
         self.alert_message.show()
-
-
-
