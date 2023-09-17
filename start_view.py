@@ -8,14 +8,14 @@ from start_controller import StartController
 class StartWindow(QtWidgets.QWidget):
     """ Custom class for start window"""
 
-    def __init__(self):
+    def __init__(self, _program_handler):
         QWidget.__init__(self)
         QtWidgets.QWidget.__init__(self)
 
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         self.old_pos = self.pos()
-        self.controller = StartController(self)
+        self.controller = StartController(self, _program_handler)
 
         try:
             self.__button_actions()

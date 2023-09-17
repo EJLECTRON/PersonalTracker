@@ -1,13 +1,17 @@
 from PyQt5.QtCore import Qt
+from PyQt5 import QtWidgets
+
+from user_class import User
 from start_model import StartModel
 from different_windows import MessageAlert, CustomDialog
-from PyQt5 import QtWidgets
+
 
 class StartController:
     """ Custom class for start window"""
-    def __init__(self, _view):
+    def __init__(self, _view, _program_handler):
         self._model = StartModel()
         self._view = _view
+        self._program_handler = _program_handler
 
     def show_quote(self):
         """ Shows a random quote from quotes.start_quotes in the _view widget """
@@ -116,8 +120,7 @@ class StartController:
     def close_window_and_launch_main_app(self):
         """ close window and launch main app"""
         self._view.close()
-
-        return 'donut'
+        self._program_handler.close_start_and_show_main_window(User(self._model.user_name, self._model.password))
 
 
 

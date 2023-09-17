@@ -24,11 +24,12 @@ class Ui_Application(QtWidgets.QApplication):
 
 class MainWindow(QtWidgets.QMainWindow):
     """ Custom class for main window"""
-    def __init__(self, user: User):
+    def __init__(self):
         """ creating window and setting up all actions"""
         QtWidgets.QMainWindow.__init__(self)
 
         #params of window between reloading
+        self.ui, self.controller = None, None
         self.setWindowTitle("PersonalTracker")
         self.resize(1000, 614)
 
@@ -36,6 +37,7 @@ class MainWindow(QtWidgets.QMainWindow):
         icon.addPixmap(QtGui.QPixmap("images/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.setWindowIcon(icon)
 
+    def initialize_functionality(self, user: User):
         self.ui = Ui_PersonalTracker()
         self.ui.setupUi(self)
 
@@ -50,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         except Exception as error:
             print(error)
+
 #-----------actions----------------------------------------------
 
     def __button_actions(self):
