@@ -1,7 +1,7 @@
 from os import getenv
 import certifi
 from dotenv import load_dotenv
-from pymongo.errors import OperationFailure
+from pymongo.errors import OperationFailure, InvalidName
 from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
@@ -16,13 +16,12 @@ from email.mime.text import MIMEText
 
 
 
-class StartModel(QtWidgets.QWidget):
+class StartModel:
     """ Custom class for start window"""
 
     def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
         load_dotenv()
 
-        super().__init__()
         self.user_name = given_user_name
         self.password = given_password
         self.repeated_password = given_repeated_password
@@ -67,8 +66,13 @@ class StartModel(QtWidgets.QWidget):
 
     def is_correct_data_for_log_in(self):
         """ checks if given data to model is correct to log in to db"""
-        return self.user_name!="" and self.password!="" and self.user_name!=""
+        condition = self.user_name.strip() != "" and self.password.strip() != ""
+        condition = condition and "$" not in self.user_name and "$" not in self.password
+        condition = condition and self.user_name is not None and self.password is not None
+        condition = condition and len(self.user_name) <= 30 and len(self.password) <= 30
+        condition = condition and len(self.user_name) >= 3 and len(self.password) >= 3
 
+        return condition
     def is_correct_data_for_sign_up(self):
         """ checks if given data to model is correct to sign up to db"""
         return self.is_correct_data_for_log_in() and self.password == self.repeated_password
@@ -82,7 +86,8 @@ class StartModel(QtWidgets.QWidget):
             password = mongo_client[getenv("USERS_DB_NAME")][self.user_name].find_one({"password": {'$exists': True}}, {"_id": 0})['password']
             if password == self.password:
                 result = True
-        except (OperationFailure, TypeError):
+
+        except (OperationFailure, InvalidName, TypeError):
             pass
 
         return result
