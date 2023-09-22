@@ -19,6 +19,7 @@ class TestLogIn(unittest.TestCase):
         random_string = ''.join(random.choice(characters) for _ in range(length))
 
         return random_string
+
     def test_try_to_log_in_1(self):
         model = StartModel("login", None, "F5YMtBhoIdLuHjog")
         if model.is_correct_data_for_log_in():
@@ -42,12 +43,13 @@ class TestLogIn(unittest.TestCase):
     def test_try_to_log_in_5(self):
         for _ in range(1800):
             model = StartModel(TestLogIn().generate_random_string(), None, TestLogIn().generate_random_string())
-            if model.is_correct_data_for_log_in():
+            if model.is_correct_data_for_log_in() == 10:
+                print(f"{_}, username:{model.user_name}, password:{model.password}")
                 self.assertEqual(model.try_to_log_in(), None)
-            print(f"{_} passed, username:{model.user_name}, password:{model.password}")
+
     def test_try_to_log_in_6(self):
         model = StartModel(".пBg9Xіrp\\nл.ч", None, "123")
-        if model.is_correct_data_for_log_in():
+        if model.is_correct_data_for_log_in() == 10:
             self.assertEqual(model.try_to_log_in(), None)
 
 

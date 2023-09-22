@@ -40,13 +40,13 @@ class StartController:
         self._model.password = given_password
         result = None
 
-        if self._model.is_correct_data_for_log_in():
+        if self._model.is_correct_data_for_log_in() == 10:
             result = self._model.try_to_log_in()
 
         if result:
             self.close_window_and_launch_main_app()
         else:
-            self.alert_message = MessageAlert("User has not found, try again")
+            self.alert_message = MessageAlert("User was not found, try again")
             self.alert_message.show()
 
             self.clear_log_in()
@@ -61,12 +61,15 @@ class StartController:
         self._model.password = password
         self._model.user_email = user_email
         self._model.repeated_password = repeated_password
-        response = 1
-        if self._model.is_correct_data_for_sign_up():
+        response = self._model.is_correct_data_for_sign_up()
+        if response == 10:
             response = self._model.try_to_sign_up()
-
-        if response == 1:
-            self.show_alert_message("Not all necessary information provided or make sure repeated password is the same as password")
+        if response == 11:
+            self.show_alert_message("Not all necessary information provided")
+        elif response == 12:
+            self.show_alert_message("Username mustn't contain '.' or '$' symbols ")
+        elif response ==13:
+            self.show_alert_message("Make sure repeated password is the same as password")
         elif response == 2:
             self._view.ui.mainBody.setCurrentIndex(0)
             self.show_alert_message("Username is occupied, try another username")

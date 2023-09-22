@@ -1,8 +1,7 @@
 from os import getenv
 import certifi
 from dotenv import load_dotenv
-from pymongo.errors import OperationFailure, InvalidName
-from ui_startInterface import *
+from pymongo.errors import OperationFailure
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from numpy.random import randint
@@ -14,9 +13,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-
-
-class StartModel:
+class StartModel():
     """ Custom class for start window"""
 
     def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
@@ -66,16 +63,24 @@ class StartModel:
 
     def is_correct_data_for_log_in(self):
         """ checks if given data to model is correct to log in to db"""
-        condition = self.user_name.strip() != "" and self.password.strip() != ""
-        condition = condition and "$" not in self.user_name and "$" not in self.password
-        condition = condition and self.user_name is not None and self.password is not None
-        condition = condition and len(self.user_name) <= 30 and len(self.password) <= 30
-        condition = condition and len(self.user_name) >= 3 and len(self.password) >= 3
+        if (not(self.user_name!="" and self.password!="")):
+            return 11
 
-        return condition
+        if (not((self.user_name.find("$") == -1) and (self.user_name.find(".") == -1))):
+            return 12
+
+        return 10
+
     def is_correct_data_for_sign_up(self):
         """ checks if given data to model is correct to sign up to db"""
-        return self.is_correct_data_for_log_in() and self.password == self.repeated_password
+        result = self.is_correct_data_for_log_in()
+        if result == 10:
+            if self.password == self.repeated_password:
+                return result
+            else:
+                return 13
+        else:
+            return result
 
     def try_to_log_in(self):
         connection_string = getenv("LINK_ADD_USER_PART1") + getenv("READ_ONLY_USER_LOGIN") + ":" + getenv("READ_ONLY_USER_PASSWORD") + getenv("LINK_ADD_USER_PART2")
@@ -86,8 +91,7 @@ class StartModel:
             password = mongo_client[getenv("USERS_DB_NAME")][self.user_name].find_one({"password": {'$exists': True}}, {"_id": 0})['password']
             if password == self.password:
                 result = True
-
-        except (OperationFailure, InvalidName, TypeError):
+        except (OperationFailure, TypeError):
             pass
 
         return result
@@ -105,6 +109,8 @@ class StartModel:
         if self.user_name not in users_db.list_collection_names():
             if not email_occupied:
                 try:
+                    server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+                    server.starttls()
                     message = MIMEMultipart()
                     message['From'] = self.pt_email
                     message['To'] = self.user_email # This is the recipient's email address
@@ -121,7 +127,8 @@ class StartModel:
                     server.sendmail(self.pt_email, self.user_email, message.as_string())
                     server.quit()
                     return code
-                except:
+                except smtplib.SMTPException as e:
+                    print(f"Failed to send email to Error: {str(e)}")
                     return 3
             else:
                 return 5
