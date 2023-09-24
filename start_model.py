@@ -11,6 +11,7 @@ import smtplib
 from random import randint
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import tracemalloc
 
 
 class StartModel():
@@ -27,7 +28,7 @@ class StartModel():
         self.pt_email = getenv("EMAIL")
         self.pt_email_password = getenv("PYCHARM_EMAIL_PASSWORD")
         self.smtp_server = getenv('SMTP_SERVER')
-        self.smtp_port = getenv('SMTP_PORT')
+        self.smtp_port = int(getenv('SMTP_PORT'))
 
     @property
     def user_name(self):
@@ -97,15 +98,19 @@ class StartModel():
         return result
 
     def try_to_sign_up(self):
+        tracemalloc.start()
+
         mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
 
         users_db = mongo_client[getenv("USERS_DB_NAME")]
         email_occupied = False
+
         for collection_name in users_db.list_collection_names():
             user_collection = users_db[collection_name]
             if user_collection.find_one({"email": self.user_email}):
                 email_occupied = True
                 break
+
         if self.user_name not in users_db.list_collection_names():
             if not email_occupied:
                 try:
@@ -113,22 +118,19 @@ class StartModel():
                     server.starttls()
                     message = MIMEMultipart()
                     message['From'] = self.pt_email
-                    message['To'] = self.user_email # This is the recipient's email address
-                    code = ""
-                    for _ in range(4):
-                        digit = randint(0, 9)
-                        code += str(digit)
+                    message['To'] = self.user_email
+                    code = "".join(str(randint(0, 9)) for _ in range(4))
                     message['Subject'] = "Personal Tracker Registration"
-                    body = "Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {}".format(code)
+                    body = f"Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {code}"
                     message.attach(MIMEText(body, 'plain'))
-                    server = smtplib.SMTP(self.smtp_server, self.smtp_port)
-                    server.starttls()
+
                     server.login(self.pt_email, self.pt_email_password)
                     server.sendmail(self.pt_email, self.user_email, message.as_string())
                     server.quit()
                     return code
-                except smtplib.SMTPException as e:
-                    print(f"Failed to send email to Error: {str(e)}")
+                except Exception as e:
+                    print(f"Failed to send email. Error: {str(e)}")
+                    server.quit()
                     return 3
             else:
                 return 5
