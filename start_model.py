@@ -123,15 +123,14 @@ class StartModel():
                     message['Subject'] = "Personal Tracker Registration"
                     body = f"Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {code}"
                     message.attach(MIMEText(body, 'plain'))
-
                     server.login(self.pt_email, self.pt_email_password)
                     server.sendmail(self.pt_email, self.user_email, message.as_string())
-                    server.quit()
                     return code
                 except Exception as e:
                     print(f"Failed to send email. Error: {str(e)}")
-                    server.quit()
                     return 3
+                finally:
+                    server.quit()
             else:
                 return 5
         else:
