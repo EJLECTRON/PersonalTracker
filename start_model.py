@@ -2,7 +2,6 @@ from os import getenv
 import certifi
 from dotenv import load_dotenv
 from pymongo.errors import OperationFailure
-from ui_startInterface import *
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from numpy.random import randint
@@ -12,17 +11,15 @@ import smtplib
 from random import randint
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import tracemalloc
 
 
-
-
-class StartModel(QtWidgets.QWidget):
+class StartModel():
     """ Custom class for start window"""
 
     def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
         load_dotenv()
 
-        super().__init__()
         self.user_name = given_user_name
         self.password = given_password
         self.repeated_password = given_repeated_password
@@ -31,7 +28,7 @@ class StartModel(QtWidgets.QWidget):
         self.pt_email = getenv("EMAIL")
         self.pt_email_password = getenv("PYCHARM_EMAIL_PASSWORD")
         self.smtp_server = getenv('SMTP_SERVER')
-        self.smtp_port = getenv('SMTP_PORT')
+        self.smtp_port = int(getenv('SMTP_PORT'))
 
     @property
     def user_name(self):
@@ -67,11 +64,24 @@ class StartModel(QtWidgets.QWidget):
 
     def is_correct_data_for_log_in(self):
         """ checks if given data to model is correct to log in to db"""
-        return self.user_name!="" and self.password!="" and self.user_name!=""
+        if (not(self.user_name!="" and self.password!="")):
+            return 11
+
+        if (not((self.user_name.find("$") == -1) and (self.user_name.find(".") == -1))):
+            return 12
+
+        return 10
 
     def is_correct_data_for_sign_up(self):
         """ checks if given data to model is correct to sign up to db"""
-        return self.is_correct_data_for_log_in() and self.password == self.repeated_password
+        result = self.is_correct_data_for_log_in()
+        if result == 10:
+            if self.password == self.repeated_password:
+                return result
+            else:
+                return 13
+        else:
+            return result
 
     def try_to_log_in(self):
         connection_string = getenv("LINK_ADD_USER_PART1") + getenv("READ_ONLY_USER_LOGIN") + ":" + getenv("READ_ONLY_USER_PASSWORD") + getenv("LINK_ADD_USER_PART2")
@@ -88,36 +98,39 @@ class StartModel(QtWidgets.QWidget):
         return result
 
     def try_to_sign_up(self):
+        tracemalloc.start()
+
         mongo_client = MongoClient(getenv("SECRET_LINK_MONGO_ADMIN"), tlsCAFile=certifi.where())
 
         users_db = mongo_client[getenv("USERS_DB_NAME")]
         email_occupied = False
+
         for collection_name in users_db.list_collection_names():
             user_collection = users_db[collection_name]
             if user_collection.find_one({"email": self.user_email}):
                 email_occupied = True
                 break
+
         if self.user_name not in users_db.list_collection_names():
             if not email_occupied:
                 try:
-                    message = MIMEMultipart()
-                    message['From'] = self.pt_email
-                    message['To'] = self.user_email # This is the recipient's email address
-                    code = ""
-                    for _ in range(4):
-                        digit = randint(0, 9)
-                        code += str(digit)
-                    message['Subject'] = "Personal Tracker Registration"
-                    body = "Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {}".format(code)
-                    message.attach(MIMEText(body, 'plain'))
                     server = smtplib.SMTP(self.smtp_server, self.smtp_port)
                     server.starttls()
+                    message = MIMEMultipart()
+                    message['From'] = self.pt_email
+                    message['To'] = self.user_email
+                    code = "".join(str(randint(0, 9)) for _ in range(4))
+                    message['Subject'] = "Personal Tracker Registration"
+                    body = f"Hello! Someone is trying to register an account at the Personal Tracker app using your e-mail address. Unless you were mistaken, enter this code {code}"
+                    message.attach(MIMEText(body, 'plain'))
                     server.login(self.pt_email, self.pt_email_password)
                     server.sendmail(self.pt_email, self.user_email, message.as_string())
-                    server.quit()
                     return code
-                except:
+                except Exception as e:
+                    print(f"Failed to send email. Error: {str(e)}")
                     return 3
+                finally:
+                    server.quit()
             else:
                 return 5
         else:
