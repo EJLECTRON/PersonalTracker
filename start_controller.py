@@ -1,4 +1,3 @@
-from PyQt5.QtCore import Qt
 from PyQt5 import QtWidgets
 
 from user_class import User
@@ -103,10 +102,6 @@ class StartController:
         """ waiting for implementation """
         self.alert_message = MessageAlert("Try to remember it )")
         self.alert_message.show()
-
-    def hide_tool_tip(self):
-        """ hide tool tip"""
-        self._view.setWindowFlag(Qt.FramelessWindowHint)
 
     def hide_window(self):
         """ hide window"""
