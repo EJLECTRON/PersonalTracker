@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPoint, Qt
 from PyQt5 import QtWidgets, QtGui
 from ui_startInterface import Ui_Form
 from start_controller import StartController
@@ -14,12 +14,13 @@ class StartWindow(QtWidgets.QWidget):
 
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        self.setWindowFlag(Qt.FramelessWindowHint)
         self.old_pos = self.pos()
+
         self.controller = StartController(self, _program_handler)
 
         try:
             self.__button_actions()
-            self.controller.hide_tool_tip()
             self.controller.show_quote()
         except Exception as error:
             print(error)
