@@ -659,6 +659,9 @@ QTextBrowser
                         <height>346</height>
                        </size>
                       </property>
+                      <property name="mouseTracking">
+                       <bool>false</bool>
+                      </property>
                       <property name="verticalScrollBarPolicy">
                        <enum>Qt::ScrollBarAsNeeded</enum>
                       </property>
