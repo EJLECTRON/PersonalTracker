@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>tiny_icon.png</file>
     <file>icon.png</file>
     <file>../icons/icons8-news-64 (1).png</file>
     <file>../icons/icons8-github.gif</file>
@@ -37,5 +38,12 @@
   </qresource>
   <qresource prefix="images">
     <file>../images/Знімок екрана 2023-01-08 142920.png</file>
+  </qresource>
+  <qresource prefix="newPrefix">
+    <file>../images/OIG (2).jpeg</file>
+    <file>../icons/close.png</file>
+    <file>../icons/collapse.png</file>
+    <file>../images/login_capybara.jpeg</file>
+    <file>../images/login_capybara.png</file>
   </qresource>
 </RCC>
