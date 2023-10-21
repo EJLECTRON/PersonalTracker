@@ -23,5 +23,4 @@ if __name__ == "__main__":
 
     program_handler.show_start_window()
 
-
     app.exec()
