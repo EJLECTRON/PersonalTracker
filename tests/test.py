@@ -103,11 +103,6 @@ class UIIII(QMainWindow):
     def edit_button(self, number_of_task: int):
         pass
 
-    @staticmethod
-    def change_statement_of_buttons_to_opposite(list_of_buttons: list):
-        for item in list_of_buttons:
-            item.setHidden(not item.isHidden())
-
 
 
 class CustomWidgetsForTasks:
@@ -167,12 +162,34 @@ class CustomWidgetsForTasks:
         submit_button.setHidden(True)
 
         edit_button.clicked.connect(
-            partial(UIIII.change_statement_of_buttons_to_opposite, [emoji_button, edit_button, submit_button]))
+            partial(CustomWidgetsForTasks.change_statements_of_elements, [emoji_button, edit_button, submit_button, needed_text_edit]))
 
         submit_button.clicked.connect(
-            partial(UIIII.change_statement_of_buttons_to_opposite, [emoji_button, edit_button, submit_button]))
+            partial(CustomWidgetsForTasks.change_statements_of_elements, [emoji_button, edit_button, submit_button, needed_text_edit]))
+
+        emoji_button.clicked.connect(partial(CustomWidgetsForTasks.emoji_button_action, needed_text_edit))
 
         return needed_text_edit, needed_checkbox, delete_button, emoji_button, edit_button, submit_button
+
+    @staticmethod
+    def change_statements_of_elements(list_of_elements: list):
+        CustomWidgetsForTasks.change_hidden_statement_of_buttons_to_opposite(list_of_elements[:len(list_of_elements) - 1])
+        CustomWidgetsForTasks.change_read_only_statement_to_opposite(list_of_elements[-1])
+
+    @staticmethod
+    def change_hidden_statement_of_buttons_to_opposite(list_of_buttons: list):
+        for item in list_of_buttons:
+            item.setHidden(not item.isHidden())
+
+    @staticmethod
+    def change_read_only_statement_to_opposite(text_edit: QTextEdit):
+        text_edit.setReadOnly(not text_edit.isReadOnly())
+
+    @staticmethod
+    def emoji_button_action(text_edit: QTextEdit):
+        text_edit.insertPlainText("\U0001F600")
+
+
 
     @staticmethod
     def create_custom_layouts(number_of_task: int):
