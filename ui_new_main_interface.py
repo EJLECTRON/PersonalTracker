@@ -39,6 +39,11 @@ class Ui_PersonalTracker(object):
 "    background-color: #FFFFFF;\n"
 "}\n"
 "\n"
+"QScrollBar \n"
+"{\n"
+"    width:0px;\n"
+"}\n"
+"\n"
 "#leftSubContainer QPushButton\n"
 "{\n"
 "    text-align: left;\n"
@@ -355,7 +360,9 @@ class Ui_PersonalTracker(object):
         sizePolicy.setHeightForWidth(self.tasksMainBodyScroll.sizePolicy().hasHeightForWidth())
         self.tasksMainBodyScroll.setSizePolicy(sizePolicy)
         self.tasksMainBodyScroll.setMaximumSize(QtCore.QSize(400, 346))
+        self.tasksMainBodyScroll.setMouseTracking(False)
         self.tasksMainBodyScroll.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.tasksMainBodyScroll.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.tasksMainBodyScroll.setWidgetResizable(True)
         self.tasksMainBodyScroll.setObjectName("tasksMainBodyScroll")
         self.tasksScrollAreaWidget = QtWidgets.QWidget()
@@ -363,7 +370,7 @@ class Ui_PersonalTracker(object):
         self.tasksScrollAreaWidget.setObjectName("tasksScrollAreaWidget")
         self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.tasksScrollAreaWidget)
         self.verticalLayout_37.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_37.setSpacing(20)
+        self.verticalLayout_37.setSpacing(5)
         self.verticalLayout_37.setObjectName("verticalLayout_37")
         self.number1TaskWidget = QtWidgets.QWidget(self.tasksScrollAreaWidget)
         self.number1TaskWidget.setObjectName("number1TaskWidget")

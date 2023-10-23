@@ -49,6 +49,11 @@ QTextBrowser
 	background-color: #FFFFFF;
 }
 
+QScrollBar 
+{
+	width:0px;
+}
+
 #leftSubContainer QPushButton
 {
 	text-align: left;
@@ -665,6 +670,9 @@ QTextBrowser
                       <property name="verticalScrollBarPolicy">
                        <enum>Qt::ScrollBarAsNeeded</enum>
                       </property>
+                      <property name="horizontalScrollBarPolicy">
+                       <enum>Qt::ScrollBarAlwaysOff</enum>
+                      </property>
                       <property name="widgetResizable">
                        <bool>true</bool>
                       </property>
@@ -679,7 +687,7 @@ QTextBrowser
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_37">
                         <property name="spacing">
-                         <number>20</number>
+                         <number>5</number>
                         </property>
                         <property name="leftMargin">
                          <number>0</number>
