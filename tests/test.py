@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QCheckBox, QPushButton, QTextE
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5 import QtGui
 
+from functools import partial
+
 class UIIII(QMainWindow):
 
     def __init__(self):
@@ -68,56 +70,25 @@ class UIIII(QMainWindow):
         :return: QWidget
         """
 
-        needed_text_edit = CustomWidgetsForTasks.create_custom_text_edit(number_of_task)
+        needed_text_edit, needed_checkbox, delete_button, emoji_button, edit_button, submit_button = CustomWidgetsForTasks.create_custom_widgets(number_of_task)
 
-        needed_checkbox = QCheckBox()
-        needed_checkbox.setObjectName(f"number{number_of_task}TaskCheckBox")
+        additional_layout, additional_inner_layout, needed_layout = CustomWidgetsForTasks.create_custom_layouts(number_of_task)
 
-        delete_button = QPushButton()
-        delete_button.setObjectName(f"number{number_of_task}DeleteButton")
-        delete_button.setText("Delete task")
-        delete_button.setFixedSize(75, 20)
+        additional_widget, additional_inner_widget, needed_widget = CustomWidgetsForTasks.create_custom_qwidgets(number_of_task)
 
-        emoji_button = QPushButton()
-        emoji_button.setObjectName(f"number{number_of_task}EmojiButton")
-        emoji_button.setText("\U0001F600")
-        emoji_button.setFixedSize(20, 20)
+        for item in [edit_button, submit_button, emoji_button, delete_button, needed_checkbox]:
+            additional_inner_layout.addWidget(item)
 
-        additional_layout = QVBoxLayout()
-        additional_layout.setObjectName(f"number{number_of_task}TaskAdditionalLayout")
-        additional_layout.setContentsMargins(0, 0, 0, 0)
-        additional_inner_layout = QHBoxLayout()
-        additional_inner_layout.setObjectName(f"number{number_of_task}TaskAdditionalInnerLayout")
-        additional_inner_layout.setContentsMargins(0, 0, 0, 0)
-
-
-        additional_widget = QWidget()
-        additional_widget.setObjectName(f"number{number_of_task}TaskAdditionalWidget")
-        additional_inner_widget = QWidget()
-        additional_inner_widget.setObjectName(f"number{number_of_task}TaskAdditionalInnerWidget")
-
-        additional_inner_layout.addWidget(emoji_button)
-        additional_inner_layout.addWidget(needed_checkbox)
-        additional_inner_layout.addWidget(delete_button)
         additional_inner_widget.setLayout(additional_inner_layout)
 
         additional_layout.addWidget(additional_inner_widget)
         additional_layout.addItem(QSpacerItem(100, 100, QSizePolicy.Minimum, QSizePolicy.Expanding))
         additional_widget.setLayout(additional_layout)
 
-        needed_layout = QHBoxLayout()
-        needed_layout.setObjectName(f"number{number_of_task}TaskLayout")
-        needed_layout.setContentsMargins(5, 10, 5, 0)
-
         needed_layout.addWidget(needed_text_edit)
         needed_layout.addWidget(additional_widget)
 
-        needed_widget = QWidget()
-
-        needed_widget.setObjectName(f"number{number_of_task}TaskWidget")
-        needed_widget.setFixedSize(300, 75)
         needed_widget.setLayout(needed_layout)
-        needed_widget.layout().setAlignment(Qt.AlignTop)
 
         self.number_of_current_tasks += 1
         return needed_widget
@@ -128,6 +99,16 @@ class UIIII(QMainWindow):
 
     def hide_window(self):
         self.showMinimized()
+
+    def edit_button(self, number_of_task: int):
+        pass
+
+    @staticmethod
+    def change_statement_of_buttons_to_opposite(list_of_buttons: list):
+        for item in list_of_buttons:
+            item.setHidden(not item.isHidden())
+
+
 
 class CustomWidgetsForTasks:
 
@@ -141,6 +122,7 @@ class CustomWidgetsForTasks:
         needed_text_edit = QTextEdit()
         needed_text_edit.setObjectName(f"number{number_of_task}TaskLineEdit")
         needed_text_edit.setPlaceholderText("Enter your task here \n (max 105 symbols)")
+        needed_text_edit.setReadOnly(True)
         needed_text_edit.setFrameStyle(QFrame.NoFrame)
         needed_text_edit.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         needed_text_edit.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -149,7 +131,89 @@ class CustomWidgetsForTasks:
 
         return needed_text_edit
 
+    @staticmethod
+    def create_custom_widgets(number_of_task: int):
+        """
+        Creates custom widgets for tasks
+        :number_of_task: int
+        :return: (QTextEdit, QCheckBox, QPushButton, QPushButton, QPushButton, QPushButton)
+        """
 
+        needed_text_edit = CustomWidgetsForTasks.create_custom_text_edit(number_of_task)
+
+        needed_checkbox = QCheckBox()
+        needed_checkbox.setObjectName(f"number{number_of_task}TaskCheckBox")
+
+        delete_button = QPushButton()
+        delete_button.setObjectName(f"number{number_of_task}DeleteButton")
+        delete_button.setText("\U0001F5D1")
+        delete_button.setFixedSize(20, 20)
+
+        emoji_button = QPushButton()
+        emoji_button.setObjectName(f"number{number_of_task}EmojiButton")
+        emoji_button.setText("\U0001F600")
+        emoji_button.setFixedSize(20, 20)
+        emoji_button.setHidden(True)
+
+        edit_button = QPushButton()
+        edit_button.setObjectName(f"number{number_of_task}EditButton")
+        edit_button.setText("\U0001F4DD")
+        edit_button.setFixedSize(20, 20)
+
+        submit_button = QPushButton()
+        submit_button.setObjectName(f"number{number_of_task}SubmitButton")
+        submit_button.setText("\U00002714")
+        submit_button.setFixedSize(20, 20)
+        submit_button.setHidden(True)
+
+        edit_button.clicked.connect(
+            partial(UIIII.change_statement_of_buttons_to_opposite, [emoji_button, edit_button, submit_button]))
+
+        submit_button.clicked.connect(
+            partial(UIIII.change_statement_of_buttons_to_opposite, [emoji_button, edit_button, submit_button]))
+
+        return needed_text_edit, needed_checkbox, delete_button, emoji_button, edit_button, submit_button
+
+    @staticmethod
+    def create_custom_layouts(number_of_task: int):
+        """
+        Creates custom layouts for tasks
+        :number_of_task: int
+        :return: (QVBoxLayout, QHBoxLayout, QHBoxLayout)
+        """
+
+        additional_layout = QVBoxLayout()
+        additional_layout.setObjectName(f"number{number_of_task}TaskAdditionalLayout")
+        additional_layout.setContentsMargins(0, 0, 0, 0)
+
+        additional_inner_layout = QHBoxLayout()
+        additional_inner_layout.setObjectName(f"number{number_of_task}TaskAdditionalInnerLayout")
+        additional_inner_layout.setContentsMargins(0, 0, 0, 0)
+
+        needed_layout = QHBoxLayout()
+        needed_layout.setObjectName(f"number{number_of_task}TaskLayout")
+        needed_layout.setContentsMargins(5, 10, 5, 0)
+
+        return additional_layout, additional_inner_layout, needed_layout
+
+    @staticmethod
+    def create_custom_qwidgets(number_of_task: int):
+        """
+        Creates custom qwidgets for tasks
+        :number_of_task: int
+        :return: (QWidget, QWidget, QWidget)
+        """
+        additional_widget = QWidget()
+        additional_widget.setObjectName(f"number{number_of_task}TaskAdditionalWidget")
+
+        additional_inner_widget = QWidget()
+        additional_inner_widget.setObjectName(f"number{number_of_task}TaskAdditionalInnerWidget")
+
+        needed_widget = QWidget()
+        needed_widget.setObjectName(f"number{number_of_task}TaskWidget")
+        needed_widget.setFixedSize(300, 75)
+
+        return additional_widget, additional_inner_widget, needed_widget
 
 if __name__ == "__main__":
     app = Ui_Application()
