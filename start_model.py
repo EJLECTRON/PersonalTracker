@@ -12,6 +12,7 @@ from random import randint
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import tracemalloc
+import datetime
 
 
 class StartModel():
@@ -141,6 +142,9 @@ class StartModel():
         users_db = mongo_client[getenv("USERS_DB_NAME")]
         users_db.create_collection(self.user_name)
         users_db[self.user_name].insert_one({"password": self.password, "email": self.user_email})
+        users_db2 = mongo_client[self.user_name]
+        x = datetime.datetime.now()
+        users_db2.create_collection(x.strftime("%d_%m_%Y"))
 
 
 
