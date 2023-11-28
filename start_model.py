@@ -5,6 +5,7 @@ from pymongo.errors import OperationFailure
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from numpy.random import randint
+from datetime import datetime
 
 #for email, add to requirements
 import smtplib
@@ -14,7 +15,7 @@ from email.mime.text import MIMEText
 import tracemalloc
 
 
-class StartModel():
+class StartModel:
     """ Custom class for start window"""
 
     def __init__(self, given_user_name = None, given_email = None, given_password = None, given_repeated_password = None, given_quote = None):
@@ -141,6 +142,9 @@ class StartModel():
         users_db = mongo_client[getenv("USERS_DB_NAME")]
         users_db.create_collection(self.user_name)
         users_db[self.user_name].insert_one({"password": self.password, "email": self.user_email})
+        users_db2 = mongo_client[self.user_name]
+        x = datetime.datetime.now()
+        users_db2.create_collection(x.strftime("%d_%m_%Y"))
 
 
 
@@ -153,4 +157,3 @@ class StartModel():
         random_quote_key = randint(1, 61)
         quote = mongo_client.quotes.start_quotes.find_one({str(random_quote_key): {"$exists": True}}, {"_id": 0})
         return quote[str(random_quote_key)]
-

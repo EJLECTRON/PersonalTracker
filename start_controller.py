@@ -60,14 +60,16 @@ class StartController:
         self._model.password = password
         self._model.user_email = user_email
         self._model.repeated_password = repeated_password
+
         response = self._model.is_correct_data_for_sign_up()
+
         if response == 10:
             response = self._model.try_to_sign_up()
         if response == 11:
             self.show_alert_message("Not all necessary information provided")
         elif response == 12:
             self.show_alert_message("Username mustn't contain '.' or '$' symbols ")
-        elif response ==13:
+        elif response == 13:
             self.show_alert_message("Make sure repeated password is the same as password")
         elif response == 2:
             self._view.ui.mainBody.setCurrentIndex(0)
